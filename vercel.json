@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/Acel Cortex - Recolored.html" }
+  ]
+}

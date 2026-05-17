@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Acel Cortex Solutions — AI agents for property management</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="stylesheet" href="colors_and_type.css" />
+<style>
+  /* ─────────────────────────────────────────────
+     Layout primitives
+     ───────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--green); color: var(--paper); }
+
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+  @media (max-width: 720px) { .container { padding: 0 24px; } }
+
+  .mono { font-family: var(--font-mono); font-size: var(--fs-mono-sm); letter-spacing: var(--tracking-mono); text-transform: uppercase; color: var(--muted); }
+  .dot { color: var(--green); }
+  .rule { height: 1px; background: var(--rule); border: 0; margin: 0; }
+
+  /* ─────────────────────────────────────────────
+     Top meta strip
+     ───────────────────────────────────────────── */
+  .meta-strip {
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 40px;
+    display: flex; justify-content: space-between; align-items: center; gap: 24px;
+    font-family: var(--font-mono); font-size: var(--fs-mono-sm);
+    letter-spacing: var(--tracking-mono); text-transform: uppercase; color: var(--muted);
+  }
+  .meta-strip .pulse { display: inline-flex; align-items: center; gap: 8px; }
+  .meta-strip .pulse::before {
+    content:""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--green); box-shadow: 0 0 0 0 rgba(16,132,108,0.6);
+    animation: pulse 2.4s var(--ease) infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(16,132,108,0.45); }
+    70% { box-shadow: 0 0 0 8px rgba(16,132,108,0); }
+    100% { box-shadow: 0 0 0 0 rgba(16,132,108,0); }
+  }
+  @media (max-width: 720px) { .meta-strip .hide-sm { display: none; } }
+
+  /* ─────────────────────────────────────────────
+     Nav
+     ───────────────────────────────────────────── */
+  nav.site {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 40px; gap: 24px;
+  }
+  nav.site .l { display: flex; align-items: center; gap: 12px; }
+  nav.site .wordmark { font-weight: 500; font-size: 22px; letter-spacing: var(--tracking-wordmark); }
+  nav.site .links { display: flex; gap: 32px; font-size: 14px; color: var(--ink-soft); }
+  nav.site .links a { transition: color var(--duration-base) var(--ease); }
+  nav.site .links a:hover { color: var(--green-deep); }
+  @media (max-width: 880px) { nav.site .links { display: none; } }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-sans); font-weight: 500; font-size: 14px;
+    padding: 12px 22px; border-radius: var(--radius-pill);
+    cursor: pointer; transition: all var(--duration-base) var(--ease);
+    border: 1px solid transparent; white-space: nowrap;
+  }
+  .btn--primary { background: var(--ink); color: var(--paper); }
+  .btn--primary:hover { background: #000; }
+  .btn--secondary { background: transparent; color: var(--ink); border-color: var(--ink); }
+  .btn--secondary:hover { background: var(--paper-2); }
+  .btn--ghost { background: transparent; color: var(--ink); }
+  .btn--ghost:hover { background: var(--paper-2); }
+  .btn--accent { background: var(--green); color: var(--paper); }
+  .btn--accent:hover { background: var(--green-deep); }
+  .btn--on-dark { background: var(--paper); color: var(--ink); }
+  .btn--on-dark:hover { background: #fff; }
+  .btn--on-dark-ghost { background: transparent; color: var(--paper); border-color: rgba(245,242,236,0.3); }
+  .btn--on-dark-ghost:hover { border-color: var(--paper); }
+
+  /* ─────────────────────────────────────────────
+     Hero
+     ───────────────────────────────────────────── */
+  section.hero { padding: 80px 0 96px; position: relative; overflow: hidden; }
+  .hero-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 80px; align-items: center; }
+  @media (max-width: 980px) { .hero-grid { grid-template-columns: 1fr; gap: 56px; } }
+
+  .hero h1 {
+    font-family: var(--font-sans); font-weight: 500;
+    font-size: clamp(48px, 7vw, 92px);
+    letter-spacing: var(--tracking-display); line-height: 0.96;
+    margin: 24px 0 0; text-wrap: pretty;
+  }
+  .hero h1 .muted { color: var(--muted); }
+  .hero h1 .accent { color: var(--green); font-weight: 500; }
+  .hero h1 em { font-style: normal; position: relative; }
+  .hero h1 em::after {
+    content:""; position: absolute; left: 0; right: 0; bottom: 0.05em; height: 0.08em;
+    background: var(--green); opacity: 0.18; z-index: -1; border-radius: 2px;
+  }
+  .hero .lede {
+    font-size: 19px; color: var(--ink-soft); max-width: 540px;
+    line-height: 1.5; margin: 32px 0 0;
+  }
+  .hero .ctas { display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
+
+  .hero .badges { display: flex; gap: 18px; margin-top: 40px; flex-wrap: wrap; }
+  .hero .badge { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 11px; letter-spacing: var(--tracking-mono-tight); text-transform: uppercase; color: var(--muted); }
+  .hero .badge svg { flex-shrink: 0; }
+
+  /* Hero visual — orbital scanning lens */
+  .lens {
+    position: relative; aspect-ratio: 1 / 1; max-width: 480px; margin-left: auto;
+    width: 100%;
+  }
+  .lens svg { width: 100%; height: 100%; display: block; }
+  .lens .ring-rotate { transform-origin: 50% 50%; animation: spin 28s linear infinite; }
+  .lens .ring-counter { transform-origin: 50% 50%; animation: spin 44s linear infinite reverse; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .lens .companion {
+    transform-origin: 50% 50%;
+    animation: orbit 9s var(--ease) infinite;
+  }
+  @keyframes orbit {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(-12deg); }
+  }
+  .lens .tick-label {
+    font-family: var(--font-mono); font-size: 7px; letter-spacing: 0.22em;
+    text-transform: uppercase; fill: var(--muted);
+  }
+
+  /* ─────────────────────────────────────────────
+     Trust strip
+     ───────────────────────────────────────────── */
+  .trust {
+    border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    background: var(--paper);
+  }
+  .trust-inner { display: grid; grid-template-columns: 240px 1fr; gap: 48px; align-items: center; padding: 28px 0; }
+  @media (max-width: 880px) { .trust-inner { grid-template-columns: 1fr; gap: 16px; padding: 24px 0; } }
+  .trust .label-stack { display: flex; flex-direction: column; gap: 6px; }
+  .trust .label-stack .big { font-size: 15px; color: var(--ink-soft); }
+  .trust .logo-row { display: flex; gap: 48px; align-items: center; flex-wrap: wrap; color: var(--muted); font-weight: 500; letter-spacing: -0.02em; font-size: 19px; }
+  .trust .logo-row .logo { opacity: 0.75; display: inline-flex; align-items: center; gap: 6px; }
+
+  /* ─────────────────────────────────────────────
+     Section scaffolding
+     ───────────────────────────────────────────── */
+  section.block { padding: 120px 0; }
+  @media (max-width: 720px) { section.block { padding: 80px 0; } }
+
+  .section-head {
+    display: grid; grid-template-columns: 1fr 380px; gap: 56px;
+    align-items: flex-end; margin-bottom: 64px;
+  }
+  @media (max-width: 880px) { .section-head { grid-template-columns: 1fr; gap: 24px; } }
+  .section-head h2 {
+    font-family: var(--font-sans); font-weight: 500;
+    font-size: clamp(36px, 4.5vw, 56px);
+    letter-spacing: -0.035em; line-height: 1.02;
+    margin: 16px 0 0; max-width: 720px; text-wrap: balance;
+  }
+  .section-head h2 .muted { color: var(--muted); }
+  .section-head .aside { font-size: 16px; line-height: 1.55; color: var(--ink-soft); }
+
+  /* ─────────────────────────────────────────────
+     "What we automate" grid
+     ───────────────────────────────────────────── */
+  .automate-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--rule); border-left: 1px solid var(--rule);
+  }
+  @media (max-width: 880px) { .automate-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .automate-grid { grid-template-columns: 1fr; } }
+  .auto-card {
+    padding: 36px 32px;
+    border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    background: var(--paper); position: relative;
+    transition: background var(--duration-base) var(--ease);
+  }
+  .auto-card:hover { background: var(--paper-2); }
+  .auto-card .num { font-family: var(--font-mono); font-size: 11px; letter-spacing: var(--tracking-mono); color: var(--muted); }
+  .auto-card h3 { margin: 14px 0 10px; font-size: 22px; font-weight: 600; letter-spacing: -0.025em; line-height: 1.15; }
+  .auto-card p { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); }
+  .auto-card .tags { display: flex; gap: 6px; margin-top: 22px; flex-wrap: wrap; }
+  .auto-card .tag {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: var(--tracking-mono-tight); text-transform: uppercase;
+    color: var(--green-deep); background: rgba(16,132,108,0.10);
+    padding: 4px 9px; border-radius: 99px;
+  }
+  .auto-card .corner {
+    position: absolute; top: 32px; right: 32px;
+    width: 18px; height: 18px; color: var(--muted);
+    transition: color var(--duration-base) var(--ease);
+  }
+  .auto-card:hover .corner { color: var(--green); }
+
+  /* ─────────────────────────────────────────────
+     How we work — 3 steps
+     ───────────────────────────────────────────── */
+  .steps {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    border-top: 1px solid var(--rule); margin-top: 24px;
+  }
+  @media (max-width: 880px) { .steps { grid-template-columns: 1fr; } }
+  .step {
+    padding: 40px 32px 48px; border-right: 1px solid var(--rule);
+    position: relative;
+  }
+  .step:last-child { border-right: none; }
+  @media (max-width: 880px) { .step { border-right: none; border-bottom: 1px solid var(--rule); } .step:last-child { border-bottom: none; } }
+  .step .num {
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: var(--tracking-mono); color: var(--muted); margin-bottom: 28px;
+  }
+  .step .num .chip {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px; border-radius: 99px;
+    border: 1px solid var(--ink); color: var(--ink); font-size: 12px;
+    letter-spacing: 0; font-family: var(--font-sans); font-weight: 500;
+  }
+  .step.is-current .num .chip { background: var(--ink); color: var(--paper); }
+  .step h3 { font-size: 26px; font-weight: 600; letter-spacing: -0.028em; line-height: 1.1; margin: 0 0 12px; }
+  .step p { margin: 0; color: var(--ink-soft); font-size: 15px; line-height: 1.55; max-width: 38ch; }
+  .step .meta-line {
+    margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--rule);
+    display: flex; justify-content: space-between; gap: 12px;
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: var(--tracking-mono-tight); text-transform: uppercase; color: var(--muted);
+  }
+
+  /* ─────────────────────────────────────────────
+     Featured workflow
+     ───────────────────────────────────────────── */
+  .feature-block { background: var(--ink); color: var(--paper); border-radius: var(--radius-xl); padding: 64px; position: relative; overflow: hidden; }
+  @media (max-width: 720px) { .feature-block { padding: 40px 28px; border-radius: 16px; } }
+  .feature-block .layout { display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: center; }
+  @media (max-width: 980px) { .feature-block .layout { grid-template-columns: 1fr; gap: 40px; } }
+  .feature-block .mono { color: rgba(245,242,236,0.55); }
+  .feature-block h2 {
+    font-family: var(--font-sans); font-weight: 500;
+    font-size: clamp(34px, 4.4vw, 56px); letter-spacing: -0.035em;
+    line-height: 1.03; margin: 16px 0 24px;
+  }
+  .feature-block h2 .muted { color: rgba(245,242,236,0.45); }
+  .feature-block p.lede { color: rgba(245,242,236,0.78); font-size: 17px; line-height: 1.55; max-width: 480px; }
+
+  /* Mock workflow diagram */
+  .workflow {
+    background: rgba(245,242,236,0.04); border: 1px solid rgba(245,242,236,0.10);
+    border-radius: 14px; padding: 24px; font-family: var(--font-mono); font-size: 12px;
+  }
+  .wf-row { display: flex; align-items: flex-start; gap: 14px; padding: 10px 0; }
+  .wf-row + .wf-row { border-top: 1px dashed rgba(245,242,236,0.08); }
+  .wf-time { color: rgba(245,242,236,0.4); letter-spacing: 0.18em; min-width: 60px; padding-top: 1px; }
+  .wf-source { color: var(--green-soft); letter-spacing: 0.18em; min-width: 90px; padding-top: 1px; }
+  .wf-msg { color: var(--paper); font-family: var(--font-sans); font-size: 14px; letter-spacing: -0.005em; line-height: 1.45; }
+  .wf-tag {
+    display: inline-block; margin-left: 6px; padding: 2px 8px; border-radius: 99px;
+    background: rgba(79,184,156,0.15); color: var(--green-soft);
+    font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase;
+    transform: translateY(-1px);
+  }
+  .wf-tag.warn { background: rgba(245,200,100,0.15); color: #E8C76C; }
+  .wf-tag.ok { background: rgba(79,184,156,0.18); color: var(--green-soft); }
+
+  /* ─────────────────────────────────────────────
+     Outcomes / stats
+     ───────────────────────────────────────────── */
+  .outcomes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+  @media (max-width: 880px) { .outcomes { grid-template-columns: repeat(2, 1fr); } }
+  .stat {
+    padding: 40px 24px 40px 0;
+    border-right: 1px solid var(--rule);
+  }
+  .stat:last-child { border-right: none; padding-right: 0; }
+  @media (max-width: 880px) { .stat { border-right: none; padding: 32px 0; border-bottom: 1px solid var(--rule); } }
+  .stat .num {
+    font-family: var(--font-sans); font-weight: 500;
+    font-size: clamp(48px, 6vw, 80px); letter-spacing: -0.045em; line-height: 0.95;
+  }
+  .stat .num .unit { color: var(--green); }
+  .stat .label { margin-top: 14px; font-size: 14px; color: var(--ink-soft); line-height: 1.45; max-width: 28ch; }
+  .stat .src { margin-top: 12px; font-family: var(--font-mono); font-size: 10px; letter-spacing: var(--tracking-mono-tight); text-transform: uppercase; color: var(--muted); }
+
+  /* ─────────────────────────────────────────────
+     Audit dark section
+     ───────────────────────────────────────────── */
+  section.audit-band { background: var(--ink); color: var(--paper); padding: 120px 0; }
+  @media (max-width: 720px) { section.audit-band { padding: 80px 0; } }
+  .audit-band .mono { color: rgba(245,242,236,0.5); }
+  .audit-band h2 {
+    font-family: var(--font-sans); font-weight: 500;
+    font-size: clamp(40px, 6vw, 80px); letter-spacing: var(--tracking-display); line-height: 0.98;
+    margin: 20px 0 0; max-width: 14ch; text-wrap: balance;
+  }
+  .audit-band h2 .muted { color: rgba(245,242,236,0.45); }
+  .audit-band .body-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; margin-top: 48px; align-items: flex-end; }
+  @media (max-width: 880px) { .audit-band .body-grid { grid-template-columns: 1fr; gap: 32px; } }
+  .audit-band p { color: rgba(245,242,236,0.75); font-size: 17px; line-height: 1.55; margin: 0; max-width: 540px; }
+  .audit-band ul.deliverables { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+  .audit-band ul.deliverables li {
+    display: grid; grid-template-columns: 28px 1fr;
+    align-items: flex-start; gap: 12px; padding: 14px 0; border-top: 1px solid rgba(245,242,236,0.12);
+    font-size: 15px; color: rgba(245,242,236,0.88);
+  }
+  .audit-band ul.deliverables li:last-child { border-bottom: 1px solid rgba(245,242,236,0.12); }
+  .audit-band ul.deliverables .glyph { color: var(--green-soft); font-family: var(--font-mono); font-size: 12px; padding-top: 2px; }
+  .audit-band .ctas { display: flex; gap: 12px; margin-top: 44px; flex-wrap: wrap; }
+
+  /* ─────────────────────────────────────────────
+     FAQ
+     ───────────────────────────────────────────── */
+  .faq-list { border-top: 1px solid var(--rule); margin-top: 8px; }
+  details.faq {
+    border-bottom: 1px solid var(--rule);
+    padding: 26px 0;
+  }
+  details.faq summary {
+    list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 24px;
+    font-size: 21px; font-weight: 500; letter-spacing: -0.02em; color: var(--ink);
+    align-items: center;
+  }
+  details.faq summary::-webkit-details-marker { display: none; }
+  details.faq summary .toggle {
+    width: 28px; height: 28px; border-radius: 99px; border: 1px solid var(--rule);
+    display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+    font-family: var(--font-mono); font-size: 14px; color: var(--ink-soft);
+    transition: all var(--duration-base) var(--ease);
+  }
+  details.faq[open] summary .toggle { background: var(--ink); color: var(--paper); border-color: var(--ink); transform: rotate(45deg); }
+  details.faq .answer {
+    margin-top: 16px; max-width: 720px; color: var(--ink-soft); font-size: 16px; line-height: 1.6;
+  }
+
+  /* ─────────────────────────────────────────────
+     CTA strip
+     ───────────────────────────────────────────── */
+  .cta-strip { padding: 88px 0; border-top: 1px solid var(--rule); }
+  .cta-strip-inner { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
+  @media (max-width: 720px) { .cta-strip-inner { grid-template-columns: 1fr; } }
+  .cta-strip h2 {
+    font-family: var(--font-sans); font-weight: 500;
+    font-size: clamp(34px, 4.4vw, 56px); letter-spacing: -0.035em; line-height: 1.02;
+    margin: 0; text-wrap: balance; max-width: 16ch;
+  }
+  .cta-strip h2 .muted { color: var(--muted); }
+
+  /* ─────────────────────────────────────────────
+     Footer
+     ───────────────────────────────────────────── */
+  footer.site { background: var(--ink); color: var(--paper); padding: 80px 0 40px; }
+  footer.site .top { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 48px; padding-bottom: 56px; }
+  @media (max-width: 880px) { footer.site .top { grid-template-columns: 1fr 1fr; gap: 32px; } }
+  @media (max-width: 560px) { footer.site .top { grid-template-columns: 1fr; } }
+  footer.site .brand-block .wordmark { font-weight: 500; font-size: 28px; letter-spacing: var(--tracking-wordmark); margin: 16px 0 12px; color: var(--paper); }
+  footer.site .brand-block p { margin: 0; color: rgba(245,242,236,0.65); font-size: 14px; line-height: 1.6; max-width: 30ch; }
+  footer.site h4 { font-family: var(--font-mono); font-size: 11px; letter-spacing: var(--tracking-mono); text-transform: uppercase; color: rgba(245,242,236,0.5); margin: 0 0 18px; font-weight: 500; }
+  footer.site ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+  footer.site a { color: rgba(245,242,236,0.85); font-size: 14px; transition: color var(--duration-base) var(--ease); }
+  footer.site a:hover { color: var(--green-soft); }
+  footer.site .bottom {
+    display: flex; justify-content: space-between; gap: 24px; padding-top: 28px;
+    border-top: 1px solid var(--rule-dark);
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: var(--tracking-mono-tight); text-transform: uppercase; color: rgba(245,242,236,0.5);
+    flex-wrap: wrap;
+  }
+
+  /* ─────────────────────────────────────────────
+     Accent treatments (tweakable)
+     ───────────────────────────────────────────── */
+  body[data-accent="loud"] .hero h1 em::after { opacity: 0.35; }
+  body[data-accent="loud"] .auto-card .corner { color: var(--green); }
+  body[data-accent="subtle"] .hero h1 em::after { display: none; }
+  body[data-accent="subtle"] .hero h1 .accent { color: var(--ink); }
+
+  /* Density */
+  body[data-density="compact"] section.block { padding: 80px 0; }
+  body[data-density="comfy"] section.block { padding: 144px 0; }
+</style>
+</head>
+<body data-accent="present" data-density="regular">
+
+<!-- ─── Top meta strip ─── -->
+<div class="meta-strip">
+  <span class="pulse">v · 2026.04 · Acel Cortex Solutions</span>
+  <span class="hide-sm">Property Management · Operations · Compliance</span>
+  <span>Toronto · Remote-friendly</span>
+</div>
+
+<!-- ─── Nav ─── -->
+<nav class="site">
+  <a href="#" class="l" aria-label="Acel Cortex home">
+    <svg width="34" height="34" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="32" stroke="#141414" stroke-width="3" fill="none"></circle>
+      <circle cx="50" cy="50" r="18" stroke="#141414" stroke-width="2.5" fill="none" opacity="0.3"></circle>
+      <circle cx="50" cy="50" r="6" fill="#141414"></circle>
+      <circle cx="76.21" cy="31.64" r="8" fill="#10846C"></circle>
+    </svg>
+    <div class="wordmark">acel<span class="dot">·</span>cortex</div>
+  </a>
+  <div class="links">
+    <a href="#automations">Automations</a>
+    <a href="#how">How we work</a>
+    <a href="#audit">The audit</a>
+    <a href="#outcomes">Outcomes</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <a href="#audit" class="btn btn--primary">Request audit →</a>
+</nav>
+
+<hr class="rule" />
+
+<!-- ─── Hero ─── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="mono">Acel Cortex Solutions · since 2025</div>
+        <h1>
+          AI agents that earn<br>
+          their place in <em>every corner</em><br>
+          <span class="muted">of property management<span class="accent">.</span></span>
+        </h1>
+        <p class="lede">
+          We build the workflows your team actually does — tenant triage, maintenance dispatch, lease renewal, rent reconciliation — and put quiet, audited AI behind each one. No platform to install. No prompt-engineering required.
+        </p>
+        <div class="ctas">
+          <a href="#audit" class="btn btn--primary">Book an audit ↓</a>
+          <a href="#automations" class="btn btn--secondary">See what we automate</a>
+        </div>
+        <div class="badges">
+          <span class="badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m9 12 2 2 4-4"></path></svg>
+            SOC 2-aligned
+          </span>
+          <span class="badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-12V5l-8-3-8 3v5c0 8 8 12 8 12Z"></path></svg>
+            Canadian-hosted
+          </span>
+          <span class="badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            40+ operators served
+          </span>
+        </div>
+      </div>
+
+      <!-- Hero visual: Parallax lens -->
+      <div class="lens" aria-hidden="true">
+        <svg viewBox="0 0 400 400">
+          <!-- outer dashed rotating ring -->
+          <g class="ring-rotate">
+            <circle cx="200" cy="200" r="184" fill="none" stroke="var(--ink)" stroke-width="1" stroke-dasharray="2 8" opacity="0.35"></circle>
+          </g>
+          <!-- main outer ring -->
+          <circle cx="200" cy="200" r="148" fill="none" stroke="var(--ink)" stroke-width="2"></circle>
+          <!-- inner faint ring -->
+          <circle cx="200" cy="200" r="100" fill="none" stroke="var(--ink)" stroke-width="2" opacity="0.22"></circle>
+          <!-- counter-rotating tick ring -->
+          <g class="ring-counter">
+            <circle cx="200" cy="200" r="124" fill="none" stroke="var(--muted)" stroke-width="0.6" stroke-dasharray="1 14"></circle>
+          </g>
+          <!-- core -->
+          <circle cx="200" cy="200" r="20" fill="var(--ink)"></circle>
+          <!-- companion -->
+          <g class="companion">
+            <circle cx="318" cy="120" r="26" fill="var(--green)"></circle>
+            <circle cx="318" cy="120" r="34" fill="none" stroke="var(--green)" stroke-width="1" opacity="0.35"></circle>
+          </g>
+          <!-- crosshair ticks -->
+          <line x1="200" y1="44" x2="200" y2="54" stroke="var(--muted)" stroke-width="1"></line>
+          <line x1="200" y1="346" x2="200" y2="356" stroke="var(--muted)" stroke-width="1"></line>
+          <line x1="44" y1="200" x2="54" y2="200" stroke="var(--muted)" stroke-width="1"></line>
+          <line x1="346" y1="200" x2="356" y2="200" stroke="var(--muted)" stroke-width="1"></line>
+          <!-- labels -->
+          <text x="200" y="32" text-anchor="middle" class="tick-label">audit</text>
+          <text x="200" y="380" text-anchor="middle" class="tick-label">deploy</text>
+          <text x="22" y="204" text-anchor="start" class="tick-label">map</text>
+          <text x="378" y="204" text-anchor="end" class="tick-label">build</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Trust strip ─── -->
+<div class="trust">
+  <div class="container">
+    <div class="trust-inner">
+      <div class="label-stack">
+        <span class="mono">Trusted by operators at</span>
+        <span class="big">Property managers · brokerages · REITs</span>
+      </div>
+      <div class="logo-row">
+        <span class="logo">Elite<span class="dot">·</span>Realty</span>
+        <span class="logo">Northbridge PM</span>
+        <span class="logo">Ridgeway Group</span>
+        <span class="logo">Hawthorn Capital</span>
+        <span class="logo">Maple Asset Mgmt</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── What we automate ─── -->
+<section class="block" id="automations">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="mono">01 · What we automate</span>
+        <h2>The workflows your team<br>actually <span class="muted">spends time on.</span></h2>
+      </div>
+      <p class="aside">Every Acel Cortex engagement starts with a pre-built catalog of property-management automations. We deploy the ones that fit, customize the ones that almost-fit, and build new ones for whatever's left.</p>
+    </div>
+
+    <div class="automate-grid">
+      <article class="auto-card">
+        <svg class="corner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+        <div class="num">01</div>
+        <h3>Tenant triage</h3>
+        <p>Inbound calls, emails and texts categorized, answered, or routed to the right human in seconds — with full context attached.</p>
+        <div class="tags"><span class="tag">Inbox</span><span class="tag">Voice</span><span class="tag">SMS</span></div>
+      </article>
+
+      <article class="auto-card">
+        <svg class="corner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+        <div class="num">02</div>
+        <h3>Maintenance dispatch</h3>
+        <p>Tickets ranked by urgency, paired with the closest qualified vendor, and tracked through to invoice — with photos and notes preserved.</p>
+        <div class="tags"><span class="tag">Vendors</span><span class="tag">SLA</span></div>
+      </article>
+
+      <article class="auto-card">
+        <svg class="corner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+        <div class="num">03</div>
+        <h3>Lease renewal</h3>
+        <p>Drafted 90 days out, personalized with usage and history, and timed to your retention playbook. Counter-signed and filed without a forward.</p>
+        <div class="tags"><span class="tag">Docs</span><span class="tag">E-sign</span></div>
+      </article>
+
+      <article class="auto-card">
+        <svg class="corner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+        <div class="num">04</div>
+        <h3>Rent reconciliation</h3>
+        <p>Bank feeds matched against ledger entries nightly. Shortfalls flagged with suggested next steps before the morning standup.</p>
+        <div class="tags"><span class="tag">Finance</span><span class="tag">Audit-ready</span></div>
+      </article>
+
+      <article class="auto-card">
+        <svg class="corner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+        <div class="num">05</div>
+        <h3>Applicant screening</h3>
+        <p>Application packets normalized, credit pulled, references contacted, and a structured risk summary written — before a human opens the file.</p>
+        <div class="tags"><span class="tag">Leasing</span><span class="tag">Compliance</span></div>
+      </article>
+
+      <article class="auto-card">
+        <svg class="corner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+        <div class="num">06</div>
+        <h3>Owner reporting</h3>
+        <p>Monthly statements drafted from your PMS, narrated in plain language, and delivered in your template — not a generic export.</p>
+        <div class="tags"><span class="tag">Reporting</span><span class="tag">Owner-facing</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ─── How we work ─── -->
+<section class="block" id="how" style="border-top: 1px solid var(--rule); padding-top: 96px;">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="mono">02 · How we work</span>
+        <h2>Three steps from chaos<br>to <span style="color:var(--green)">·</span> calm.</h2>
+      </div>
+      <p class="aside">Every engagement starts the same way. We map where AI earns its place, ship what's already built, then build what's specific to you. No surprise invoices, no platform lock-in.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step is-current">
+        <div class="num"><span class="chip">01</span> The audit</div>
+        <h3>Sit with your operators for a week.</h3>
+        <p>We map every workflow, every handoff, every Excel sheet that's load-bearing. Output: a ranked backlog of opportunities — by effort, by impact, by risk.</p>
+        <div class="meta-line"><span>5 business days</span><span>$0 to start</span></div>
+      </div>
+      <div class="step">
+        <div class="num"><span class="chip">02</span> Standard deploy</div>
+        <h3>Ship the workflows we've already built.</h3>
+        <p>Tenant triage, maintenance dispatch, lease renewal, rent reconciliation. Configured to your data, your tone, your vendors — live in your stack inside two weeks.</p>
+        <div class="meta-line"><span>2 weeks</span><span>Fixed scope</span></div>
+      </div>
+      <div class="step">
+        <div class="num"><span class="chip">03</span> Custom builds</div>
+        <h3>Build the workflows specific to you.</h3>
+        <p>The ones no one else has — owner-specific reporting, compliance flows, the weird thing your operations team handles by memory. We deploy and monitor.</p>
+        <div class="meta-line"><span>Ongoing</span><span>Retainer or per-build</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Featured workflow ─── -->
+<section class="block" style="padding-top: 32px;">
+  <div class="container">
+    <div class="feature-block">
+      <div class="layout">
+        <div>
+          <span class="mono">03 · One workflow, in detail</span>
+          <h2>Tenant triage,<br>at 02:14 AM<br><span class="muted">on a Sunday.</span></h2>
+          <p class="lede">A real example — names changed. The agent ingests, classifies, and responds. Your team sees it before the morning coffee, with the decision pre-made and the audit trail attached.</p>
+          <div class="ctas" style="display:flex;gap:12px;margin-top:32px;flex-wrap:wrap;">
+            <a href="#audit" class="btn btn--on-dark">See it on your data →</a>
+            <a href="#automations" class="btn btn--on-dark-ghost">More workflows</a>
+          </div>
+        </div>
+
+        <div class="workflow" aria-hidden="true">
+          <div class="wf-row">
+            <span class="wf-time">02:14</span>
+            <span class="wf-source">SMS · 416-…</span>
+            <span class="wf-msg">"hi water pouring from ceiling unit 412 pls help"</span>
+          </div>
+          <div class="wf-row">
+            <span class="wf-time">02:14</span>
+            <span class="wf-source">Agent</span>
+            <span class="wf-msg">Classified <span class="wf-tag warn">emergency · water</span></span>
+          </div>
+          <div class="wf-row">
+            <span class="wf-time">02:14</span>
+            <span class="wf-source">Agent</span>
+            <span class="wf-msg">Replied — shut-off location confirmed, vendor en-route ETA 38 min. <span class="wf-tag ok">resolved-step</span></span>
+          </div>
+          <div class="wf-row">
+            <span class="wf-time">02:15</span>
+            <span class="wf-source">Vendor</span>
+            <span class="wf-msg">Dispatched: Henley Plumbing (on-call, 6 km). Ticket #4129 opened.</span>
+          </div>
+          <div class="wf-row">
+            <span class="wf-time">02:17</span>
+            <span class="wf-source">Owner</span>
+            <span class="wf-msg">Notified — unit 412 active leak, vendor en-route, no action required. <span class="wf-tag">FYI</span></span>
+          </div>
+          <div class="wf-row">
+            <span class="wf-time">07:02</span>
+            <span class="wf-source">Manager</span>
+            <span class="wf-msg">Morning summary — 1 emergency handled overnight. Repair complete 04:11. <span class="wf-tag ok">closed</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Outcomes ─── -->
+<section class="block" id="outcomes" style="padding-top: 80px;">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="mono">04 · Outcomes</span>
+        <h2>What our operators get back.<br><span class="muted">Measured, not promised.</span></h2>
+      </div>
+      <p class="aside">Numbers below are averages across active engagements, six months in. Every audit ships with a baseline measurement against your own data — so the delta is yours, not ours.</p>
+    </div>
+
+    <div class="outcomes">
+      <div class="stat">
+        <div class="num">68<span class="unit">%</span></div>
+        <div class="label">of inbound tenant messages resolved without a human reply.</div>
+        <div class="src">Tenant triage · avg</div>
+      </div>
+      <div class="stat">
+        <div class="num">11<span class="unit">m</span></div>
+        <div class="label">median time from ticket open to vendor dispatched.</div>
+        <div class="src">Maintenance · avg</div>
+      </div>
+      <div class="stat">
+        <div class="num">2.4<span class="unit">×</span></div>
+        <div class="label">renewal-offer response rate vs. previous quarter.</div>
+        <div class="src">Lease renewal · avg</div>
+      </div>
+      <div class="stat">
+        <div class="num">$0</div>
+        <div class="label">platform fees. You pay for the build and the seats — that's it.</div>
+        <div class="src">Pricing</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Audit dark section ─── -->
+<section class="audit-band" id="audit">
+  <div class="container">
+    <span class="mono">05 · The audit</span>
+    <h2>Start with what's<br><span class="muted">already broken.</span></h2>
+    <div class="body-grid">
+      <div>
+        <p>Five business days. One operator on your side. A ranked backlog of every place AI can save time or remove risk — with effort estimates, impact scores, and a recommended sequence. The audit is yours to keep, whether you build with us or not.</p>
+        <div class="ctas">
+          <a href="#" class="btn btn--accent">Book audit · $0 down</a>
+          <a href="#" class="btn btn--on-dark-ghost">Talk to an operator first →</a>
+        </div>
+      </div>
+      <ul class="deliverables">
+        <li><span class="glyph">01</span><span>Workflow map of every team — leasing, ops, finance, owner relations.</span></li>
+        <li><span class="glyph">02</span><span>Ranked backlog: effort, impact, risk, recommended sequence.</span></li>
+        <li><span class="glyph">03</span><span>Two pre-built automations identified for immediate deploy.</span></li>
+        <li><span class="glyph">04</span><span>Baseline measurement — so you can prove the delta later.</span></li>
+        <li><span class="glyph">05</span><span>Your operator's direct line. We stay close, whether you build or not.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FAQ ─── -->
+<section class="block" id="faq">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="mono">06 · Questions we get</span>
+        <h2>Honest answers,<br>no hedging.</h2>
+      </div>
+      <p class="aside">If you don't see your question here, ask. We answer in plain language — the audit conversation usually clears the rest up.</p>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq" open>
+        <summary>Do we have to switch off our current PMS?<span class="toggle">+</span></summary>
+        <p class="answer">No. Acel Cortex sits on top of what you already use — AppFolio, Yardi, Buildium, RentManager, whatever. We integrate via API or watcher, depending on what your system supports. The goal is to make your existing stack quieter, not to replace it.</p>
+      </details>
+      <details class="faq">
+        <summary>How are the agents kept from going off-script?<span class="toggle">+</span></summary>
+        <p class="answer">Every agent ships with a written policy, an explicit list of allowed actions, and a human-in-the-loop gate for anything financial, legal, or irreversible. We log every decision the agent makes and every message it sends — readable like an email thread, not a debug trace.</p>
+      </details>
+      <details class="faq">
+        <summary>What does pricing look like, actually?<span class="toggle">+</span></summary>
+        <p class="answer">The audit is $0. Standard automations are a flat per-workflow build fee plus a per-seat monthly. Custom builds are scoped and quoted up front — no surprise hourly. We don't charge platform fees and we don't take a cut of recovered revenue.</p>
+      </details>
+      <details class="faq">
+        <summary>Who owns the data and the configuration?<span class="toggle">+</span></summary>
+        <p class="answer">You do. All tenant communications, ledger data, and audit logs live in your tenant. The agent configuration — prompts, rules, allowed actions — is exported on request as plain JSON. If we part ways, you walk away with everything we built together.</p>
+      </details>
+      <details class="faq">
+        <summary>How small a portfolio is too small?<span class="toggle">+</span></summary>
+        <p class="answer">If you have at least one full-time operator drowning in inbound, the math usually works at 150 units and up. Below that, we'll tell you — and recommend a couple of off-the-shelf tools instead of trying to sell you a build.</p>
+      </details>
+      <details class="faq">
+        <summary>Are you only for property management?<span class="toggle">+</span></summary>
+        <p class="answer">Today, mostly. Property managers are where the playbook is sharpest. We've also shipped audits for adjacent operators — construction, brokerage back-office, multi-family insurance. If your business runs on inbound + tickets + ledgers, the pattern usually transfers.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Final CTA ─── -->
+<section class="cta-strip">
+  <div class="container">
+    <div class="cta-strip-inner">
+      <h2>Quiet AI, shipped.<br><span class="muted">Start with five days.</span></h2>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a href="#" class="btn btn--primary">Book an audit ↓</a>
+        <a href="#" class="btn btn--secondary">hello@acelcortex.ai</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Footer ─── -->
+<footer class="site">
+  <div class="container">
+    <div class="top">
+      <div class="brand-block">
+        <svg width="42" height="42" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="32" stroke="#F5F2EC" stroke-width="3" fill="none"></circle>
+          <circle cx="50" cy="50" r="18" stroke="#F5F2EC" stroke-width="2.5" fill="none" opacity="0.3"></circle>
+          <circle cx="50" cy="50" r="6" fill="#F5F2EC"></circle>
+          <circle cx="76.21" cy="31.64" r="8" fill="#10846C"></circle>
+        </svg>
+        <div class="wordmark">acel<span class="dot">·</span>cortex</div>
+        <p>AI automations for businesses that run on inbound, tickets, and ledgers. Built quietly. Audited carefully.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#automations">Automations</a></li>
+          <li><a href="#how">How we work</a></li>
+          <li><a href="#outcomes">Outcomes</a></li>
+          <li><a href="#audit">The audit</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press kit</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Trust</h4>
+        <ul>
+          <li><a href="#">Security</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Compliance</a></li>
+          <li><a href="#">Status</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom">
+      <span>© 2026 Acel Cortex Solutions · Built quietly</span>
+      <span>Toronto · Canadian-hosted</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── Tweaks panel (React-mounted) ─── -->
+<div id="tweaks-root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accent": "present",
+  "density": "regular",
+  "showLens": true,
+  "showTrust": true,
+  "showOutcomes": true,
+  "heroBg": "paper"
+}/*EDITMODE-END*/;
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  React.useEffect(() => {
+    document.body.dataset.accent = t.accent;
+    document.body.dataset.density = t.density;
+    document.querySelector('.lens').style.display = t.showLens ? '' : 'none';
+    document.querySelector('.trust').style.display = t.showTrust ? '' : 'none';
+    document.getElementById('outcomes').style.display = t.showOutcomes ? '' : 'none';
+    document.body.style.background = t.heroBg === 'paper-2' ? 'var(--paper-2)' : 'var(--paper)';
+  }, [t]);
+
+  return (
+    <TweaksPanel>
+      <TweakSection label="Accent" />
+      <TweakRadio label="Green emphasis" value={t.accent}
+                  options={['subtle','present','loud']}
+                  onChange={(v) => setTweak('accent', v)} />
+      <TweakSection label="Layout" />
+      <TweakRadio label="Density" value={t.density}
+                  options={['compact','regular','comfy']}
+                  onChange={(v) => setTweak('density', v)} />
+      <TweakToggle label="Hero lens animation" value={t.showLens}
+                   onChange={(v) => setTweak('showLens', v)} />
+      <TweakToggle label="Trust strip" value={t.showTrust}
+                   onChange={(v) => setTweak('showTrust', v)} />
+      <TweakToggle label="Outcomes section" value={t.showOutcomes}
+                   onChange={(v) => setTweak('showOutcomes', v)} />
+      <TweakRadio label="Page bg" value={t.heroBg}
+                  options={['paper','paper-2']}
+                  onChange={(v) => setTweak('heroBg', v)} />
+    </TweaksPanel>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<App />);
+</script>
+</body>
+</html>

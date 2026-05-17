@@ -1,0 +1,183 @@
+/* Acel Cortex Design Tokens
+ * Use as CSS custom properties anywhere in the project.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ===== COLOR — base ===== */
+  --paper: #F5F2EC;       /* primary bg */
+  --paper-2: #EEEAE2;     /* hover bg, table stripes */
+  --ink: #141414;         /* primary text, dark surfaces */
+  --ink-soft: #2B2721;    /* body text on paper */
+  --green: #10846C;       /* signal */
+  --green-soft: #4FB89C;  /* reversed contexts, hover on dark */
+  --green-deep: #0A5E4D;  /* pressed, data viz */
+  --muted: #6B655B;       /* secondary text on paper */
+  --rule: #E3DED4;        /* hairline borders on paper */
+  --rule-dark: #2A2825;   /* hairline borders on ink */
+
+  /* ===== COLOR — semantic ===== */
+  --bg: var(--paper);
+  --fg: var(--ink);
+  --fg-muted: var(--muted);
+  --fg-soft: var(--ink-soft);
+  --accent: var(--green);
+  --accent-on-dark: var(--green-soft);
+  --border: var(--rule);
+  --bg-elevated: var(--paper-2);
+
+  /* ===== TYPE — families ===== */
+  --font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+  /* ===== TYPE — base sizes ===== */
+  --fs-display: 96px;
+  --fs-h1: 64px;
+  --fs-h2: 40px;
+  --fs-h3: 28px;
+  --fs-h4: 20px;
+  --fs-body: 17px;
+  --fs-small: 14px;
+  --fs-mono: 12px;
+  --fs-mono-sm: 11px;
+
+  /* ===== TYPE — tracking ===== */
+  --tracking-display: -0.045em;
+  --tracking-heading: -0.035em;
+  --tracking-wordmark: -0.04em;
+  --tracking-body: 0;
+  --tracking-mono: 0.22em;
+  --tracking-mono-tight: 0.18em;
+
+  /* ===== TYPE — line height ===== */
+  --lh-display: 0.92;
+  --lh-heading: 1.02;
+  --lh-tight: 1.15;
+  --lh-body: 1.5;
+
+  /* ===== SPACING ===== */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* ===== RADII ===== */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 22px;
+  --radius-pill: 999px;
+
+  /* ===== SHADOWS ===== */
+  --shadow-card: 0 6px 20px rgba(0, 0, 0, 0.12);
+  --shadow-elevated: 0 14px 40px rgba(0, 0, 0, 0.18);
+  --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+  /* ===== MOTION ===== */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --duration-fast: 120ms;
+  --duration-base: 150ms;
+  --duration-slow: 240ms;
+}
+
+/* ===== Element defaults ===== */
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
+h1, .h1 {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--fs-h1);
+  letter-spacing: var(--tracking-heading);
+  line-height: var(--lh-heading);
+}
+h2, .h2 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--fs-h2);
+  letter-spacing: var(--tracking-heading);
+  line-height: var(--lh-heading);
+}
+h3, .h3 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--fs-h3);
+  letter-spacing: -0.025em;
+  line-height: var(--lh-tight);
+}
+.display {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--fs-display);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--lh-display);
+}
+.label, .mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-sm);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ===== Surfaces ===== */
+.card {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+}
+
+/* ===== Buttons ===== */
+.btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--fs-small);
+  padding: 12px 22px;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  transition: opacity var(--duration-base) var(--ease);
+}
+.btn-primary:hover { opacity: 0.88; }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--fs-small);
+  padding: 12px 22px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background var(--duration-base) var(--ease);
+}
+.btn-secondary:hover { background: var(--paper-2); }
+
+.btn-accent {
+  background: var(--green);
+  color: var(--paper);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--fs-small);
+  padding: 12px 22px;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  transition: background var(--duration-base) var(--ease);
+}
+.btn-accent:hover { background: var(--green-deep); }

@@ -17,6 +17,8 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://calendly.com">
+<link rel="preconnect" href="https://assets.calendly.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -463,7 +465,7 @@
   // Every "Book" button opens the scheduler in place. Without JS, links fall back to #call.
   const dlg = document.getElementById('book-dialog');
   if (dlg && typeof dlg.showModal === 'function') {
-    const CAL = 'https://calendly.com/ping-acelcortex/30min?hide_gdpr_banner=1&background_color=fbfaf7&text_color=141414&primary_color=10846c';
+    const CAL = 'https://calendly.com/ping-acelcortex/30min?hide_event_type_details=1&hide_gdpr_banner=1&background_color=fbfaf7&text_color=141414&primary_color=10846c';
     let calLoaded = false;
     const loadCal = () => {
       if (calLoaded) return; calLoaded = true;
@@ -475,6 +477,10 @@
     document.querySelectorAll('.js-book').forEach(el => el.addEventListener('click', e => {
       e.preventDefault(); dlg.showModal(); loadCal();
     }));
+    // warm the calendar in the background so it opens instantly
+    document.querySelectorAll('.js-book').forEach(el => ['pointerenter','touchstart','focus'].forEach(ev => el.addEventListener(ev, loadCal, { passive: true, once: true })));
+    const idle = () => (window.requestIdleCallback || (f => setTimeout(f, 1500)))(loadCal, { timeout: 4000 });
+    if (document.readyState === 'complete') idle(); else window.addEventListener('load', idle);
     dlg.querySelector('[data-close]').addEventListener('click', () => dlg.close());
     dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
   }

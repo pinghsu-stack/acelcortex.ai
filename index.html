@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Acel Cortex · AI for the property management back office</title>
-<meta name="description" content="AI for the property management back office. Starting with accounts payable: invoices read, matched, checked and posted to your PMS after you approve.">
+<title>Acel Cortex · The AI back office for property management</title>
+<meta name="description" content="AI takes the first pass on invoices, maintenance intake, your inbox, leasing and notices. Your team reviews and approves. Run more doors at a higher margin.">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="apple-touch-icon" href="/assets/logo.png">
 <link rel="canonical" href="https://www.acelcortex.ai/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Acel Cortex Solutions">
-<meta property="og:title" content="Acel Cortex · AI for the property management back office">
-<meta property="og:description" content="Built inside an 800-door property management company. Starting with accounts payable.">
+<meta property="og:title" content="Acel Cortex · The AI back office for property management">
+<meta property="og:description" content="Built and running inside an 800-door property management company.">
 <meta property="og:url" content="https://www.acelcortex.ai/">
 <meta property="og:image" content="https://www.acelcortex.ai/assets/og.png">
 <meta property="og:image:width" content="1200">
@@ -267,87 +267,178 @@
     .scheduler { min-height: 0; height: calc(100svh - 100px); }
   }
 
-  /* ===== Homepage ===== */
-  .nav { display: flex; align-items: center; gap: 28px; }
+  :root { --green-deep: #0A5E4D; --rule-dark: #2A2825; }
+  /* ================= Homepage ================= */
+  .nav { display: flex; align-items: center; gap: 26px; }
   .nav a.lnk { font-size: 14px; color: var(--ink-soft); text-decoration: none; }
   .nav a.lnk:hover { color: var(--ink); }
-  .h-hero { padding: 72px 0 0; text-align: center; }
-  .h-hero h1 {
-    font-weight: 500; font-size: clamp(38px, 6.4vw, 76px);
-    letter-spacing: -0.045em; line-height: 0.98; max-width: 15ch; margin: 0 auto;
-  }
-  .h-hero .lede { margin: 24px auto 0; max-width: 52ch; font-size: 19px; color: var(--ink-soft); }
-  .h-ctas { margin-top: 32px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
   .btn-ghost {
     display: inline-block; text-decoration: none; color: var(--ink); background: transparent;
     border: 1px solid var(--ink); font-weight: 500; font-size: 16px; padding: 14px 27px; border-radius: 999px;
     transition: background 150ms var(--ease);
   }
   .btn-ghost:hover { background: var(--paper-2); }
-  .h-hero .mock-sec { margin-top: 56px; text-align: left; }
-  .facts { margin-top: 64px; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-  .facts > div { padding: 24px 20px 24px 0; }
-  .facts > div + div { padding-left: 20px; border-left: 1px solid var(--rule); }
-  .facts b { display: block; font-size: 22px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; }
-  .facts span { display: block; margin-top: 6px; font-size: 14px; color: var(--muted); }
+  .top .wrap, .wide { max-width: 1200px; }
+  .wide { margin: 0 auto; padding: 0 24px; }
+  .kicker { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .kicker b { color: var(--green); font-weight: 500; }
 
-  .sec { margin-top: 112px; }
-  .sec > h2, .sec-head h2 { font-size: clamp(30px, 4vw, 44px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.05; max-width: 20ch; }
-  .sec-head p { margin-top: 14px; color: var(--ink-soft); max-width: 56ch; font-size: 18px; }
+  /* Hero */
+  .hh { padding: 64px 0 0; display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
+  .hh h1 { font-weight: 500; font-size: clamp(40px, 5.4vw, 70px); letter-spacing: -0.045em; line-height: 0.98; margin-top: 18px; }
+  .hh .lede { margin-top: 22px; font-size: 19px; color: var(--ink-soft); max-width: 46ch; }
+  .ctas { margin-top: 30px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .hh .built { margin-top: 26px; display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); }
+  .pulse { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 0 rgba(16,132,108,.5); animation: pulse 2s infinite; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 9px rgba(16,132,108,0); } 100% { box-shadow: 0 0 0 0 rgba(16,132,108,0); } }
 
-  .ways { margin-top: 36px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; }
-  .way { border: 1px solid var(--rule); border-radius: 12px; padding: 28px; background: var(--paper-3); }
-  .way.dark { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-  .way h3 { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; }
-  .way .tag { display: inline-block; margin-bottom: 14px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; background: #DCEDE7; color: var(--green-deep); }
-  .way.dark .tag { background: #24302C; color: var(--green-soft); }
-  .way p { margin-top: 10px; color: var(--ink-soft); }
-  .way.dark p { color: #C9C3B8; }
-  .chat { margin-top: 22px; display: grid; gap: 8px; font-size: 14px; }
-  .bubble { max-width: 88%; padding: 10px 14px; border-radius: 14px; line-height: 1.35; }
-  .bubble.me { justify-self: end; background: var(--green); color: var(--paper); border-bottom-right-radius: 4px; }
-  .bubble.ai { background: #26241F; color: var(--paper); border-bottom-left-radius: 4px; }
+  .feed { background: var(--ink); color: var(--paper); border-radius: 22px; padding: 22px; box-shadow: 0 14px 40px rgba(0,0,0,0.18); }
+  .feed-top { display: flex; justify-content: space-between; align-items: center; padding: 2px 4px 16px; border-bottom: 1px solid var(--rule-dark); }
+  .feed-top .t { font-weight: 600; font-size: 15px; }
+  .feed-top .s { font-size: 12px; color: #A39C90; display: flex; align-items: center; gap: 8px; }
+  .feed-list { list-style: none; height: 404px; overflow: hidden; position: relative; margin-top: 6px; }
+  .feed-list::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 70px; background: linear-gradient(transparent, var(--ink)); pointer-events: none; }
+  .ev { display: grid; grid-template-columns: 1fr auto; gap: 4px 14px; padding: 13px 4px; border-bottom: 1px solid var(--rule-dark); animation: evIn 500ms var(--ease); }
+  @keyframes evIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
+  .ev .w { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green-soft); }
+  .ev .d { grid-column: 1; font-size: 14.5px; line-height: 1.35; color: #EDE8DF; }
+  .ev .st { grid-row: 1 / span 2; grid-column: 2; align-self: center; font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 8px; border-radius: 6px; white-space: nowrap; transition: background 300ms, color 300ms; }
+  .ev .st.wait { background: #3A3220; color: #E2B963; }
+  .ev .st.ok { background: #1E3A32; color: var(--green-soft); }
+  .feed-foot { margin-top: 12px; font-size: 12px; color: #8F887C; padding: 0 4px; }
 
-  .operator { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; align-items: start; border-top: 1px solid var(--ink); padding-top: 40px; }
-  .operator blockquote { font-size: clamp(24px, 3vw, 32px); font-weight: 500; letter-spacing: -0.025em; line-height: 1.2; }
-  .operator .who { margin-top: 18px; font-size: 14px; color: var(--muted); }
-  .operator p + p { margin-top: 14px; }
-  .operator .body p { color: var(--ink-soft); }
+  /* Proof strip */
+  .strip { margin-top: 72px; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--ink); }
+  .strip > div { padding: 22px 22px 0 0; }
+  .strip > div + div { padding-left: 22px; border-left: 1px solid var(--rule); }
+  .strip b { display: block; font-size: clamp(26px, 3vw, 36px); font-weight: 500; letter-spacing: -0.035em; line-height: 1; }
+  .strip span { display: block; margin-top: 8px; font-size: 14px; color: var(--muted); max-width: 24ch; }
 
-  .road { margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--rule); }
-  .road > div { padding: 28px 28px 8px 0; }
-  .road > div + div { padding-left: 28px; border-left: 1px solid var(--rule); }
-  .road h3 { font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
-  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--green); }
-  .dot.next { background: transparent; border: 2px solid var(--muted); }
-  .road ul { list-style: none; margin-top: 14px; }
-  .road li { padding: 14px 0; border-bottom: 1px solid var(--rule); }
-  .road li b { display: block; font-weight: 500; }
-  .road li span { display: block; font-size: 14px; color: var(--muted); margin-top: 2px; }
-  .road .later li b { color: var(--ink-soft); }
+  .sec { margin-top: 128px; }
+  .sec-head { max-width: 760px; }
+  .sec-head h2 { margin-top: 14px; font-size: clamp(32px, 4.2vw, 52px); font-weight: 500; letter-spacing: -0.04em; line-height: 1.02; }
+  .sec-head p { margin-top: 16px; font-size: 18px; color: var(--ink-soft); max-width: 58ch; }
 
-  .final { margin: 120px 0 0; background: var(--ink); color: var(--paper); border-radius: 22px; padding: 64px 48px; text-align: center; }
-  .final h2 { font-size: clamp(30px, 4.4vw, 48px); font-weight: 500; letter-spacing: -0.04em; line-height: 1.02; max-width: 18ch; margin: 0 auto; }
-  .final p { margin: 16px auto 0; max-width: 46ch; color: #C9C3B8; }
-  .final .h-ctas .btn { background: var(--paper); color: var(--ink); }
+  /* Layers */
+  .layers { margin-top: 44px; display: grid; grid-template-columns: 1fr 64px 1fr; align-items: stretch; }
+  .layer { border-radius: 16px; padding: 28px; }
+  .layer.ai { background: var(--paper-3); border: 1px solid var(--rule); }
+  .layer.team { background: var(--ink); color: var(--paper); }
+  .layer .n { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green); }
+  .layer.team .n { color: var(--green-soft); }
+  .layer h3 { margin-top: 10px; font-size: 26px; font-weight: 600; letter-spacing: -0.025em; }
+  .layer ul { list-style: none; margin-top: 18px; }
+  .layer li { padding: 10px 0; border-top: 1px solid var(--rule); font-size: 15.5px; }
+  .layer.team li { border-top-color: var(--rule-dark); color: #E3DDD3; }
+  .arrow { display: grid; place-items: center; }
+  .arrow svg { width: 40px; }
+
+  /* Workflow map */
+  .wf { margin-top: 44px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .dept { border: 1px solid var(--rule); border-radius: 16px; background: var(--paper-3); padding: 22px; display: flex; flex-direction: column; }
+  .dept h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; }
+  .dept .sub { font-size: 13.5px; color: var(--muted); margin-top: 4px; }
+  .dept ul { list-style: none; margin-top: 16px; flex: 1; }
+  .dept li { padding: 11px 0; border-top: 1px solid var(--rule); font-size: 14.5px; display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+  .tagx { flex: none; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; }
+  .tagx.avail { background: #DCEDE7; color: var(--green-deep); }
+  .tagx.live { background: var(--paper-2); color: var(--muted); }
+  .legend { margin-top: 18px; display: flex; gap: 22px; flex-wrap: wrap; font-size: 13.5px; color: var(--muted); }
+  .legend span { display: inline-flex; gap: 8px; align-items: center; }
+
+  .flag-grid { margin-top: 44px; }
+  .flag-grid .mock-sec { margin-top: 0; }
+
+  /* Telegram */
+  .tg { margin-top: 128px; background: var(--ink); color: var(--paper); }
+  .tg .wide { padding-top: 96px; padding-bottom: 96px; display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: center; }
+  .tg .kicker { color: #A39C90; }
+  .tg .kicker b { color: var(--green-soft); }
+  .tg h2 { margin-top: 14px; font-size: clamp(32px, 4.2vw, 52px); font-weight: 500; letter-spacing: -0.04em; line-height: 1.02; }
+  .tg p.l { margin-top: 16px; font-size: 18px; color: #C9C3B8; max-width: 46ch; }
+  .tg .note { margin-top: 26px; font-size: 14px; color: #8F887C; max-width: 46ch; }
+  .cmds { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .cmds code { font-family: var(--font-mono); font-size: 12.5px; background: #22201C; border: 1px solid var(--rule-dark); color: #E3DDD3; padding: 6px 10px; border-radius: 8px; }
+  .cmds code.hl { border-color: var(--green); color: var(--green-soft); }
+  .phone { background: #1B1A17; border: 1px solid var(--rule-dark); border-radius: 22px; padding: 18px; }
+  .phone-top { display: flex; align-items: center; gap: 12px; padding-bottom: 14px; border-bottom: 1px solid var(--rule-dark); }
+  .av { width: 34px; height: 34px; border-radius: 50%; background: var(--green); display: grid; place-items: center; font-weight: 600; font-size: 14px; }
+  .phone-top b { display: block; font-size: 15px; } .phone-top span { font-size: 12px; color: #8F887C; }
+  .msgs { display: grid; gap: 10px; padding-top: 16px; font-size: 14.5px; line-height: 1.4; }
+  .m { max-width: 86%; padding: 11px 14px; border-radius: 16px; }
+  .m.me { justify-self: end; background: var(--green); border-bottom-right-radius: 5px; }
+  .m.ai { background: #2A2824; border-bottom-left-radius: 5px; color: #EDE8DF; }
+  .m.ai small { display: block; margin-top: 8px; color: #A39C90; font-size: 12.5px; }
+  .opts { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .opts span { font-size: 12.5px; border: 1px solid #4A463F; border-radius: 999px; padding: 5px 11px; color: #E3DDD3; }
+  .opts span.on { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+
+  /* Savings */
+  .sv { margin-top: 44px; display: grid; grid-template-columns: 1fr 1.05fr; gap: 20px; }
+  .calc { border: 1px solid var(--rule); border-radius: 16px; background: var(--paper-3); padding: 28px; }
+  .fld + .fld { margin-top: 26px; }
+  .fld label { display: flex; justify-content: space-between; gap: 12px; font-size: 15px; }
+  .fld label b { font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .fld input[type=range] { width: 100%; margin-top: 12px; accent-color: var(--green); height: 22px; cursor: pointer; }
+  .fld .ticks { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .calc .hint { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--rule); font-size: 13.5px; color: var(--muted); }
+  .res { background: var(--green-deep); color: var(--paper); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; }
+  .res .lbl { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #A8D8C9; }
+  .res .big { margin-top: 10px; font-size: clamp(48px, 6vw, 76px); font-weight: 500; letter-spacing: -0.045em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .res .grid4 { margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid rgba(255,255,255,.18); }
+  .res .grid4 > div { padding: 18px 0 16px; }
+  .res .grid4 > div:nth-child(even) { padding-left: 20px; border-left: 1px solid rgba(255,255,255,.18); }
+  .res .grid4 > div:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,.18); }
+  .res .v { margin-top: 6px; font-size: 26px; font-weight: 500; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+  .res .v small { font-size: 14px; color: #A8D8C9; letter-spacing: 0; }
+  .res .foot { margin-top: auto; padding-top: 20px; font-size: 14px; color: #CFE8DF; }
+  .margin { margin-top: 20px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .margin > div { border-top: 1px solid var(--ink); padding-top: 18px; }
+  .margin h3 { font-size: 19px; font-weight: 600; letter-spacing: -0.02em; }
+  .margin p { margin-top: 8px; color: var(--ink-soft); font-size: 15.5px; }
+
+  /* Operator */
+  .op { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; border-top: 1px solid var(--ink); padding-top: 44px; }
+  .op blockquote { font-size: clamp(26px, 3.2vw, 38px); font-weight: 500; letter-spacing: -0.03em; line-height: 1.12; }
+  .op .who { margin-top: 18px; font-size: 14px; color: var(--muted); }
+  .op .body p { color: var(--ink-soft); font-size: 17px; }
+  .op .body p + p { margin-top: 14px; }
+
+  .final { margin: 128px 0 0; background: var(--ink); color: var(--paper); border-radius: 22px; padding: 72px 48px; text-align: center; }
+  .final h2 { font-size: clamp(32px, 4.6vw, 56px); font-weight: 500; letter-spacing: -0.04em; line-height: 1.02; max-width: 16ch; margin: 0 auto; }
+  .final p { margin: 16px auto 0; max-width: 46ch; color: #C9C3B8; font-size: 17px; }
+  .final .ctas { justify-content: center; }
+  .final .btn { background: var(--paper); color: var(--ink); }
   .final .btn-ghost { color: var(--paper); border-color: #5A554C; }
   .final .btn-ghost:hover { background: #26241F; }
   .home-main { padding-bottom: 96px; }
 
+  @media (max-width: 1000px) {
+    .hh, .tg .wide, .sv, .op { grid-template-columns: 1fr; }
+    .hh { gap: 40px; }
+    .wf { grid-template-columns: 1fr 1fr; }
+  }
   @media (max-width: 760px) {
     .nav a.lnk { display: none; }
-    .h-hero { padding-top: 40px; }
-    .h-hero .lede { font-size: 17px; }
-    .h-ctas .btn, .h-ctas .btn-ghost { width: 100%; text-align: center; }
-    .facts { grid-template-columns: 1fr 1fr; }
-    .facts > div:nth-child(3) { padding-left: 0; border-left: 0; }
-    .facts > div:nth-child(n+3) { border-top: 1px solid var(--rule); }
-    .sec { margin-top: 80px; }
-    .ways, .operator, .road { grid-template-columns: 1fr; }
-    .operator { gap: 24px; }
-    .road > div + div { padding-left: 0; border-left: 0; }
-    .final { padding: 44px 22px; border-radius: 14px; margin-top: 80px; }
+    .hh { padding-top: 36px; }
+    .hh .lede { font-size: 17px; }
+    .ctas .btn, .ctas .btn-ghost { width: 100%; text-align: center; }
+    .feed { padding: 16px; border-radius: 16px; }
+    .feed-list { height: 380px; }
+    .strip { grid-template-columns: 1fr 1fr; }
+    .strip > div:nth-child(3) { padding-left: 0; border-left: 0; }
+    .strip > div:nth-child(n+3) { margin-top: 22px; border-top: 1px solid var(--rule); }
+    .sec { margin-top: 88px; }
+    .layers { grid-template-columns: 1fr; }
+    .arrow { padding: 10px 0; } .arrow svg { transform: rotate(90deg); }
+    .wf { grid-template-columns: 1fr; }
+    .tg { margin-top: 88px; } .tg .wide { padding-top: 64px; padding-bottom: 64px; gap: 40px; }
+    .calc, .res { padding: 22px; }
+    .margin { grid-template-columns: 1fr; }
+    .op { gap: 24px; }
+    .final { padding: 48px 22px; border-radius: 14px; margin-top: 88px; }
   }
+  @media (prefers-reduced-motion: reduce) { .ev, .pulse { animation: none; } }
 </style>
 </head>
 <body>
@@ -364,23 +455,91 @@
       <span class="wordmark">acel<span>·</span>cortex</span>
     </a>
     <nav class="nav">
-      <a class="lnk" href="#how">How it works</a>
-      <a class="lnk" href="#roadmap">Roadmap</a>
+      <a class="lnk" href="#workflows">Workflows</a>
+      <a class="lnk" href="#telegram">Telegram</a>
+      <a class="lnk" href="#savings">Savings</a>
       <a class="btn btn-sm js-book" href="https://calendly.com/ping-acelcortex/30min">Book a call</a>
     </nav>
   </div>
 </header>
 
-<main class="wrap home-main">
-  <section class="h-hero">
-    <h1>Your back office, run by AI.</h1>
-    <p class="lede">Built inside an 800-door property management company. We start with accounts payable: a full day of invoicing, done in about 45 minutes, and nothing posts until you approve it.</p>
-    <div class="h-ctas">
-      <a class="btn" href="/start">Watch the walkthrough</a>
-      <a class="btn-ghost js-book" href="https://calendly.com/ping-acelcortex/30min">Book a call</a>
+<main class="home-main">
+  <div class="wide">
+  <section class="hh">
+    <div>
+      <div class="kicker"><b>●</b> AI back office for property management</div>
+      <h1>Run more doors at a higher margin, with the team you have.</h1>
+      <p class="lede">Acel Cortex takes the first pass on invoices, maintenance intake, your inbox, leasing and notices. Your team reviews and approves. Nothing posts without a person.</p>
+      <div class="ctas">
+        <a class="btn js-book" href="https://calendly.com/ping-acelcortex/30min">Book a call</a>
+        <a class="btn-ghost" href="/start">Watch the walkthrough</a>
+      </div>
+      <div class="built"><span class="pulse" aria-hidden="true"></span>Built and running inside an 800-door property management company</div>
     </div>
-  <section class="mock-sec" aria-label="Sample review screen">
-        <p class="sr">Animation: a cursor selects four ready invoices, skips a flagged duplicate, and clicks Post charges.</p>
+    <div class="feed" aria-label="Sample agent activity">
+      <div class="feed-top"><span class="t">Agent activity</span><span class="s"><span class="pulse" aria-hidden="true"></span>Live sample</span></div>
+      <ul class="feed-list" id="feed"></ul>
+      <div class="feed-foot">Sample data. Every item waits for your approval.</div>
+    </div>
+  </section>
+
+  <div class="strip">
+    <div><b>800 doors</b><span>Running on Acel Cortex every day</span></div>
+    <div><b>1 day to 45 min</b><span>Invoicing time on our own book</span></div>
+    <div><b>19 workflows</b><span>Live in our own operation</span></div>
+    <div><b>0 auto-posts</b><span>A person approves every action</span></div>
+  </div>
+
+  <section class="sec">
+    <div class="sec-head">
+      <div class="kicker">How it changes the work</div>
+      <h2>Your team becomes the second layer.</h2>
+      <p>Today your admins are the first to touch every invoice, email and request. With Acel Cortex they review work that is already done, and spend their time on the exceptions that need judgment.</p>
+    </div>
+    <div class="layers">
+      <div class="layer ai">
+        <div class="n">Layer 1 · Acel Cortex</div>
+        <h3>Reads, sorts and drafts</h3>
+        <ul>
+          <li>Pulls invoices, emails and requests from every inbox</li>
+          <li>Matches, codes and checks for duplicates</li>
+          <li>Triages maintenance and drafts replies</li>
+          <li>Prepares notices, assessments and owner updates</li>
+        </ul>
+      </div>
+      <div class="arrow" aria-hidden="true"><svg viewBox="0 0 40 16"><path d="M0 8h36M30 2l6 6-6 6" fill="none" stroke="#10846C" stroke-width="2"/></svg></div>
+      <div class="layer team">
+        <div class="n">Layer 2 · Your team</div>
+        <h3>Reviews and approves</h3>
+        <ul>
+          <li>Checks the batch, line by line, on one screen</li>
+          <li>Edits anything before it goes out</li>
+          <li>Approves, and the work posts to your PMS</li>
+          <li>Handles the calls that need a person</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="workflows">
+    <div class="sec-head">
+      <div class="kicker">What it handles</div>
+      <h2>One system across the back office.</h2>
+      <p>Every workflow runs on our own 800 doors first. Accounting is available to clients now, and the rest rolls out as each one proves itself in-house.</p>
+    </div>
+    <div class="wf"><div class="dept"><h3>Accounting</h3><div class="sub">Invoices to owner charges</div><ul><li>Vendor invoice processing<span class="tagx avail">Available</span></li><li>Work order matching<span class="tagx avail">Available</span></li><li>Duplicate detection<span class="tagx avail">Available</span></li><li>Owner charges and profit<span class="tagx avail">Available</span></li><li>e-Transfer rent posting<span class="tagx live">In-house</span></li><li>Utility bill splits<span class="tagx live">In-house</span></li></ul></div><div class="dept"><h3>Maintenance and inbox</h3><div class="sub">AI as the first layer</div><ul><li>Maintenance request triage<span class="tagx live">In-house</span></li><li>Main inbox sorting<span class="tagx live">In-house</span></li><li>Reply drafts for review<span class="tagx live">In-house</span></li><li>Vendor booking<span class="tagx live">In-house</span></li><li>Calendar scheduling<span class="tagx live">In-house</span></li></ul></div><div class="dept"><h3>Leasing</h3><div class="sub">From listing to lease</div><ul><li>Rental analysis<span class="tagx live">In-house</span></li><li>Rental application assessment<span class="tagx live">In-house</span></li><li>Owner leasing updates<span class="tagx live">In-house</span></li><li>Welcome letters<span class="tagx live">In-house</span></li></ul></div><div class="dept"><h3>Notices and tasks</h3><div class="sub">Paperwork, prepared</div><ul><li>Notice of entry, single or building<span class="tagx live">In-house</span></li><li>N1 rent increase, single or bulk<span class="tagx live">In-house</span></li><li>N4 non-payment, single or bulk<span class="tagx live">In-house</span></li><li>Resident tasks<span class="tagx live">In-house</span></li></ul></div></div>
+    <div class="legend"><span><span class="tagx avail">Available</span> Offered to clients today</span><span><span class="tagx live">In-house</span> Running in our own operation, rolling out next</span></div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head">
+      <div class="kicker">Accounts payable, in practice</div>
+      <h2>A full day of invoicing, done in about 45 minutes.</h2>
+      <p>Every invoice on one screen, matched to its work order, with the owner charge and your profit worked out. Adjust anything, then post the batch.</p>
+    </div>
+    <div class="flag-grid">
+  <div class="mock-sec">
+    <p class="sr">Animation: a cursor selects four ready invoices, skips a flagged duplicate, and clicks Post charges.</p>
     <div class="mock" aria-hidden="true">
       <svg class="cursor" viewBox="0 0 24 24" width="22" height="22"><path d="M3 2l7.5 19 2.6-7.6L21 10.8z" fill="#141414" stroke="#FBFAF7" stroke-width="1.5" stroke-linejoin="round"/></svg>
       <span class="ring"></span>
@@ -466,96 +625,91 @@
       </div>
     </div>
     <p class="mock-note">Sample data. Posted charges go back into your PMS.</p>
-  </section>
-    <div class="facts">
-      <div><b>1 day to 45 min</b><span>Invoicing on our own book</span></div>
-      <div><b>800 doors</b><span>Running on it every day</span></div>
-      <div><b>You approve</b><span>Nothing posts without a person</span></div>
-      <div><b>No migration</b><span>Works on top of your PMS</span></div>
+  </div>
     </div>
   </section>
+  </div>
 
-  <section class="steps" id="how" aria-labelledby="steps-title">
-    <h2 id="steps-title">How it works</h2>
-    <ol>
-      <li><span class="n">1</span><h3>AI collects invoices</h3><p>AI pulls invoices from every vendor into one place. No more digging through inboxes.</p></li>
-      <li><span class="n">2</span><h3>AI does the first pass</h3><p>Each invoice is matched to its work order, cleaned up, and checked for duplicates.</p></li>
-      <li><span class="n">3</span><h3>You approve in one go</h3><p>Review all invoices line by line on one screen. AI posts approved bills to your PMS.</p></li>
-      <li><span class="n">4</span><h3>Your hours come back</h3><p>Hours of accounting work freed up for growing the business or cutting costs.</p></li>
-    </ol>
-  </section>
-
-  <section class="sec">
-    <div class="sec-head">
-      <h2>Two ways to work with it</h2>
-      <p>Most of the work happens in the dashboard. If your team lives on their phones, add the chat assistant.</p>
-    </div>
-    <div class="ways">
-      <div class="way">
-        <span class="tag">Included</span>
-        <h3>The dashboard</h3>
-        <p>Every invoice from every vendor on one screen, matched to its work order, with the charge to the owner and your profit already worked out. Review line by line, edit anything, then post the batch back into your PMS.</p>
+  <section class="tg" id="telegram">
+    <div class="wide">
+      <div>
+        <div class="kicker"><b>●</b> Telegram add-on</div>
+        <h2>Run the office from a chat.</h2>
+        <p class="l">Your team asks in plain English or types a command. Acel Cortex prepares the work, asks the right follow-up questions, and waits for a yes.</p>
+        <div class="cmds" aria-label="Available commands">
+          <code class="hl">/noe</code><code>/n1</code><code>/n1s</code><code>/n4</code><code>/n4s</code><code>/billing</code><code>/addcharge</code><code>/etransfer</code><code>/utility</code><code>/booking</code><code>/calendar</code><code>/email</code><code>/task</code><code>/welcome</code>
+        </div>
+        <p class="note">New commands land as we build them on our own book. The dashboard does the heavy lifting, chat is for speed.</p>
       </div>
-      <div class="way dark">
-        <span class="tag">Add-on</span>
-        <h3>Text it instead</h3>
-        <p>Ask in plain English from Telegram, get a plan back, approve with one word.</p>
-        <div class="chat" aria-hidden="true">
-          <div class="bubble me">Anything waiting on me today?</div>
-          <div class="bubble ai">6 invoices ready to post, $1,840 total. 1 looks like a duplicate, I held it back. Post the 6?</div>
-          <div class="bubble me">Yes</div>
+      <div class="phone" aria-hidden="true">
+        <div class="phone-top"><span class="av">A</span><div><b>Acel Cortex</b><span>Admin team · 5 members</span></div></div>
+        <div class="msgs">
+          <div class="m me">Prepare a notice of entry for 412 Maple Ave, Wednesday between 1pm and 3pm, appliance tech visit.</div>
+          <div class="m ai">Notice of entry for 412 Maple Ave. One unit or the whole building?<div class="opts"><span>Unit 2</span><span class="on">Whole building (8)</span></div></div>
+          <div class="m ai">Ready for 8 tenants, Wednesday 1pm to 3pm, appliance tech visit. How should it go out?<div class="opts"><span class="on">Email</span><span>PMS template</span><span>Both</span></div><small>Added to the calendar once you approve.</small></div>
+          <div class="m me">Approve</div>
+          <div class="m ai">Sent to 8 tenants. Calendar updated.</div>
         </div>
       </div>
     </div>
   </section>
 
+  <div class="wide">
+  <section class="sec" id="savings">
+    <div class="sec-head">
+      <div class="kicker">The math</div>
+      <h2>See what it's worth to your portfolio.</h2>
+      <p>Your numbers, worked out live. On a call we check them against your own invoices and inbox, so the figure you leave with is yours.</p>
+    </div>
+    <div class="sv">
+      <div class="calc">
+        <div class="fld"><label for="c-units">Units under management <b id="o-units"></b></label><input id="c-units" type="range" min="50" max="2000" step="25" value="400"><div class="ticks"><span>50</span><span>1,000</span><span>2,000</span></div></div>
+        <div class="fld"><label for="c-staff">Admin and ops staff <b id="o-staff"></b></label><input id="c-staff" type="range" min="1" max="20" step="1" value="4"><div class="ticks"><span>1</span><span>10</span><span>20</span></div></div>
+        <div class="fld"><label for="c-sal">Average salary, fully loaded <b id="o-sal"></b></label><input id="c-sal" type="range" min="40000" max="120000" step="1000" value="60000"><div class="ticks"><span>$40k</span><span>$80k</span><span>$120k</span></div></div>
+        <div class="fld"><label for="c-hrs">First-pass hours per person, per day <b id="o-hrs"></b></label><input id="c-hrs" type="range" min="0.5" max="6" step="0.5" value="3"><div class="ticks"><span>0.5</span><span>3</span><span>6</span></div></div>
+        <p class="hint">Count the hours each person spends on work Acel Cortex can take the first pass on: invoices, inbox sorting, notices and intake. Salary includes benefits and overhead.</p>
+      </div>
+      <div class="res" aria-live="polite">
+        <div class="lbl">Time back, valued per year</div>
+        <div class="big" id="r-year">$0</div>
+        <div class="grid4">
+          <div><div class="lbl">Per month</div><div class="v" id="r-month">$0</div></div>
+          <div><div class="lbl">Added margin per door</div><div class="v"><span id="r-door">$0</span><small> /mo</small></div></div>
+          <div><div class="lbl">Hours back per day</div><div class="v" id="r-hrs">0</div></div>
+          <div><div class="lbl">Headcount equivalent</div><div class="v" id="r-fte">0</div></div>
+        </div>
+        <div class="foot">Reinvest it in growth, or keep it as margin.</div>
+      </div>
+    </div>
+    <div class="margin">
+      <div><h3>Grow without hiring</h3><p>Add doors without the admin hire that usually comes with them.</p></div>
+      <div><h3>Keep the people you have</h3><p>Take the work nobody wants off their desk, and keep your best people longer.</p></div>
+      <div><h3>Fewer costly mistakes</h3><p>Duplicates and miscoded invoices get caught before they post, not after the owner calls.</p></div>
+    </div>
+  </section>
+
   <section class="sec">
-    <div class="operator">
+    <div class="op">
       <div>
         <blockquote>I built this because our own back office was breaking.</blockquote>
         <div class="who">Ping Hsu, founder. Runs an 800-door property management company.</div>
       </div>
       <div class="body">
-        <p>Every month our team spent days opening vendor emails, matching invoices to work orders, working out what to bill each owner, and keying it all into our software. It was the job nobody wanted and the one place mistakes cost real money.</p>
-        <p>Acel Cortex does that first pass now. Our team reviews it and approves it. We run our own company on it, and we built it for operators who are tired of hiring to keep up with paperwork.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" id="roadmap">
-    <div class="sec-head">
-      <h2>Where we're going</h2>
-      <p>The goal is a back office that runs itself, with your team approving the decisions. We're building it one workflow at a time, and each one runs on our own book before it's offered to you.</p>
-    </div>
-    <div class="road">
-      <div>
-        <h3><span class="dot"></span>Available now</h3>
-        <ul>
-          <li><b>Accounts payable</b><span>Invoices collected, read, matched, checked for duplicates and posted</span></li>
-          <li><b>Owner billing</b><span>Charge to owner and profit on every invoice, posted with the bills</span></li>
-          <li><b>Chat assistant</b><span>Review and approve from Telegram, as an add-on</span></li>
-        </ul>
-      </div>
-      <div class="later">
-        <h3><span class="dot next"></span>In development</h3>
-        <ul>
-          <li><b>Maintenance intake</b><span>Tenant requests sorted and routed to the right vendor</span></li>
-          <li><b>Leasing</b><span>Inquiries answered and showings booked</span></li>
-          <li><b>Payments and notices</b><span>e-Transfer posting and tenant notices</span></li>
-          <li><b>Reporting</b><span>Owner and portfolio reports</span></li>
-        </ul>
+        <p>Our admin team was the first layer for everything: every vendor invoice, every tenant email, every notice and application. Growth meant hiring, and hiring meant thinner margins.</p>
+        <p>So we built Acel Cortex inside our own company. It does the first pass, our team approves, and every workflow runs on our 800 doors before it's offered to anyone else. You're talking to an operator, not a software vendor.</p>
       </div>
     </div>
   </section>
 
   <section class="final">
-    <h2>See it on a real back office.</h2>
-    <p>Watch the walkthrough, then book 30 minutes with an operator, not a sales rep.</p>
-    <div class="h-ctas">
-      <a class="btn" href="/start">Watch the walkthrough</a>
-      <a class="btn-ghost js-book" href="https://calendly.com/ping-acelcortex/30min">Book a call</a>
+    <h2>See it on your own back office.</h2>
+    <p>Thirty minutes with an operator. We'll look at where your team's hours go and what Acel Cortex would take off their desk.</p>
+    <div class="ctas">
+      <a class="btn js-book" href="https://calendly.com/ping-acelcortex/30min">Book a call</a>
+      <a class="btn-ghost" href="/start">Watch the walkthrough</a>
     </div>
   </section>
+  </div>
 </main>
 
 <footer>
@@ -564,6 +718,7 @@
     <span>Acel Cortex Solutions · acelcortex.ai</span>
   </div>
 </footer>
+
 
 <dialog id="book-dialog" aria-labelledby="dlg-title">
   <div class="dlg-head">
@@ -726,6 +881,54 @@
         scroller.scrollTo({ left: 0 });
       }
     })();
+  })();
+
+  // Hero feed: sample events arrive at the top, then get approved
+  (() => {
+    const list = document.getElementById('feed');
+    if (!list) return;
+    const evs = [["Accounts payable", "6 invoices matched to work orders, ready to post"], ["Maintenance", "Leak reported at 412 Maple, Unit 2. Marked urgent, plumber suggested"], ["Leasing", "Rental application scored for 88 Birch Crescent"], ["Inbox", "14 emails sorted. 3 reply drafts waiting for review"], ["Notices", "Notice of entry prepared for 8 tenants, Wed 1 to 3pm"], ["Owner billing", "Owner charge added from a receipt photo, $45.00"], ["Leasing", "Rent analysis for 1550 King St, Unit 7 ready for the owner"], ["e-Transfer", "9 rent payments matched to tenant ledgers"], ["Accounts payable", "Possible duplicate held back from Cedar Grounds Co."], ["Leasing", "Weekly leasing update drafted for 3 owners"]];
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let i = 0;
+    const add = (approved) => {
+      const [w, d] = evs[i % evs.length]; i++;
+      const li = document.createElement('li'); li.className = 'ev';
+      li.innerHTML = '<span class="w"></span><span class="d"></span><span class="st"></span>';
+      li.children[0].textContent = w; li.children[1].textContent = d;
+      const st = li.children[2];
+      const ok = () => { st.className = 'st ok'; st.textContent = 'Approved'; };
+      if (approved) ok(); else { st.className = 'st wait'; st.textContent = 'Needs approval'; setTimeout(ok, 2600); }
+      list.prepend(li);
+      while (list.children.length > 8) list.lastElementChild.remove();
+    };
+    for (let k = 0; k < 5; k++) add(true);
+    if (reduce) return;
+    add(false);
+    setInterval(() => { if (!document.hidden) add(false); }, 3200);
+  })();
+
+  // Savings calculator
+  (() => {
+    const $ = id => document.getElementById(id);
+    if (!$('c-units')) return;
+    const money = n => '$' + Math.round(n).toLocaleString('en-US');
+    const calc = () => {
+      const units = +$('c-units').value, staff = +$('c-staff').value, sal = +$('c-sal').value, hrs = +$('c-hrs').value;
+      $('o-units').textContent = units.toLocaleString('en-US');
+      $('o-staff').textContent = staff + (staff === 1 ? ' person' : ' people');
+      $('o-sal').textContent = money(sal);
+      $('o-hrs').textContent = hrs + (hrs === 1 ? ' hr' : ' hrs');
+      const hourly = sal / 2000;          // 2,000 paid hours a year
+      const daily = staff * hrs;
+      const year = daily * 250 * hourly;  // 250 working days
+      $('r-year').textContent = money(year);
+      $('r-month').textContent = money(year / 12);
+      $('r-door').textContent = '$' + (year / 12 / units).toFixed(2);
+      $('r-hrs').textContent = daily.toFixed(1);
+      $('r-fte').textContent = (daily / 8).toFixed(1);
+    };
+    ['c-units', 'c-staff', 'c-sal', 'c-hrs'].forEach(id => $(id).addEventListener('input', calc));
+    calc();
   })();
 </script>
 </body>

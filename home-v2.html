@@ -985,7 +985,7 @@
     const steps = [
       () => bubble('ai', '<span class="lead">Receipt read</span><div class="rows"><span>Store</span><span>Home Depot</span><span>Item</span><span>Bathroom exhaust fan</span><span>Amount</span><span>$68.40</span><span>Property</span><span>412 Maple Ave, Unit 2</span></div>' + opts(['Confirm', 'Edit'])),
       () => bubble('ai', 'Who should this be billed to?' + opts(['Owner', 'Tenant'])),
-      () => bubble('ai', 'Markup on this charge:' + opts(['None', '10%', '15%'])),
+      () => bubble('ai', 'Markup on this charge:' + opts(['None', '10%', '15%', 'Custom'])),
       () => bubble('ai', 'Charge to owner <b>$78.66</b>, profit <b>$10.26</b>. Post it now?' + opts(['Post now', 'Hold for review'])),
     ];
     const picks = [0, 0, 2, 0];

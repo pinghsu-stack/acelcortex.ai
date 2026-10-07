@@ -475,13 +475,14 @@
   .rc-ic { flex: none; width: 30px; height: 38px; border-radius: 4px; background: #F5F2EC; position: relative; }
   .rc-ic::before { content: ""; position: absolute; left: 6px; right: 6px; top: 8px; height: 2px; background: #C9C3B8; box-shadow: 0 6px 0 #C9C3B8, 0 12px 0 #C9C3B8, 0 18px 0 #C9C3B8; }
 
-  .team { margin-top: 40px; display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; }
+  .founders { margin-top: 40px; display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; }
   .person { display: flex; align-items: center; gap: 20px; }
   .person img { flex: none; width: 120px; height: 120px; border-radius: 50%; object-fit: cover; background: #fff; border: 1px solid var(--rule); }
   .person b { display: block; font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
   .person span { display: block; font-size: 15px; color: var(--muted); margin-top: 4px; }
-  @media (max-width: 1000px) { .team { grid-template-columns: 1fr 1fr; gap: 24px; } }
-  @media (max-width: 760px) { .team { grid-template-columns: 1fr; gap: 20px; margin-top: 32px; } .person img { width: 96px; height: 96px; } }
+  .person span + span { margin-top: 2px; }
+  @media (max-width: 1000px) { .founders { grid-template-columns: 1fr 1fr; gap: 24px; } }
+  @media (max-width: 760px) { .founders { grid-template-columns: 1fr; gap: 20px; margin-top: 32px; } .person img { width: 96px; height: 96px; } }
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -722,9 +723,9 @@
         <p>So we built Acel Cortex inside our own companies. It does the first pass and our teams approve. Every workflow is proven in a working property management office before it reaches yours.</p>
       </div>
     </div>
-    <div class="team">
-      <div class="person"><img src="/assets/team/ping.jpg" alt="Ping Hsu" width="120" height="120" loading="lazy"><div><b>Ping Hsu</b><span>CEO. Runs a property management company.</span></div></div>
-      <div class="person"><img src="/assets/team/roman.jpg" alt="Roman Walcott" width="120" height="120" loading="lazy"><div><b>Roman Walcott</b><span>CTO. Runs a property management company.</span></div></div>
+    <div class="founders">
+      <div class="person"><img src="/assets/team/ping.jpg" alt="Ping Hsu" width="120" height="120" loading="lazy"><div><b>Ping Hsu</b><span>CEO</span><span>Also runs 800 units</span></div></div>
+      <div class="person"><img src="/assets/team/roman.jpg" alt="Roman Walcott" width="120" height="120" loading="lazy"><div><b>Roman Walcott</b><span>CTO</span><span>Also runs 300 units</span></div></div>
     </div>
   </section>
 

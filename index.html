@@ -474,6 +474,12 @@
   .receipt b { font-weight: 600; }
   .rc-ic { flex: none; width: 30px; height: 38px; border-radius: 4px; background: #F5F2EC; position: relative; }
   .rc-ic::before { content: ""; position: absolute; left: 6px; right: 6px; top: 8px; height: 2px; background: #C9C3B8; box-shadow: 0 6px 0 #C9C3B8, 0 12px 0 #C9C3B8, 0 18px 0 #C9C3B8; }
+
+  .team { margin-top: 28px; display: grid; gap: 16px; }
+  .person { display: flex; align-items: center; gap: 16px; }
+  .person img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; background: #fff; border: 1px solid var(--rule); }
+  .person b { display: block; font-size: 16px; font-weight: 600; }
+  .person span { display: block; font-size: 14px; color: var(--muted); margin-top: 2px; }
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -710,7 +716,10 @@
     <div class="op">
       <div>
         <blockquote>I built this because our own back office was breaking.</blockquote>
-        <div class="who">Ping Hsu, founder</div>
+        <div class="team">
+          <div class="person"><img src="/assets/team/ping.jpg" alt="Ping Hsu" width="72" height="72" loading="lazy"><div><b>Ping Hsu</b><span>CEO. Runs a property management company.</span></div></div>
+          <div class="person"><img src="/assets/team/roman.jpg" alt="Roman Singh" width="72" height="72" loading="lazy"><div><b>Roman Singh</b><span>CTO. Builds the system.</span></div></div>
+        </div>
       </div>
       <div class="body">
         <p>Our admin team was the first layer for everything: every vendor invoice, every tenant email, every notice and application. Growth meant hiring, and hiring meant thinner margins.</p>

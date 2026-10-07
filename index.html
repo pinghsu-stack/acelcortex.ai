@@ -439,6 +439,31 @@
     .final { padding: 48px 22px; border-radius: 14px; margin-top: 88px; }
   }
   @media (prefers-reduced-motion: reduce) { .ev, .pulse { animation: none; } }
+
+  /* Telegram animation */
+  .phone { position: relative; overflow: hidden; }
+  .msgs { height: 470px; overflow: hidden; display: flex; flex-direction: column; gap: 10px; padding-top: 16px; }
+  .msgs > .m, .msgs > .day { flex: none; animation: evIn 380ms var(--ease); }
+  .msgs .day { align-self: center; font-size: 11.5px; color: #8F887C; background: #24221E; padding: 3px 10px; border-radius: 999px; }
+  .m.me code { font-family: var(--font-mono); font-size: 14px; }
+  .m .lead { display: block; font-weight: 600; margin-bottom: 4px; }
+  .m .quote { display: block; margin: 6px 0; padding-left: 10px; border-left: 2px solid var(--green-soft); color: #C9C3B8; }
+  .opts span { transition: background 200ms, color 200ms, opacity 200ms, border-color 200ms; }
+  .opts span.off { opacity: 0.38; }
+  .opts.col { flex-direction: column; align-items: stretch; }
+  .opts.col span { border-radius: 10px; padding: 8px 12px; display: flex; justify-content: space-between; gap: 10px; }
+  .opts.col span em { font-style: normal; color: #A39C90; font-size: 12px; }
+  .opts.col span.on em { color: var(--muted); }
+  .m.done { border: 1px solid var(--green); background: #1E2E29; }
+  .m.done ul { list-style: none; margin-top: 6px; display: grid; gap: 3px; }
+  .m.done li::before { content: "✓ "; color: var(--green-soft); }
+  .inbar { margin-top: 12px; border: 1px solid var(--rule-dark); border-radius: 999px; padding: 11px 16px; font-size: 14.5px; color: #6F695F; min-height: 44px; }
+  .inbar .typed { color: var(--paper); font-family: var(--font-mono); }
+  .inbar.typing .ph { display: none; }
+  .inbar.typing .typed::after { content: ""; display: inline-block; width: 1px; height: 15px; margin-left: 1px; background: var(--paper); vertical-align: -2px; animation: caret 900ms steps(1) infinite; }
+  .tg-cursor path { fill: #FBFAF7; stroke: #141414; }
+  .tg-cursor.down path { fill: var(--green-soft); }
+  @media (max-width: 760px) { .msgs { height: 430px; } .phone { padding: 14px; } }
 </style>
 </head>
 <body>
@@ -628,19 +653,17 @@
       <div>
         <div class="kicker"><b>●</b> Telegram add-on</div>
         <h2>Run the office from a chat.</h2>
-        <p class="l">Your team asks in plain English or types a command. Acel Cortex prepares the work, asks the right follow-up questions, and waits for a yes.</p>
+        <p class="l">Start with a command or plain English. Acel Cortex triages the request, suggests a vendor, checks whether the owner needs to sign off, books the visit and sends the notice. Most steps are a single tap.</p>
         <p class="note">The dashboard does the heavy lifting. Chat is for speed.</p>
       </div>
-      <div class="phone" aria-hidden="true">
+      <div class="phone" id="tgPhone" aria-hidden="true">
+        <svg class="cursor tg-cursor" viewBox="0 0 24 24" width="22" height="22"><path d="M3 2l7.5 19 2.6-7.6L21 10.8z" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <span class="ring tg-ring"></span>
         <div class="phone-top"><span class="av">A</span><div><b>Acel Cortex</b><span>Admin team · 5 members</span></div></div>
-        <div class="msgs">
-          <div class="m me">Prepare a notice of entry for 412 Maple Ave, Wednesday between 1pm and 3pm, appliance tech visit.</div>
-          <div class="m ai">Notice of entry for 412 Maple Ave. One unit or the whole building?<div class="opts"><span>Unit 2</span><span class="on">Whole building (8)</span></div></div>
-          <div class="m ai">Ready for 8 tenants, Wednesday 1pm to 3pm, appliance tech visit. How should it go out?<div class="opts"><span class="on">Email</span><span>PMS template</span><span>Both</span></div><small>Added to the calendar once you approve.</small></div>
-          <div class="m me">Approve</div>
-          <div class="m ai">Sent to 8 tenants. Calendar updated.</div>
-        </div>
+        <div class="msgs" id="tgMsgs"></div>
+        <div class="inbar" id="tgIn"><span class="ph">Message</span><span class="typed"></span></div>
       </div>
+      <p class="sr">Animation: a property manager types /booking. Acel Cortex shows a leak report, suggests vendors, asks about owner approval, offers visit times and notice options, and the manager taps one option at each step. Acel Cortex confirms the tenant was notified, the vendor booked and the calendar updated.</p>
     </div>
   </section>
 
@@ -914,6 +937,102 @@
     };
     ['c-units', 'c-staff', 'c-sal', 'c-hrs'].forEach(id => $(id).addEventListener('input', calc));
     calc();
+  })();
+
+  // Telegram chat animation: one maintenance request, handled mostly with taps
+  (() => {
+    const phone = document.getElementById('tgPhone');
+    if (!phone) return;
+    const msgs = document.getElementById('tgMsgs');
+    const inbar = document.getElementById('tgIn');
+    const typed = inbar.querySelector('.typed');
+    const cursor = phone.querySelector('.tg-cursor');
+    const ring = phone.querySelector('.tg-ring');
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+    const bubble = (cls, html) => {
+      const d = document.createElement('div');
+      d.className = 'm ' + cls; d.innerHTML = html;
+      msgs.appendChild(d);
+      msgs.scrollTo({ top: msgs.scrollHeight, behavior: 'smooth' });
+      return d;
+    };
+    const opts = (labels, col) => '<div class="opts' + (col ? ' col' : '') + '">' +
+      labels.map(l => Array.isArray(l) ? `<span>${l[0]}<em>${l[1]}</em></span>` : `<span>${l}</span>`).join('') + '</div>';
+
+    const at = el => {
+      const p = phone.getBoundingClientRect(), r = el.getBoundingClientRect();
+      return { x: r.left - p.left + r.width / 2, y: r.top - p.top + r.height / 2 };
+    };
+    const moveTo = async el => {
+      const p = at(el);
+      cursor.style.transform = `translate(${p.x - 3}px, ${p.y - 2}px)`;
+      await sleep(720);
+      return p;
+    };
+    const click = async p => {
+      ring.style.left = p.x + 'px'; ring.style.top = p.y + 'px';
+      ring.classList.remove('go'); void ring.offsetWidth; ring.classList.add('go');
+      cursor.classList.add('down'); await sleep(160); cursor.classList.remove('down');
+    };
+    const tap = async (b, i) => {
+      const btns = [...b.querySelectorAll('.opts span')];
+      const p = await moveTo(btns[i]); await click(p);
+      btns.forEach((x, k) => x.classList.add(k === i ? 'on' : 'off'));
+      await sleep(550);
+    };
+
+    const steps = [
+      () => bubble('ai', '<span class="lead">New maintenance request</span>412 Maple Ave, Unit 2<span class="quote">Water is leaking under the kitchen sink and pooling in the cabinet.</span>Marked urgent. Pick a vendor:' +
+        opts([['Northline Plumbing', 'Today 3pm'], ['Brightway Plumbing', 'Tomorrow'], ['Summit Plumbing', 'Thu']], true)),
+      () => bubble('ai', 'Estimate is $185. Does this need owner approval?' + opts(['Ask the owner', 'No, under limit'])),
+      () => bubble('ai', 'Northline is free at:' + opts(['Today 3 to 5pm', 'Wed 1 to 3pm', 'Thu 9 to 11am'])),
+      () => bubble('ai', 'Notice of entry for Unit 2, Wed 1 to 3pm, plumbing repair. Send it by:' + opts(['Email', 'PMS template', 'Both'])),
+    ];
+    const picks = [0, 1, 1, 2];
+
+    const finish = () => bubble('ai done', '<span class="lead">Done</span><ul><li>Tenant updated and notice of entry sent</li><li>Northline booked for Wed 1 to 3pm</li><li>Calendar updated</li></ul>');
+
+    const reset = () => {
+      msgs.innerHTML = '<div class="day">Today</div>';
+      typed.textContent = ''; inbar.classList.remove('typing');
+      cursor.style.transform = 'translate(85%, 92%)';
+    };
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      reset(); cursor.style.display = 'none';
+      bubble('me', '<code>/booking</code>');
+      steps.forEach((s, i) => { const b = s(); b.querySelectorAll('.opts span').forEach((x, k) => x.classList.add(k === picks[i] ? 'on' : 'off')); });
+      finish();
+      return;
+    }
+
+    let visible = false;
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, { threshold: 0.35 }).observe(phone);
+
+    (async () => {
+      reset();
+      while (true) {
+        if (!visible) { await sleep(400); continue; }
+        reset();
+        await sleep(600);
+        // type the command
+        inbar.classList.add('typing');
+        for (const ch of '/booking') { typed.textContent += ch; await sleep(110); }
+        await sleep(350);
+        typed.textContent = ''; inbar.classList.remove('typing');
+        bubble('me', '<code>/booking</code>');
+        await sleep(700);
+        for (let i = 0; i < steps.length; i++) {
+          const b = steps[i]();
+          await sleep(900);
+          await tap(b, picks[i]);
+        }
+        await sleep(400);
+        finish();
+        await sleep(4200);
+      }
+    })();
   })();
 </script>
 </body>

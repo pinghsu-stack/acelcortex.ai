@@ -12,5 +12,17 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/starthere",
+      "destination": "/start",
+      "permanent": true
+    },
+    {
+      "source": "/start-here",
+      "destination": "/start",
+      "permanent": true
+    }
   ]
 }

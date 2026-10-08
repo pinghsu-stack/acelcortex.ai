@@ -1,0 +1,207 @@
+<!doctype html><html lang="en"><head><meta name="robots" content="noindex"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Step Four Growth Week</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one 16:9 SVG stage. A work-week calendar where the invoicing day collapses to a short review and the freed hours fill with growth work; it then steps aside for the goal card. */
+:root{
+  --paper:#F5F2EC; --paper-2:#EEEAE2; --paper-3:#FBFAF7; --ink:#141414;
+  --green:#10846C; --green-soft:#4FB89C; --green-deep:#0A5E4D; --muted:#6B655B; --rule:#E3DED4; --tint-green:#DCEDE7;
+  --sans:'Space Grotesk',-apple-system,system-ui,sans-serif;
+  --mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
+  --page:#E9E5DD;
+}
+html,body{background:transparent;color:var(--ink);font-family:var(--sans);padding:0;margin:0;overflow:hidden}
+.wrap{max-width:none;margin:0}
+
+.stage{width:100%;max-width:100%;aspect-ratio:16/9;border-radius:0;overflow:hidden;
+  --bg:var(--paper); --fg:var(--ink); --mut:var(--muted); --ln:var(--rule); --card:var(--paper-3); --row:var(--paper-2);
+  --acc:var(--green); --ap:#D6D0C4; --ap-fg:#3B362F; --rev-bg:var(--tint-green); --rev-fg:var(--green-deep);
+  --g1:var(--green-deep); --g2:var(--green); --g3:var(--green-soft); --g-fg:#F5F2EC; --g3-fg:#0A2E26;
+  background:var(--bg)}
+.stage.dark{--bg:#141414; --fg:#F5F2EC; --mut:#9A9387; --ln:#2A2825; --card:#1C1B19; --row:#22201D;
+  --acc:var(--green-soft); --ap:#3A3631; --ap-fg:#D9D4CA; --rev-bg:#16302A; --rev-fg:var(--green-soft)}
+.stage svg{display:block;width:100%;height:100%}
+
+svg text{font-family:var(--sans);fill:var(--fg)}
+.mono{font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase;fill:var(--mut)}
+.mut{fill:var(--mut)} .acc{fill:var(--acc)}
+.card{fill:var(--card);stroke:var(--ln);stroke-width:1.5}
+.rule{stroke:var(--ln);stroke-width:1}
+.blk{transition:opacity .4s ease}
+.inv{fill:var(--bg)} .inv-mut{fill:var(--bg);opacity:.65}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.controls button{font-family:var(--sans);font-size:14px;font-weight:500;padding:8px 16px;border-radius:999px;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
+.controls button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.controls button:focus-visible,.controls input:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.controls label{display:flex;align-items:center;gap:8px;color:var(--muted);font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+.controls input{font-family:var(--sans);font-size:14px;padding:7px 12px;border:1px solid var(--rule);border-radius:8px;background:var(--paper-3);color:var(--ink);width:240px;min-width:0}
+.spacer{flex:1}
+.hint{color:var(--muted);font-size:13px;margin:0}
+@media (max-width:640px){.controls input{width:100%}}
+</style>
+</head><body style="margin:0">
+
+<div class="wrap">
+<div class="stage" id="stage">
+<svg viewBox="0 0 1600 900" role="img" aria-label="A work week where the full invoicing day becomes a 45 minute review, and the freed hours go to owner calls, vendor sourcing and new business. Ends on the goal card.">
+  <!-- copy -->
+  <text class="mono" x="110" y="96" font-size="15"><tspan class="acc">04</tspan> · Reassign the hours</text>
+  <text x="108" y="160" font-size="54" font-weight="600" letter-spacing="-1.8">Your week, back</text>
+  <text class="mut" x="110" y="204" font-size="21">Invoicing day and daily bill processing shrink to quick reviews. The rest goes to growing the book.</text>
+  <text x="1490" y="98" font-size="24" font-weight="500" letter-spacing="-1" text-anchor="end">acel<tspan class="acc">·</tspan>cortex</text>
+
+  <g id="cal">
+    <rect class="card" x="110" y="240" width="1380" height="560" rx="16"/>
+    <g id="grid"></g>
+    <text id="weekTag" class="mono" x="1466" y="270" font-size="11" text-anchor="end">Your team's week · today</text>
+    <g id="blocks"></g>
+  </g>
+
+  <!-- end frame -->
+  <g id="endline" opacity="0">
+    <text x="110" y="700" font-size="46" font-weight="600" letter-spacing="-1.6">Same team.</text>
+    <text class="mut" x="110" y="752" font-size="46" font-weight="600" letter-spacing="-1.6">Room to grow.</text>
+  </g>
+  <g id="goal" opacity="0" transform="translate(940 280)">
+    <rect x="0" y="0" width="550" height="440" rx="18" fill="var(--fg)"/>
+    <text class="inv-mut" x="36" y="54" font-size="12" style="font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase">Your goal</text>
+    <text id="goalText" class="inv" x="34" y="124" font-size="46" font-weight="600" letter-spacing="-1.5">More doors, same team</text>
+    <text class="inv-mut" x="36" y="196" font-size="11" style="font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase">Where the time goes now</text>
+    <rect x="36" y="214" width="478" height="16" rx="8" fill="var(--bg)" opacity=".14"/>
+    <rect id="seg1" x="36" y="214" width="0" height="16" rx="8" fill="var(--g3)"/>
+    <rect id="seg2" x="36" y="214" width="0" height="16" fill="var(--g2)"/>
+    <rect id="seg3" x="36" y="214" width="0" height="16" fill="var(--g1)"/>
+    <g id="legend" opacity="0">
+      <circle cx="44" cy="276" r="7" fill="var(--g3)"/><text class="inv" x="62" y="282" font-size="18">Owner check-in calls</text>
+      <circle cx="44" cy="314" r="7" fill="var(--g2)"/><text class="inv" x="62" y="320" font-size="18">New owner pitches</text>
+      <circle cx="44" cy="352" r="7" fill="var(--g1)" stroke="var(--bg)" stroke-opacity=".4"/><text class="inv" x="62" y="358" font-size="18">Vendor sourcing</text>
+      <text class="inv-mut" x="36" y="408" font-size="15">Same people, pointed at the work that grows the book.</text>
+    </g>
+  </g>
+</svg>
+</div>
+
+</div>
+
+<script>
+(function(){
+  const NS='http://www.w3.org/2000/svg', $=id=>document.getElementById(id);
+  const X0=180, CW=262, Y0=300, HH=60;            // grid: 9:00 at Y0, one hour = HH
+  const bx=d=>X0+d*CW+6, by=h=>Y0+(h-9)*HH, W=CW-12;
+  const DAYS=['Mon','Tue','Wed','Thu','Fri'];
+  // day, start, end, label, kind
+  const NEUTRAL=[
+    [0,9,10,'Team huddle'],[0,10,12,'Tenant calls'],[0,14,16,'Showings'],
+    [2,9,11,'Showings'],[2,13,15,'Maintenance follow-ups'],[2,15,17,'Tenant calls'],
+    [3,9,10,'Team huddle'],[3,10,12.5,'Leasing'],[3,14,16,'Tenant calls'],
+    [4,9,11,'Showings'],[4,13,15,'Tenant calls']
+  ];
+  // daily bill processing: day, start, end before, end after
+  const BILLS=[[0,12.5,14,13],[2,11,12.5,11.5],[3,12.5,14,13],[4,11,12.5,11.5]];
+  const GROWTH=[
+    [0,13,14,'Owner upsell review','--g1','--g-fg'],
+    [2,11.5,12.5,'Vendor sourcing','--g1','--g-fg'],
+    [3,13,14,'Owner check-in calls','--g3','--g3-fg'],
+    [4,11.5,12.5,'New owner pitch','--g2','--g-fg'],
+    [1,10,12,'Owner check-in calls','--g3','--g3-fg'],
+    [1,12,13.5,'Referral lunch','--g2','--g-fg'],
+    [1,13.5,15,'Vendor sourcing','--g1','--g-fg'],
+    [1,15,17,'New owner pitch','--g2','--g-fg']
+  ];
+  let run=0, paused=false, inv, invLabel, invTime, bills=[];
+
+  function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e}
+  function txt(p,a,s){const t=el('text',a,p);t.textContent=s;return t}
+  function wait(ms,id){return new Promise((res,rej)=>{let left=ms;const t=setInterval(()=>{if(id!==run){clearInterval(t);rej('reset');return}if(!paused)left-=40;if(left<=0){clearInterval(t);res()}},40)})}
+  function tween(ms,id,fn){return new Promise((res,rej)=>{let e=0,last=performance.now();function f(now){if(id!==run){rej('reset');return}if(!paused)e+=now-last;last=now;const p=Math.min(1,e/ms);fn(p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2,p);if(p<1)requestAnimationFrame(f);else res()}requestAnimationFrame(f)})}
+  const hhmm=h=>{const H=Math.floor(h),M=Math.round((h-H)*60);return H+':'+String(M).padStart(2,'0')};
+
+  // grid
+  (function(){
+    const g=$('grid');
+    DAYS.forEach((d,i)=>{txt(g,{class:'mono',x:X0+i*CW+8,y:286,'font-size':12},d);if(i)el('line',{class:'rule',x1:X0+i*CW,y1:276,x2:X0+i*CW,y2:788},g)});
+    for(let h=9;h<=17;h++){el('line',{class:'rule',x1:X0,y1:by(h),x2:1490,y2:by(h),opacity:h===9?1:.6},g);if(h<17)txt(g,{class:'mut',x:166,y:by(h)+14,'font-size':12,'text-anchor':'end',style:'font-family:var(--mono)'},hhmm(h))}
+  })();
+
+  function block(d,s,e,label,fill,fg,stroke){
+    const g=el('g',{class:'blk'},$('blocks'));
+    const r=el('rect',{x:bx(d),y:by(s)+3,width:W,height:(e-s)*HH-6,rx:8,fill:`var(${fill})`},g);
+    if(stroke)r.setAttribute('stroke',`var(${stroke})`),r.setAttribute('stroke-width',1.5);
+    const t=txt(g,{x:bx(d)+12,y:by(s)+24,'font-size':14,'font-weight':500,style:`fill:var(${fg})`},label);
+    const m=(e-s)>=1?txt(g,{x:bx(d)+12,y:by(s)+42,'font-size':10.5,style:`fill:var(${fg});font-family:var(--mono);opacity:.7`},hhmm(s)+' to '+hhmm(e)):null;
+    return {g,r,t,m};
+  }
+  function reset(){
+    $('blocks').innerHTML='';
+    NEUTRAL.forEach(([d,s,e,l])=>block(d,s,e,l,'--card','--mut','--ln'));
+    inv=block(1,9,17,'Invoicing','--ap','--ap-fg');
+    invTime=inv.m; invTime.textContent='Full day';
+    invLabel=inv.t;
+    const sub=txt(inv.g,{x:bx(1)+12,y:by(9)+64,'font-size':12,style:'fill:var(--ap-fg);opacity:.75'},'Entry, coding, owner billing');
+    inv.sub=sub;
+    // faint row lines inside the invoicing block, like a stack of bills
+    inv.bars=[];for(let k=0;k<9;k++)inv.bars.push(el('rect',{x:bx(1)+12,y:by(10.5)+k*38,width:W-24-(k%3)*30,height:8,rx:4,fill:'var(--ap-fg)',opacity:.12},inv.g));
+    bills=BILLS.map(([d,s,e,e2])=>{const b=block(d,s,e,'Processing bills','--ap','--ap-fg');b.d=d;b.s=s;b.e=e;b.e2=e2;return b});
+    $('weekTag').textContent="Your team's week · today";
+    $('cal').removeAttribute('transform');
+    ['endline','goal','legend'].forEach(k=>$(k).setAttribute('opacity',0));
+    ['seg1','seg2','seg3'].forEach(k=>$(k).setAttribute('width',0));
+  }
+
+  async function sequence(id){
+    await wait(1600,id);
+    // spotlight the invoicing day and the daily bill processing
+    const all=[inv,...bills];
+    all.forEach(b=>b.r.setAttribute('stroke','var(--fg)'));
+    await tween(400,id,e=>all.forEach(b=>b.r.setAttribute('stroke-width',e*3)));
+    await wait(500,id);
+    // collapse them to short reviews
+    inv.sub.style.opacity=0; inv.bars.forEach(b=>b.style.opacity=0); bills.forEach(b=>{b.t.style.opacity=0;if(b.m)b.m.style.opacity=0});
+    const H0=8*HH-6, H1=.75*HH-6;
+    await tween(1100,id,e=>{inv.r.setAttribute('height',H0+(H1-H0)*e);
+      bills.forEach(b=>{const a=(b.e-b.s)*HH-6,z=(b.e2-b.s)*HH-6;b.r.setAttribute('height',a+(z-a)*e)})});
+    bills.forEach(b=>{
+      b.r.setAttribute('fill','var(--rev-bg)');b.r.setAttribute('stroke','var(--rev-fg)');b.r.setAttribute('stroke-width',1.5);
+      b.t.textContent='Review';b.t.setAttribute('y',by(b.s)+20);b.t.setAttribute('font-size',12.5);b.t.setAttribute('style','fill:var(--rev-fg)');
+      if(b.m){b.m.textContent='30 min';b.m.setAttribute('x',bx(b.d)+W-12);b.m.setAttribute('y',by(b.s)+20);b.m.setAttribute('text-anchor','end');b.m.setAttribute('style','fill:var(--rev-fg);font-family:var(--mono)')}
+      b.t.style.opacity=1;if(b.m)b.m.style.opacity=1;
+    });
+    inv.r.setAttribute('fill','var(--rev-bg)');inv.r.setAttribute('stroke','var(--rev-fg)');inv.r.setAttribute('stroke-width',1.5);
+    invLabel.setAttribute('style','fill:var(--rev-fg)');invLabel.textContent='Review and post';
+    invTime.setAttribute('y',by(9)+24);invTime.setAttribute('x',bx(1)+W-12);invTime.setAttribute('text-anchor','end');
+    invTime.setAttribute('style','fill:var(--rev-fg);font-family:var(--mono)');invTime.textContent='45 min';
+    $('weekTag').textContent="Your team's week · with Acel Cortex";
+    await wait(500,id);
+    // freed hours fill with growth work
+    for(const [d,s,e,l,f,fg] of GROWTH){
+      const b=block(d,s,e,l,f,fg); const h=(e-s)*HH-6; b.r.setAttribute('height',0); b.t.style.opacity=0; if(b.m)b.m.style.opacity=0;
+      await tween(420,id,k=>b.r.setAttribute('height',h*k)); b.t.style.opacity=1; if(b.m)b.m.style.opacity=.7;
+      await wait(180,id);
+    }
+    await wait(1400,id);
+    // calendar steps aside, goal card comes in
+    await tween(900,id,e=>{const s=1-.45*e;$('cal').setAttribute('transform',`translate(110 ${240+30*e}) scale(${s}) translate(-110 -240)`)});
+    await tween(500,id,e=>{$('goal').setAttribute('opacity',e);$('endline').setAttribute('opacity',e)});
+    await tween(1100,id,e=>{$('seg1').setAttribute('width',478*.36*e);$('seg2').setAttribute('x',36+478*.36*e);$('seg2').setAttribute('width',478*.28*e);
+      $('seg3').setAttribute('x',36+478*.64*e);$('seg3').setAttribute('width',478*.22*e)});
+    await tween(400,id,e=>$('legend').setAttribute('opacity',e));
+    await wait(4500,id);
+  }
+  async function loop(){const id=++run;try{for(;;){reset();await sequence(id)}}catch(e){}}
+
+  if($('replay'))$('replay').onclick=loop;
+  if($('pause'))$('pause').onclick=()=>{paused=!paused;$('pause').setAttribute('aria-pressed',paused);$('pause').textContent=paused?'Resume':'Pause'};
+  if($('dark'))$('dark').onclick=()=>{const d=$('stage').classList.toggle('dark');$('dark').setAttribute('aria-pressed',d)};
+  if($('goalIn'))$('goalIn').addEventListener('input',e=>{$('goalText').textContent=e.target.value||' '});
+
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+    reset();inv.g.remove();bills.forEach(b=>b.g.remove());block(1,9,9.75,'Review and post','--rev-bg','--rev-fg','--rev-fg');
+    BILLS.forEach(([d,s,e,e2])=>block(d,s,e2,'Review','--rev-bg','--rev-fg','--rev-fg'));GROWTH.forEach(([d,s,e,l,f,fg])=>block(d,s,e,l,f,fg));
+    $('cal').setAttribute('transform','translate(110 270) scale(.55) translate(-110 -240)');
+    ['endline','goal','legend'].forEach(k=>$(k).setAttribute('opacity',1));
+    $('seg1').setAttribute('width',478*.36);$('seg2').setAttribute('x',36+478*.36);$('seg2').setAttribute('width',478*.28);$('seg3').setAttribute('x',36+478*.64);$('seg3').setAttribute('width',478*.22);
+  } else loop();
+})();
+</script>
+</body></html>

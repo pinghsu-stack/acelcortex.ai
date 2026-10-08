@@ -1,0 +1,191 @@
+<!doctype html><html lang="en"><head><meta name="robots" content="noindex"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Step One Invoice Hub</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one 16:9 SVG stage. Three sources on the left feed the Parallax hub in the centre, which fills one invoice queue on the right. */
+:root{
+  --paper:#F5F2EC; --paper-2:#EEEAE2; --paper-3:#FBFAF7; --ink:#141414; --ink-soft:#2B2721;
+  --green:#10846C; --green-soft:#4FB89C; --green-deep:#0A5E4D; --muted:#6B655B; --rule:#E3DED4;
+  --sans:'Space Grotesk',-apple-system,system-ui,sans-serif;
+  --mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
+  --page:#E9E5DD;
+}
+html,body{background:transparent;color:var(--ink);font-family:var(--sans);padding:0;margin:0;overflow:hidden}
+.wrap{max-width:none;margin:0}
+
+.stage{width:100%;max-width:100%;aspect-ratio:16/9;border-radius:0;overflow:hidden;
+  --bg:var(--paper); --fg:var(--ink); --soft:var(--ink-soft); --mut:var(--muted); --ln:var(--rule);
+  --card:var(--paper-3); --row:var(--paper-2); --acc:var(--green); --wire:#D6D0C4; background:var(--bg)}
+.stage.dark{--bg:#141414; --fg:#F5F2EC; --soft:#D9D4CA; --mut:#9A9387; --ln:#2A2825;
+  --card:#1C1B19; --row:#22201D; --acc:var(--green-soft); --wire:#34312C}
+.stage svg{display:block;width:100%;height:100%}
+
+svg text{font-family:var(--sans);fill:var(--fg)}
+.mono{font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase;fill:var(--mut)}
+.mut{fill:var(--mut)}
+.card{fill:var(--card);stroke:var(--ln);stroke-width:1.5}
+.wire{fill:none;stroke:var(--wire);stroke-width:2}
+.icon{fill:none;stroke:var(--fg);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hub-ring{fill:none;stroke:var(--fg)}
+.hub-core{fill:var(--fg)}
+.acc{fill:var(--acc)}
+.pkt rect.body{fill:var(--card);stroke-width:2}
+.pkt line{stroke:var(--mut);stroke-width:2;stroke-linecap:round}
+.tagbg{fill:var(--row)}
+.rowline{stroke:var(--ln);stroke-width:1}
+.row{transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .45s ease}
+.pulse{fill:none;stroke:var(--acc);stroke-width:2;opacity:0}
+.pulse.go{animation:pulse .9s ease-out}
+@keyframes pulse{0%{opacity:.7;transform:scale(1)}100%{opacity:0;transform:scale(1.55)}}
+.src.hit .card{stroke:var(--acc)}
+.src .card{transition:stroke .3s ease}
+.orbit{animation:orbit 24s linear infinite;transform-origin:770px 520px}
+@keyframes orbit{to{transform:rotate(360deg)}}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.controls button{font-family:var(--sans);font-size:14px;font-weight:500;padding:8px 16px;border-radius:999px;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
+.controls button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.controls button:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.hint{color:var(--muted);font-size:13px;margin:0}
+@media (prefers-reduced-motion:reduce){.orbit{animation:none}.row{transition:none}}
+</style>
+</head><body style="margin:0">
+
+<div class="wrap">
+<div class="stage" id="stage">
+<svg viewBox="0 0 1600 900" role="img" aria-label="Email, written invoices and technician timesheets flow into one Acel Cortex hub and land in a single invoice queue">
+  <!-- copy -->
+  <text class="mono" x="110" y="96" font-size="15"><tspan style="fill:var(--acc)">01</tspan> · Data entry</text>
+  <text x="108" y="160" font-size="54" font-weight="600" letter-spacing="-1.8">Every invoice, one place</text>
+  <text class="mut" x="110" y="204" font-size="21">Email, paper and timesheets land in one queue, already entered.</text>
+  <text x="1490" y="98" font-size="24" font-weight="500" letter-spacing="-1" text-anchor="end">acel<tspan class="acc">·</tspan>cortex</text>
+
+  <!-- wires -->
+  <path class="wire" id="w0" d="M430 340 C 570 340, 590 520, 700 520"/>
+  <path class="wire" id="w1" d="M430 520 C 560 520, 600 520, 700 520"/>
+  <path class="wire" id="w2" d="M430 700 C 570 700, 590 520, 700 520"/>
+  <path class="wire" id="wout" d="M840 520 C 910 520, 920 429, 990 429"/>
+
+  <!-- sources -->
+  <g class="src" id="s0">
+    <rect class="card" x="110" y="280" width="320" height="120" rx="16"/>
+    <g class="icon" transform="translate(138 322)"><rect x="0" y="4" width="34" height="26" rx="4"/><path d="M1 7 L17 19 L33 7"/></g>
+    <text x="196" y="333" font-size="23" font-weight="500">Gmail inbox</text>
+    <text class="mut" x="196" y="362" font-size="16">Vendor bills by email</text>
+  </g>
+  <g class="src" id="s1">
+    <rect class="card" x="110" y="460" width="320" height="120" rx="16"/>
+    <g class="icon" transform="translate(140 498)"><path d="M2 2 h22 l6 6 v30 h-28 z"/><path d="M8 16 h14 M8 23 h10"/><path d="M8 31 c3 -3 5 3 8 0 s5 3 7 0"/></g>
+    <text x="196" y="513" font-size="23" font-weight="500">Written invoices</text>
+    <text class="mut" x="196" y="542" font-size="16">Paper, photos, scans</text>
+  </g>
+  <g class="src" id="s2">
+    <rect class="card" x="110" y="640" width="320" height="120" rx="16"/>
+    <g class="icon" transform="translate(138 682)"><circle cx="17" cy="18" r="16"/><path d="M17 9 v9 l7 5"/></g>
+    <text x="196" y="693" font-size="23" font-weight="500">Tech timesheets</text>
+    <text class="mut" x="196" y="722" font-size="16">Hours from the field</text>
+  </g>
+
+  <!-- hub: Parallax mark -->
+  <circle class="pulse" id="pulse" cx="770" cy="520" r="70" style="transform-origin:770px 520px"/>
+  <circle cx="770" cy="520" r="84" fill="var(--bg)"/>
+  <circle class="hub-ring" cx="770" cy="520" r="66" stroke-width="5"/>
+  <circle class="hub-ring" cx="770" cy="520" r="38" stroke-width="4" opacity=".3"/>
+  <circle class="hub-core" cx="770" cy="520" r="12"/>
+  <g class="orbit"><circle class="acc" cx="824" cy="482" r="16"/></g>
+  <text class="mono" x="770" y="632" font-size="13" text-anchor="middle">Reads · codes · enters</text>
+
+  <!-- queue -->
+  <rect class="card" x="990" y="270" width="510" height="510" rx="18"/>
+  <text x="1018" y="318" font-size="22" font-weight="500">Invoice queue</text>
+  <text class="mono" x="1472" y="318" font-size="13" text-anchor="end">Entered <tspan id="count" style="fill:var(--fg)">0</tspan></text>
+  <text class="mono" x="1018" y="372" font-size="11">Source</text>
+  <text class="mono" x="1146" y="372" font-size="11">Vendor</text>
+  <text class="mono" x="1472" y="372" font-size="11" text-anchor="end">Amount</text>
+  <line class="rowline" x1="990" y1="390" x2="1500" y2="390"/>
+  <clipPath id="qclip"><rect x="990" y="392" width="510" height="384"/></clipPath>
+  <g id="rows" clip-path="url(#qclip)"></g>
+
+  <g id="packets"></g>
+</svg>
+</div>
+
+</div>
+
+<script>
+(function(){
+  const NS='http://www.w3.org/2000/svg';
+  const $=id=>document.getElementById(id);
+  const wires=[$('w0'),$('w1'),$('w2')], out=$('wout');
+  const srcColor=['var(--green-deep)','var(--green)','var(--green-soft)'];
+  const srcName=['Email','Written','Timesheet'];
+  const items=[
+    [0,'Northside Plumbing','$842.00'],[2,'R. Torres · 8.0 h','$304.00'],[1,'Kowalski Painting','$1,150.00'],
+    [0,'Bay Electric','$415.60'],[0,'Kingsway Cleaning','$380.00'],[2,'D. Okafor · 6.5 h','$247.00'],
+    [1,'Mike’s Locksmith','$165.00'],[0,'Northside HVAC','$1,240.00'],[2,'R. Torres · 4.5 h','$171.00'],
+    [1,'Hamlet Drywall','$690.00'],[0,'City Waste','$212.40'],[2,'D. Okafor · 7.0 h','$266.00']
+  ];
+  const ROW0=420, RH=58, MAX=7;
+  let rows=[], n=0, k=0, paused=false, timers=[], frames=new Set();
+
+  function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const a in attrs)e.setAttribute(a,attrs[a]);parent&&parent.appendChild(e);return e}
+  function later(fn,ms){const t=setTimeout(()=>{timers=timers.filter(x=>x!==t);fn()},ms);timers.push(t)}
+
+  function packet(color){
+    const g=el('g',{class:'pkt'},$('packets'));
+    el('rect',{class:'body',x:-22,y:-16,width:44,height:32,rx:6,stroke:color},g);
+    el('line',{x1:-12,y1:-5,x2:12,y2:-5},g); el('line',{x1:-12,y1:4,x2:4,y2:4},g);
+    return g;
+  }
+  function travel(g,path,dur,done){
+    const L=path.getTotalLength(), t0=performance.now();
+    function step(now){
+      if(paused){requestAnimationFrame(step);return}
+      const p=Math.min(1,(now-t0)/dur), e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+      const pt=path.getPointAtLength(e*L);
+      g.setAttribute('transform',`translate(${pt.x} ${pt.y})`);
+      if(p<1)requestAnimationFrame(step); else done();
+    }
+    requestAnimationFrame(step);
+  }
+  function addRow([s,vendor,amt]){
+    rows.forEach((r,i)=>r.style.transform=`translate(0px,${(i+1)*RH}px)`);
+    const g=el('g',{class:'row'}); g.style.opacity=0; g.style.transform='translate(0px,-24px)';
+    el('rect',{class:'tagbg',x:1018,y:ROW0-18,width:112,height:28,rx:6},g);
+    el('circle',{cx:1032,cy:ROW0-4,r:5,fill:srcColor[s]},g);
+    const t=el('text',{class:'mono',x:1044,y:ROW0+1,'font-size':10.5},g); t.textContent=srcName[s];
+    const v=el('text',{x:1146,y:ROW0+2,'font-size':18},g); v.textContent=vendor;
+    const a=el('text',{x:1472,y:ROW0+2,'font-size':18,'text-anchor':'end','font-variant-numeric':'tabular-nums'},g); a.textContent=amt;
+    el('line',{class:'rowline',x1:1006,y1:ROW0+29,x2:1484,y2:ROW0+29},g);
+    $('rows').insertBefore(g,$('rows').firstChild);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{g.style.opacity=1;g.style.transform='translate(0px,0px)'}));
+    rows.unshift(g);
+    if(rows.length>MAX){const old=rows.pop();later(()=>old.remove(),600)}
+    $('count').textContent=++n;
+  }
+  function send(){
+    if(paused){later(send,200);return}
+    const it=items[k++%items.length], s=it[0];
+    const src=$('s'+s); src.classList.add('hit'); later(()=>src.classList.remove('hit'),500);
+    const p=packet(srcColor[s]);
+    travel(p,wires[s],1100,()=>{
+      p.remove();
+      const pl=$('pulse'); pl.classList.remove('go'); void pl.getBoundingClientRect(); pl.classList.add('go');
+      later(()=>{const q=packet(srcColor[s]); travel(q,out,650,()=>{q.remove();addRow(it)})},180);
+    });
+    later(send,950);
+  }
+  function reset(){
+    timers.forEach(clearTimeout); timers=[];
+    $('packets').innerHTML=''; $('rows').innerHTML=''; rows=[]; n=0; k=0; $('count').textContent=0;
+    later(send,700);
+  }
+  if($('replay'))$('replay').onclick=reset;
+  if($('pause'))$('pause').onclick=()=>{paused=!paused;$('pause').setAttribute('aria-pressed',paused);$('pause').textContent=paused?'Resume':'Pause'};
+  if($('dark'))$('dark').onclick=()=>{const on=$('stage').classList.toggle('dark');$('dark').setAttribute('aria-pressed',on)};
+
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){items.slice(0,MAX).reverse().forEach(addRow)}
+  else reset();
+})();
+</script>
+</body></html>

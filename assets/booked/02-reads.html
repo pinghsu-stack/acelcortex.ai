@@ -1,0 +1,278 @@
+<!doctype html><html lang="en"><head><meta name="robots" content="noindex"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Step Two Invoice Reading</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one 16:9 SVG stage. The invoice on the left is scanned; each field flies into its cell in an AP dashboard row on the right. */
+:root{
+  --paper:#F5F2EC; --paper-2:#EEEAE2; --paper-3:#FBFAF7; --ink:#141414; --ink-soft:#2B2721;
+  --green:#10846C; --green-soft:#4FB89C; --green-deep:#0A5E4D; --muted:#6B655B; --rule:#E3DED4;
+  --purple:#5A4B7A; --tint-purple:#EAE5F0; --tint-green:#DCEDE7;
+  --sans:'Space Grotesk',-apple-system,system-ui,sans-serif;
+  --mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
+  --page:#E9E5DD;
+}
+html,body{background:transparent;color:var(--ink);font-family:var(--sans);padding:0;margin:0;overflow:hidden}
+.wrap{max-width:none;margin:0}
+
+.stage{width:100%;max-width:100%;aspect-ratio:16/9;border-radius:0;overflow:hidden;
+  --bg:var(--paper); --fg:var(--ink); --mut:var(--muted); --ln:var(--rule); --card:var(--paper-3); --row:var(--paper-2);
+  --strip:#ECE8E0; --acc:var(--green); --good:var(--green-deep); --hl:rgba(16,132,108,.10); --faint:#E6E1D7;
+  --ai-bg:var(--tint-purple); --ai-fg:var(--purple); --ok-bg:var(--tint-green); --ok-fg:var(--green-deep); --off:#9C968B;
+  background:var(--bg)}
+.stage.dark{--bg:#141414; --fg:#F5F2EC; --mut:#9A9387; --ln:#2A2825; --card:#1C1B19; --row:#22201D; --strip:#201E1B;
+  --acc:var(--green-soft); --good:var(--green-soft); --hl:rgba(79,184,156,.14); --faint:#2E2B27;
+  --ai-bg:#2B2636; --ai-fg:#B9AAD6; --ok-bg:#16302A; --ok-fg:var(--green-soft); --off:#4A4640}
+.stage svg{display:block;width:100%;height:100%}
+
+svg text{font-family:var(--sans);fill:var(--fg)}
+.mono{font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase;fill:var(--mut)}
+.th{font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;fill:var(--mut);font-size:10px}
+.mut{fill:var(--mut)}
+.acc{fill:var(--acc)}
+.good{fill:var(--good)}
+.card{fill:var(--card);stroke:var(--ln);stroke-width:1.5}
+.strip{fill:var(--strip)}
+.rule{stroke:var(--ln);stroke-width:1.5}
+.bar{fill:var(--faint)}
+.hl{fill:var(--hl);stroke:var(--acc);stroke-width:2;opacity:0;transition:opacity .25s ease}
+.hl.on{opacity:1}
+.scanline{stroke:var(--acc);stroke-width:2.5}
+.fade{transition:opacity .35s ease}
+.val{opacity:0;transition:opacity .3s ease}
+.val.on{opacity:1}
+.skel{transition:opacity .25s ease}
+.skel.off{opacity:0}
+.chip rect{fill:var(--card);stroke:var(--acc);stroke-width:2}
+.row{transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .45s ease}
+.newrow{fill:var(--hl);transition:opacity .8s ease}
+.cellbox{fill:var(--row);stroke:var(--ln);stroke-width:1.5}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.controls button{font-family:var(--sans);font-size:14px;font-weight:500;padding:8px 16px;border-radius:999px;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
+.controls button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.controls button:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.hint{color:var(--muted);font-size:13px;margin:0}
+@media (prefers-reduced-motion:reduce){.row,.val,.hl,.fade,.skel{transition:none}}
+</style>
+</head><body style="margin:0">
+
+<div class="wrap">
+<div class="stage" id="stage">
+<svg viewBox="0 0 1600 900" role="img" aria-label="An invoice is scanned and its vendor, property, work order, description and cost are entered into a row of the Acel Cortex AP dashboard">
+  <defs>
+    <linearGradient id="band" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="var(--acc)" stop-opacity="0"/>
+      <stop offset="1" stop-color="var(--acc)" stop-opacity=".16"/>
+    </linearGradient>
+    <clipPath id="paperclip"><rect x="110" y="260" width="450" height="540" rx="14"/></clipPath>
+    <clipPath id="rclip"><rect x="541" y="366" width="958" height="432"/></clipPath>
+  </defs>
+
+  <!-- copy -->
+  <text class="mono" x="110" y="96" font-size="15"><tspan class="acc">02</tspan> · AI reads every invoice</text>
+  <text x="108" y="160" font-size="54" font-weight="600" letter-spacing="-1.8">Every detail, read for you</text>
+  <text class="mut" x="110" y="204" font-size="21">Vendor, property, work order, description and cost, pulled from each invoice into your dashboard.</text>
+  <text x="1490" y="98" font-size="24" font-weight="500" letter-spacing="-1" text-anchor="end">acel<tspan class="acc">·</tspan>cortex</text>
+
+  <!-- invoice paper, drawn at 450 x 540 and scaled to fit -->
+  <g transform="translate(110 260) scale(.88) translate(-110 -260)">
+  <g id="paper" class="fade">
+    <rect class="card" x="110" y="260" width="450" height="540" rx="14"/>
+    <text id="pVendor" x="134" y="320" font-size="25" font-weight="600" letter-spacing="-.5"></text>
+    <text id="pVaddr" class="mut" x="134" y="346" font-size="14"></text>
+    <text class="mono" x="536" y="318" font-size="12" text-anchor="end">Invoice</text>
+    <text id="pNo" x="536" y="344" font-size="15" text-anchor="end"></text>
+    <text id="pDate" class="mut" x="536" y="366" font-size="14" text-anchor="end"></text>
+    <line class="rule" x1="134" y1="390" x2="536" y2="390"/>
+    <text class="mono" x="134" y="420" font-size="11">Bill to</text>
+    <text id="pProp" x="134" y="448" font-size="19" font-weight="500"></text>
+    <text id="pUnit" class="mut" x="134" y="472" font-size="15"></text>
+    <text class="mono" x="536" y="420" font-size="11" text-anchor="end">Work order</text>
+    <text id="pWO" x="536" y="448" font-size="19" font-weight="500" text-anchor="end"></text>
+    <line class="rule" x1="134" y1="500" x2="536" y2="500"/>
+    <text class="mono" x="134" y="530" font-size="11">Description</text>
+    <text class="mono" x="536" y="530" font-size="11" text-anchor="end">Amount</text>
+    <text id="pDesc" x="134" y="565" font-size="17"></text>
+    <text id="pLine" x="536" y="565" font-size="17" text-anchor="end"></text>
+    <rect class="bar" x="134" y="584" width="220" height="10" rx="5"/>
+    <rect class="bar" x="134" y="606" width="160" height="10" rx="5"/>
+    <text class="mut" x="134" y="660" font-size="15">HST 13%</text>
+    <text id="pTax" class="mut" x="536" y="660" font-size="15" text-anchor="end"></text>
+    <line class="rule" x1="134" y1="690" x2="536" y2="690"/>
+    <text class="mono" x="134" y="732" font-size="12">Total due</text>
+    <text id="pTotal" x="536" y="736" font-size="30" font-weight="600" text-anchor="end" letter-spacing="-.5"></text>
+    <rect class="bar" x="134" y="764" width="300" height="8" rx="4"/>
+
+    <rect class="hl" id="h0" x="124" y="292" width="300" height="62" rx="8"/>
+    <rect class="hl" id="h1" x="124" y="428" width="270" height="54" rx="8"/>
+    <rect class="hl" id="h2" x="404" y="428" width="142" height="30" rx="8"/>
+    <rect class="hl" id="h3" x="124" y="545" width="290" height="30" rx="8"/>
+    <rect class="hl" id="h4" x="420" y="545" width="126" height="30" rx="8"/>
+
+    <g id="scan" clip-path="url(#paperclip)" opacity="0">
+      <rect x="110" y="-60" width="450" height="60" fill="url(#band)"/>
+      <line class="scanline" x1="110" y1="0" x2="560" y2="0"/>
+    </g>
+  </g>
+  </g>
+
+  <!-- AP dashboard -->
+  <rect class="card" x="540" y="260" width="960" height="540" rx="16"/>
+  <path class="strip" d="M556 260 H1484 A16 16 0 0 1 1500 276 V328 H540 V276 A16 16 0 0 1 556 260 Z"/>
+  <text class="th" x="562" y="286">Cost</text>
+  <text id="tCost" x="562" y="313" font-size="21" font-weight="600" font-variant-numeric="tabular-nums">$0.00</text>
+  <text class="th" x="690" y="286">Owner (pre-HST)</text>
+  <text id="tOwner" x="690" y="313" font-size="21" font-weight="600" font-variant-numeric="tabular-nums">$0.00</text>
+  <text class="th" x="840" y="286">HST</text>
+  <text id="tHst" x="840" y="313" font-size="21" font-weight="600" font-variant-numeric="tabular-nums">$0.00</text>
+  <text class="th" x="960" y="286">Profit</text>
+  <text id="tProfit" class="good" x="960" y="313" font-size="21" font-weight="600" font-variant-numeric="tabular-nums">$0.00</text>
+  <text id="tReady" class="mut" x="1322" y="300" font-size="13" text-anchor="end">0 of 0 ready</text>
+  <rect x="1338" y="280" width="140" height="34" rx="17" fill="var(--off)"/>
+  <text x="1408" y="302" font-size="14" font-weight="500" text-anchor="middle" style="fill:#F5F2EC">Post charges</text>
+  <line class="rule" x1="540" y1="328" x2="1500" y2="328"/>
+
+  <text class="th" x="562" y="352">Received</text>
+  <text class="th" x="626" y="352">Source</text>
+  <text class="th" x="800" y="352">Property · Unit</text>
+  <text class="th" x="950" y="352">Description</text>
+  <text class="th" x="1205" y="352" text-anchor="end">Cost</text>
+  <text class="th" x="1302" y="352" text-anchor="end">Owner pre-HST</text>
+  <text class="th" x="1372" y="352" text-anchor="end">Profit</text>
+  <text class="th" x="1390" y="352">Task · Status</text>
+  <line class="rule" x1="540" y1="364" x2="1500" y2="364"/>
+  <g id="rows" clip-path="url(#rclip)"></g>
+
+  <g id="chips"></g>
+</svg>
+</div>
+
+</div>
+
+<script>
+(function(){
+  const NS='http://www.w3.org/2000/svg', $=id=>document.getElementById(id);
+  const S=.88, P=(x,y)=>[110+(x-110)*S,260+(y-260)*S];
+  const fmt=n=>'$'+n.toLocaleString('en-CA',{minimumFractionDigits:2,maximumFractionDigits:2});
+  const INV=[
+    {v:'Northside Plumbing',va:'88 Barton St E',no:'No. 2291',d:'Oct 8, 2026',p:'Maple Court',u:'Unit 3',wo:'WO 4471',desc:'Replace kitchen faucet',cost:745.13},
+    {v:'Kowalski Painting',va:'12 Ottawa St N',no:'No. 118',d:'Oct 8, 2026',p:'Bay St Lofts',u:'Unit 12',wo:'WO 4480',desc:'Repaint after move-out',cost:1017.70},
+    {v:'Bay Electric',va:'401 James St N',no:'No. 7730',d:'Oct 8, 2026',p:'Kingsway Row',u:'Common area',wo:'WO 4492',desc:'Replace hallway fixtures',cost:367.79},
+    {v:'Northside HVAC',va:'88 Barton St E',no:'No. 2304',d:'Oct 8, 2026',p:'Maple Court',u:'Unit 2B',wo:'WO 4495',desc:'Furnace igniter replacement',cost:1097.35}
+  ];
+  INV.forEach(x=>{x.owner=Math.round(x.cost*110)/100;x.profit=x.owner-x.cost;x.tax=x.cost*.13;x.t=x.cost+x.tax});
+  // highlight index -> dashboard cell key, scan y where it fires
+  const MAP=[['v',0,322],['p',1,455],['wo',2,443],['desc',3,560],['cost',4,560]];
+  const RH=106, R0=364;
+  let run=0, paused=false, rows=[], tot={c:0,o:0,h:0,p:0,n:0};
+
+  function el(tag,a,parent){const e=document.createElementNS(NS,tag);for(const k in a)e.setAttribute(k,a[k]);parent&&parent.appendChild(e);return e}
+  function txt(parent,a,s){const t=el('text',a,parent);t.textContent=s;return t}
+  function wait(ms,id){return new Promise((res,rej)=>{let left=ms;const t=setInterval(()=>{if(id!==run){clearInterval(t);rej('reset');return}if(!paused)left-=40;if(left<=0){clearInterval(t);res()}},40)})}
+  function tween(ms,id,fn){return new Promise((res,rej)=>{let e=0,last=performance.now();function f(now){if(id!==run){rej('reset');return}if(!paused)e+=now-last;last=now;const p=Math.min(1,e/ms);fn(p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2,p);if(p<1)requestAnimationFrame(f);else res()}requestAnimationFrame(f)})}
+  function tag(parent,x,y,w,label,bg,fg){const g=el('g',{class:'val'},parent);el('rect',{x,y,width:w,height:19,rx:4,fill:`var(${bg})`},g);txt(g,{class:'mono',x:x+w/2,y:y+13.5,'font-size':9,'text-anchor':'middle',style:`fill:var(${fg})`},label);return g}
+  function wrap(s,n){if(s.length<=n)return[s,''];const i=s.lastIndexOf(' ',n);return[s.slice(0,i),s.slice(i+1)]}
+
+  function fillPaper(x){
+    $('pVendor').textContent=x.v; $('pVaddr').textContent=x.va; $('pNo').textContent=x.no; $('pDate').textContent=x.d;
+    $('pProp').textContent=x.p; $('pUnit').textContent=x.u; $('pWO').textContent=x.wo; $('pDesc').textContent=x.desc;
+    $('pLine').textContent=fmt(x.cost); $('pTax').textContent=fmt(x.tax); $('pTotal').textContent=fmt(x.t);
+  }
+  function clearHL(){for(let i=0;i<5;i++)$('h'+i).classList.remove('on')}
+
+  // a dashboard row with skeleton bars; returns handles to fill each cell
+  function makeRow(x){
+    rows.forEach((r,i)=>r.g.style.transform=`translate(0px,${(i+1)*RH}px)`);
+    const T=R0, g=el('g',{class:'row'}); g.style.opacity=0; g.style.transform='translate(0px,-20px)';
+    const glow=el('rect',{class:'newrow',x:541,y:T+1,width:958,height:RH-1},g);
+    el('line',{class:'rule',x1:540,y1:T+RH,x2:1500,y2:T+RH},g);
+    const sk=(xx,w)=>el('rect',{class:'bar skel',x:xx,y:T+20,width:w,height:12,rx:6},g);
+    const c={g,glow};
+    c.rec=txt(g,{class:'val',x:562,y:T+30,'font-size':15},'Oct 8');
+    c.sv=sk(626,140); c.v=el('g',{class:'val'},g);
+    txt(c.v,{x:626,y:T+30,'font-size':15,'font-weight':500},x.v);
+    txt(c.v,{class:'mono',x:626,y:T+50,'font-size':9.5},'Vendor bill · Gmail');
+    c.sp=sk(800,120); c.p=el('g',{class:'val'},g);
+    txt(c.p,{x:800,y:T+30,'font-size':15,'font-weight':500},x.p);
+    txt(c.p,{class:'mut',x:800,y:T+50,'font-size':13},x.u);
+    c.sd=sk(950,170); c.desc=el('g',{class:'val'},g);
+    const [l1,l2]=wrap('2026-10-08 · '+x.desc,22);
+    txt(c.desc,{x:950,y:T+30,'font-size':14},l1); txt(c.desc,{x:950,y:T+50,'font-size':14},l2);
+    c.sc=sk(1150,55); c.cost=txt(g,{class:'val',x:1205,y:T+30,'font-size':15,'text-anchor':'end','font-variant-numeric':'tabular-nums'},fmt(x.cost));
+    el('rect',{class:'cellbox',x:1222,y:T+11,width:80,height:28,rx:6},g);
+    c.owner=el('g',{class:'val'},g);
+    txt(c.owner,{x:1294,y:T+30,'font-size':15,'text-anchor':'end','font-variant-numeric':'tabular-nums'},x.owner.toFixed(2));
+    tag(c.owner,1222,T+47,42,'Auto','--ai-bg','--ai-fg').classList.add('on');
+    txt(c.owner,{class:'mono',x:1302,y:T+86,'font-size':9,'text-anchor':'end'},'+'+fmt(x.owner*.13)+' HST');
+    c.profit=txt(g,{class:'val good',x:1372,y:T+30,'font-size':15,'font-weight':600,'text-anchor':'end','font-variant-numeric':'tabular-nums'},fmt(x.profit));
+    c.sw=sk(1390,70); c.wo=txt(g,{class:'val acc',x:1390,y:T+30,'font-size':12.5,style:'font-family:var(--mono)'},x.wo);
+    c.match=tag(g,1390,T+42,70,'Matched','--ok-bg','--ok-fg');
+    c.ready=tag(g,1390,T+68,58,'Ready','--ok-bg','--ok-fg');
+    $('rows').insertBefore(g,$('rows').firstChild); rows.unshift(c);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{g.style.opacity=1;g.style.transform='translate(0px,0px)'}));
+    if(rows.length>5){const old=rows.pop();setTimeout(()=>old.g.remove(),600)}
+    return c;
+  }
+  const on=e=>e.classList.add('on');
+  const fill=(c,k)=>{on(c[k]);const s={v:'sv',p:'sp',desc:'sd',cost:'sc',wo:'sw'}[k];if(s)c[s].classList.add('off')};
+  const target={v:[626,R0+25],p:[800,R0+25],wo:[1390,R0+25],desc:[950,R0+25],cost:[1205,R0+25,'end']};
+
+  async function fly(label,from,to,id){
+    const g=el('g',{class:'chip'},$('chips')), w=Math.max(80,label.length*9+26);
+    el('rect',{x:-w/2,y:-17,width:w,height:34,rx:8},g);
+    txt(g,{x:0,y:6,'font-size':15,'text-anchor':'middle'},label);
+    const tx=to[2]==='end'?to[0]-w/2:to[0]+w/2;
+    try{await tween(650,id,e=>g.setAttribute('transform',`translate(${from[0]+(tx-from[0])*e} ${from[1]+(to[1]-from[1])*e})`))}finally{g.remove()}
+  }
+  function totals(x){
+    tot.c+=x.cost; tot.o+=x.owner; tot.h+=x.owner*.13; tot.p+=x.profit; tot.n++;
+    $('tCost').textContent=fmt(tot.c); $('tOwner').textContent=fmt(tot.o); $('tHst').textContent=fmt(tot.h); $('tProfit').textContent=fmt(tot.p);
+    $('tReady').textContent=tot.n+' of '+tot.n+' ready';
+  }
+
+  async function cycle(x,id){
+    clearHL(); fillPaper(x); $('paper').style.opacity=1;
+    const c=makeRow(x);
+    await wait(400,id); on(c.rec);
+    await wait(300,id);
+    const scan=$('scan'); scan.setAttribute('opacity',1);
+    const fired=new Set(), flights=[];
+    await tween(2000,id,(e,p)=>{
+      const y=270+p*530; scan.setAttribute('transform',`translate(0 ${y})`);
+      MAP.forEach(([k,h,fy])=>{
+        if(fired.has(k)||y<fy)return; fired.add(k);
+        const b=$('h'+h); b.classList.add('on');
+        const from=P(+b.getAttribute('x')+(+b.getAttribute('width'))/2,+b.getAttribute('y')+(+b.getAttribute('height'))/2);
+        const label=k==='cost'?fmt(x.cost):x[k];
+        flights.push(fly(label,from,target[k],id).then(()=>fill(c,k)));
+      });
+    });
+    scan.setAttribute('opacity',0);
+    await Promise.all(flights);
+    await wait(350,id); on(c.owner);
+    await wait(250,id); on(c.profit);
+    await wait(250,id); on(c.match);
+    await wait(250,id); on(c.ready); totals(x);
+    await wait(1100,id);
+    c.glow.style.opacity=0; clearHL(); $('paper').style.opacity=0;
+    await wait(450,id);
+  }
+  async function loop(){
+    const id=++run; rows=[]; tot={c:0,o:0,h:0,p:0,n:0};
+    $('rows').innerHTML=''; $('chips').innerHTML='';
+    ['tCost','tOwner','tHst','tProfit'].forEach(k=>$(k).textContent='$0.00'); $('tReady').textContent='0 of 0 ready';
+    let i=0;
+    try{for(;;){await cycle(INV[i++%INV.length],id)}}catch(e){}
+  }
+
+  if($('replay'))$('replay').onclick=loop;
+  if($('pause'))$('pause').onclick=()=>{paused=!paused;$('pause').setAttribute('aria-pressed',paused);$('pause').textContent=paused?'Resume':'Pause'};
+  if($('dark'))$('dark').onclick=()=>{const d=$('stage').classList.toggle('dark');$('dark').setAttribute('aria-pressed',d)};
+
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+    [...INV].reverse().forEach(x=>{const c=makeRow(x);['rec','owner','profit','match','ready'].forEach(k=>on(c[k]));['v','p','desc','cost','wo'].forEach(k=>fill(c,k));c.glow.style.opacity=0;totals(x)});
+    fillPaper(INV[0]); $('paper').style.opacity=1; for(let i=0;i<5;i++)$('h'+i).classList.add('on');
+  } else loop();
+})();
+</script>
+</body></html>

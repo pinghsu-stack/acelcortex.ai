@@ -1,0 +1,421 @@
+<!doctype html><html lang="en"><head><meta name="robots" content="noindex"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Step Three Review and Post</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one 16:9 SVG stage. A reviewer works the AP dashboard and posts; the dashboard steps aside while each charge lands on the owner statement, and the real session time is revealed. */
+:root{
+  --paper:#F5F2EC; --paper-2:#EEEAE2; --paper-3:#FBFAF7; --ink:#141414;
+  --green:#10846C; --green-soft:#4FB89C; --green-deep:#0A5E4D; --muted:#6B655B; --rule:#E3DED4;
+  --amber:#B07A22; --coral:#B5533B; --purple:#5A4B7A;
+  --tint-green:#DCEDE7; --tint-amber:#F3ECD9; --tint-coral:#F6E1DC; --tint-purple:#EAE5F0;
+  --sans:'Space Grotesk',-apple-system,system-ui,sans-serif;
+  --mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
+  --stmt:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+  --page:#E9E5DD;
+}
+html,body{background:transparent;color:var(--ink);font-family:var(--sans);padding:0;margin:0;overflow:hidden}
+.wrap{max-width:none;margin:0}
+
+.stage{width:100%;max-width:100%;aspect-ratio:16/9;border-radius:0;overflow:hidden;
+  --bg:var(--paper); --fg:var(--ink); --mut:var(--muted); --ln:var(--rule); --card:var(--paper-3); --row:var(--paper-2);
+  --strip:#ECE8E0; --acc:var(--green); --good:var(--green-deep); --hover:rgba(16,132,108,.07);
+  --ai-bg:var(--tint-purple); --ai-fg:var(--purple); --ok-bg:var(--tint-green); --ok-fg:var(--green-deep);
+  --wa-bg:var(--tint-amber); --wa-fg:var(--amber); --er-bg:var(--tint-coral); --er-fg:var(--coral); --er-row:rgba(181,83,59,.07);
+  --off:#9C968B; --btn:var(--ink); --btn-fg:#F5F2EC; --cursor:#141414; --cursor-edge:#FBFAF7;
+  --sheet:#FFFFFF; --sheet-fg:#2D2D2D; --sheet-mut:#6E6E6E; --sheet-ln:#E4E4E4; --sheet-head:#F1F1F1; --sheet-link:#2E6DA4; --sheet-new:rgba(16,132,108,.10);
+  background:var(--bg)}
+.stage.dark{--bg:#141414; --fg:#F5F2EC; --mut:#9A9387; --ln:#2A2825; --card:#1C1B19; --row:#22201D; --strip:#201E1B;
+  --acc:var(--green-soft); --good:var(--green-soft); --hover:rgba(79,184,156,.08);
+  --ai-bg:#2B2636; --ai-fg:#B9AAD6; --ok-bg:#16302A; --ok-fg:var(--green-soft);
+  --wa-bg:#332A17; --wa-fg:#D9A957; --er-bg:#3A211B; --er-fg:#E08A73; --er-row:rgba(224,138,115,.08);
+  --off:#4A4640; --btn:#F5F2EC; --btn-fg:#141414; --cursor:#F5F2EC; --cursor-edge:#141414;
+  --sheet-new:rgba(79,184,156,.16)}
+.stage svg{display:block;width:100%;height:100%}
+
+svg text{font-family:var(--sans);fill:var(--fg)}
+.mono{font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase;fill:var(--mut)}
+.th{font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;fill:var(--mut);font-size:10px}
+.mut{fill:var(--mut)} .acc{fill:var(--acc)} .good{fill:var(--good)}
+.card{fill:var(--card);stroke:var(--ln);stroke-width:1.5}
+.strip{fill:var(--strip)}
+.rule{stroke:var(--ln);stroke-width:1.5}
+.row,.sline{transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .4s ease}
+.hoverbg{fill:var(--hover);opacity:0;transition:opacity .15s ease}
+.hoverbg.on{opacity:1}
+.errbg{fill:var(--er-row)}
+.cellbox{fill:var(--row);stroke:var(--ln);stroke-width:1.5;transition:stroke .15s ease}
+.cellbox.focus{stroke:var(--acc);stroke-width:2}
+.box{fill:var(--card);stroke:var(--mut);stroke-width:1.5}
+.box.on{fill:var(--acc);stroke:var(--acc)}
+.tick{fill:none;stroke:#F5F2EC;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;opacity:0}
+.tick.on{opacity:1}
+.trash{fill:none;stroke:var(--mut);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.trash.hot{stroke:var(--er-fg)}
+.ripple{fill:none;stroke:var(--acc);stroke-width:2;opacity:0}
+.ripple.go{animation:rip .45s ease-out}
+@keyframes rip{0%{opacity:.8;transform:scale(.3)}100%{opacity:0;transform:scale(1.6)}}
+.chip rect{fill:var(--card);stroke:var(--ai-fg);stroke-width:2}
+.spin{animation:spin 1s linear infinite;transform-origin:0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.waitTxt{font-size:11px;opacity:0;transition:opacity .25s ease}
+
+/* owner statement: a plain accounting report, deliberately not in brand type */
+.sheet{fill:var(--sheet);stroke:var(--sheet-ln);stroke-width:1.5}
+.sheet-head{fill:var(--sheet-head)}
+.st{font-family:var(--stmt);fill:var(--sheet-fg)}
+.st-m{font-family:var(--stmt);fill:var(--sheet-mut)}
+.st-l{font-family:var(--stmt);fill:var(--sheet-link)}
+.st-b{font-family:var(--stmt);fill:var(--sheet-fg);font-weight:700}
+.sln{stroke:var(--sheet-ln);stroke-width:1}
+.newline{fill:var(--sheet-new);transition:opacity 1.2s ease}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.controls button{font-family:var(--sans);font-size:14px;font-weight:500;padding:8px 16px;border-radius:999px;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
+.controls button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.controls button:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.hint{color:var(--muted);font-size:13px;margin:0}
+@media (prefers-reduced-motion:reduce){.row,.sline,.hoverbg,.cellbox,.newline{transition:none}}
+</style>
+</head><body style="margin:0">
+
+<div class="wrap">
+<div class="stage" id="stage">
+<svg viewBox="0 0 1600 900" role="img" aria-label="A reviewer deletes a duplicate, adjusts one owner charge and posts five invoices. Each charge and its HST lands on the owner statement in your PMS.">
+  <!-- copy -->
+  <text class="mono" x="110" y="96" font-size="15"><tspan class="acc">03</tspan> · You review, AI posts</text>
+  <text x="108" y="160" font-size="54" font-weight="600" letter-spacing="-1.8">Check it. Approve it. Done.</text>
+  <text class="mut" x="110" y="204" font-size="21">Your team fixes what needs a person and approves. The agent posts every charge to your PMS.</text>
+  <text x="1490" y="98" font-size="24" font-weight="500" letter-spacing="-1" text-anchor="end">acel<tspan class="acc">·</tspan>cortex</text>
+
+  <g id="dash">
+    <rect class="card" x="110" y="250" width="1380" height="586" rx="16"/>
+    <path class="strip" d="M126 250 H1474 A16 16 0 0 1 1490 266 V318 H110 V266 A16 16 0 0 1 126 250 Z"/>
+    <text class="th" x="134" y="276">Cost</text>
+    <text x="134" y="303" font-size="21" font-weight="600" font-variant-numeric="tabular-nums">$3,531.97</text>
+    <text class="th" x="280" y="276">Owner (pre-HST)</text>
+    <text id="tOwner" x="280" y="303" font-size="21" font-weight="600" font-variant-numeric="tabular-nums">$3,885.17</text>
+    <text class="th" x="440" y="276">HST</text>
+    <text id="tHst" x="440" y="303" font-size="21" font-weight="600" font-variant-numeric="tabular-nums">$505.07</text>
+    <text class="th" x="560" y="276">Profit</text>
+    <text id="tProfit" class="good" x="560" y="303" font-size="21" font-weight="600" font-variant-numeric="tabular-nums">$353.20</text>
+    <text class="th" x="720" y="276">Session</text>
+    <text id="session" x="720" y="303" font-size="21" font-weight="500" style="font-family:var(--mono)">00:00</text>
+
+    <text id="readyTxt" class="mut" x="1150" y="290" font-size="13" text-anchor="end">4 of 6 ready</text>
+    <rect id="allBox" class="box" x="1166" y="277" width="18" height="18" rx="3"/>
+    <path id="allTick" class="tick" d="M1170 286 l4 4 l7 -8"/>
+    <text x="1192" y="291" font-size="14" font-weight="500">Select all ready</text>
+    <rect id="postBtn" x="1330" y="267" width="140" height="36" rx="18" fill="var(--off)"/>
+    <text id="postTxt" x="1400" y="290" font-size="14" font-weight="500" text-anchor="middle" style="fill:#F5F2EC">Post charges</text>
+    <line class="rule" x1="110" y1="318" x2="1490" y2="318"/>
+
+    <text class="th" x="134" y="340">Received</text>
+    <text class="th" x="210" y="340">Source</text>
+    <text class="th" x="450" y="340">Property · Unit</text>
+    <text class="th" x="650" y="340">Description</text>
+    <text class="th" x="1010" y="340" text-anchor="end">Cost</text>
+    <text class="th" x="1122" y="340" text-anchor="end">Owner pre-HST</text>
+    <text class="th" x="1210" y="340" text-anchor="end">Profit</text>
+    <text class="th" x="1240" y="340">Task</text>
+    <text class="th" x="1330" y="340">Status</text>
+    <text class="th" x="1446" y="340">Select</text>
+    <line class="rule" x1="110" y1="350" x2="1490" y2="350"/>
+    <g id="rows" transform="translate(0 350)"></g>
+  </g>
+
+  <!-- owner statement -->
+  <g id="stmt" opacity="0">
+    <text class="mono" x="1490" y="240" font-size="10" text-anchor="end">Your PMS · rental owner statements</text>
+    <g id="cards"></g>
+  </g>
+
+  <!-- posting progress card -->
+  <g id="toast" opacity="0" transform="translate(1090 618)">
+    <rect class="card" x="0" y="0" width="390" height="206" rx="14" style="filter:drop-shadow(0 6px 20px rgba(0,0,0,.12))"/>
+    <g transform="translate(28 30)">
+      <circle r="8" fill="none" stroke="var(--ln)" stroke-width="2.5"/>
+      <path id="spin" class="spin" d="M0 -8 A8 8 0 0 1 8 0" fill="none" stroke="var(--fg)" stroke-width="2.5" stroke-linecap="round"/>
+      <path id="tDone" class="tick" d="M-4 0 l3 3 l5 -6" style="stroke:var(--acc)"/>
+    </g>
+    <text id="toastTitle" x="48" y="36" font-size="15" font-weight="600">Posting 5 invoices to your PMS</text>
+    <text id="toastTime" class="mut" x="368" y="36" font-size="12" text-anchor="end" style="font-family:var(--mono)">0:00</text>
+    <text class="mut" x="48" y="58" font-size="12.5">Approved by you. Queued to your PMS.</text>
+    <rect x="20" y="76" width="350" height="5" rx="2.5" fill="var(--row)"/>
+    <rect id="toastBar" x="20" y="76" width="0" height="5" rx="2.5" fill="var(--acc)"/>
+    <g id="stages"></g>
+  </g>
+
+  <g id="done" opacity="0">
+    <text class="mono" x="110" y="640" font-size="12">Time on the dashboard</text>
+    <text id="doneTime" x="106" y="744" font-size="104" font-weight="600" letter-spacing="-4" style="font-family:var(--mono)">00:17</text>
+    <text x="110" y="800" font-size="40" font-weight="600" letter-spacing="-1.2">Done.</text>
+    <text class="mut" x="226" y="800" font-size="18">5 invoices posted to 3 owner statements.</text>
+  </g>
+
+  <g id="chips"></g>
+
+  <!-- cursor -->
+  <g id="cursor" opacity="0">
+    <circle id="ripple" class="ripple" r="18"/>
+    <path d="M0 0 L0 26 L7 20 L12 31 L17 29 L12 18 L21 18 Z" fill="var(--cursor)" stroke="var(--cursor-edge)" stroke-width="1.5" stroke-linejoin="round"/>
+  </g>
+</svg>
+</div>
+
+</div>
+
+<script>
+(function(){
+  const NS='http://www.w3.org/2000/svg', $=id=>document.getElementById(id);
+  const RH=76, S=.45, TY=40;
+  const D=(x,y)=>[110+(x-110)*S,250+TY+(y-250)*S];
+  const DATA=[
+    {v:'Northside Plumbing',s:'Vendor bill · Gmail',p:'Maple Court',u:'Unit 3',su:'3',d:'Replace kitchen faucet',c:'$745.13',o:'819.64',ot:'auto',pr:'$74.51',wo:'WO 4471',st:'ready',acct:['VD - Specialty','Plumbing Service'],memo:['2026-10-08 - 3 - Kitchen faucet','was replaced.']},
+    {v:'Tech job · R. Torres',s:'Timesheet · 8.0 h',p:'Bay St Lofts',u:'Grounds',su:'Property level',d:'Fallen branches picked up',c:'$304.00',o:'334.40',ot:'auto',pr:'$30.40',wo:'WO 4480',st:'ready',acct:['VD - Exterior','Maintenance'],memo:['2026-10-08 - Fallen branches','were picked up.']},
+    {v:'Northside HVAC',s:'Vendor bill · Gmail',p:'Maple Court',u:'Unit 2B',su:'2B',d:'Furnace igniter replacement',c:'$1,097.35',o:'1,207.09',ot:'auto',pr:'$109.74',wo:'WO 4495',st:'ready',acct:['VD - HVAC','Service'],memo:['2026-10-08 - 2B - Furnace igniter','was replaced.']},
+    {v:'Northside HVAC',s:'Vendor bill · Gmail',p:'Maple Court',u:'Unit 2B',d:'Furnace igniter replacement',c:'$1,097.35',o:'1,207.09',ot:'auto',pr:'$109.74',wo:'WO 4495',st:'dupe'},
+    {v:'Kowalski Painting',s:'Written invoice',p:'Bay St Lofts',u:'Unit 12',su:'12',d:'Repaint after move-out',c:'$1,017.70',o:'1,119.47',ot:'review',pr:'$101.77',wo:'WO 4486',st:'review',acct:['VD - General','Maintenance'],memo:['2026-10-08 - 12 - Unit repainted','after move-out.']},
+    {v:'Bay Electric',s:'Vendor bill · Gmail',p:'Kingsway Row',u:'Common area',su:'Property level',d:'Replace hallway fixtures',c:'$367.79',o:'404.57',ot:'auto',pr:'$36.78',wo:'WO 4492',st:'ready',acct:['VD - Electrical'],memo:['2026-10-08 - Hallway light','fixtures were replaced.']}
+  ];
+  const TAGS={ready:['Ready','--ok-bg','--ok-fg',58],dupe:['Duplicate','--er-bg','--er-fg',84],review:['Review','--wa-bg','--wa-fg',64],
+    posting:['Posting','--wa-bg','--wa-fg',68],posted:['Posted','--ok-bg','--ok-fg',64],
+    auto:['Auto','--ai-bg','--ai-fg',42],over:['Overridden','--wa-bg','--wa-fg',84],matched:['Matched','--ok-bg','--ok-fg',70]};
+  const num=s=>parseFloat(s.replace(/[$,]/g,''));
+  const money=n=>n.toLocaleString('en-CA',{minimumFractionDigits:2,maximumFractionDigits:2});
+  let run=0, paused=false, rows=[], cur={x:900,y:760}, ms=0, timing=false, bal=6840;
+
+  function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e}
+  function txt(p,a,s){const t=el('text',a,p);t.textContent=s;return t}
+  function wait(t,id){return new Promise((res,rej)=>{let left=t;const iv=setInterval(()=>{if(id!==run){clearInterval(iv);rej('reset');return}if(!paused)left-=40;if(left<=0){clearInterval(iv);res()}},40)})}
+  function tween(t,id,fn){return new Promise((res,rej)=>{let e=0,last=performance.now();function f(now){if(id!==run){rej('reset');return}if(!paused)e+=now-last;last=now;const p=Math.min(1,e/t);fn(p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2,p);if(p<1)requestAnimationFrame(f);else res()}requestAnimationFrame(f)})}
+  function tag(p,x,y,kind){
+    const g=el('g',{},p), r=el('rect',{x,y,height:19,rx:4},g), t=el('text',{class:'mono',y:y+13.5,'font-size':9,'text-anchor':'middle'},g);
+    g.set=k=>{const [l,bg,fg,w]=TAGS[k];r.setAttribute('width',w);r.setAttribute('fill',`var(${bg})`);t.setAttribute('x',x+w/2);t.setAttribute('style',`fill:var(${fg})`);t.textContent=l};
+    g.set(kind); return g;
+  }
+  const mmss=t=>{const s=Math.round(t/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
+
+  // real elapsed session time, pause-aware
+  let lastTick=performance.now();
+  let posting=false, pms=0;
+  (function clock(now){const dt=now-lastTick;lastTick=now;
+    if(timing&&!paused){ms+=dt;$('session').textContent=mmss(ms)}
+    if(posting&&!paused){pms+=dt;const s=Math.floor(pms/1000);$('toastTime').textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+    requestAnimationFrame(clock)})(performance.now());
+
+  // posting card stages
+  const STAGES=['Accepted by Acel Cortex','Bill created in your PMS','Confirmed in your dashboard'];
+  const st=STAGES.map((label,k)=>{
+    const y=114+k*30, g=$('stages');
+    const dot=el('circle',{cx:28,cy:y-4,r:7,fill:'none',stroke:'var(--ln)','stroke-width':2},g);
+    const inner=el('circle',{cx:28,cy:y-4,r:3.5,fill:'var(--acc)',opacity:0},g);
+    txt(g,{x:48,y:y,'font-size':13.5},label);
+    const n=txt(g,{class:'mut',x:368,y:y,'font-size':12,'text-anchor':'end',style:'font-family:var(--mono)'},'0 of 5');
+    return {dot,inner,n};
+  });
+  function setStage(k,v){const s=st[k];s.n.textContent=v+' of 5';const full=v>=5;s.dot.setAttribute('stroke',full?'var(--acc)':(v?'var(--fg)':'var(--ln)'));s.inner.setAttribute('opacity',full?1:0)}
+  function setBar(f){$('toastBar').setAttribute('width',350*f)}
+  function toastReset(){st.forEach((_,k)=>setStage(k,0));setBar(0);$('toastTitle').textContent='Posting 5 invoices to your PMS';
+    $('spin').style.display='';$('tDone').classList.remove('on');$('toastTime').textContent='0:00';pms=0;posting=false;
+    $('toast').setAttribute('transform','translate(1090 618)')}
+
+  function makeRow(x,i){
+    const g=el('g',{class:'row'},$('rows')); g.style.transform=`translate(0px,${i*RH}px)`;
+    const r={g,x};
+    if(x.st==='dupe') el('rect',{class:'errbg',x:111,y:0,width:1378,height:RH},g);
+    r.hover=el('rect',{class:'hoverbg',x:111,y:0,width:1378,height:RH},g);
+    txt(g,{x:134,y:32,'font-size':15},'Oct 8');
+    txt(g,{x:210,y:32,'font-size':15,'font-weight':500},x.v);
+    txt(g,{class:'mono',x:210,y:52,'font-size':9.5},x.s);
+    txt(g,{x:450,y:32,'font-size':15,'font-weight':500},x.p);
+    txt(g,{class:'mut',x:450,y:52,'font-size':13},x.u);
+    txt(g,{x:650,y:32,'font-size':14},'2026-10-08 · '+x.d);
+    txt(g,{x:1010,y:32,'font-size':15,'text-anchor':'end','font-variant-numeric':'tabular-nums'},x.c);
+    r.box=el('rect',{class:'cellbox',x:1030,y:13,width:92,height:28,rx:6},g);
+    r.oval=txt(g,{x:1114,y:32,'font-size':15,'text-anchor':'end','font-variant-numeric':'tabular-nums'},x.o);
+    r.otag=tag(g,1030,47,x.ot);
+    r.prof=txt(g,{class:'good',x:1210,y:32,'font-size':15,'font-weight':600,'text-anchor':'end','font-variant-numeric':'tabular-nums'},x.pr);
+    txt(g,{class:'acc',x:1240,y:32,'font-size':12.5,style:'font-family:var(--mono)'},x.wo);
+    tag(g,1240,42,'matched');
+    r.st=tag(g,1330,20,x.st);
+    r.wait=txt(g,{class:'waitTxt',x:1330,y:58,style:'fill:var(--wa-fg)'},'Waiting for PMS');
+    r.setPosting=()=>{r.st.set('posting');r.wait.textContent='Waiting for PMS';r.wait.setAttribute('style','fill:var(--wa-fg)');r.wait.style.opacity=1};
+    r.setPosted=()=>{r.st.set('posted');r.wait.textContent='In your PMS';r.wait.setAttribute('style','fill:var(--ok-fg)');r.wait.style.opacity=1};
+    r.trash=el('path',{class:'trash',d:'M1412 24 h16 M1416 24 v-3 h8 v3 M1414 24 l1.5 15 h9 l1.5 -15'},g);
+    r.cb=el('rect',{class:'box',x:1446,y:20,width:18,height:18,rx:3},g);
+    r.tick=el('path',{class:'tick',d:'M1450 29 l4 4 l7 -8'},g);
+    el('line',{class:'rule',x1:110,y1:RH,x2:1490,y2:RH},g);
+    return r;
+  }
+  const rowY=i=>350+i*RH;
+
+  // one rental owner statement per property, stacked; the active one comes to the front
+  const PROPS=[['Maple Court','Maple Court Holdings',4210],['Bay St Lofts','Bay St Lofts Inc.',3560],['Kingsway Row','Kingsway Row LP',1980]];
+  const SLOTS=[[760,300],[778,278],[796,256]], CW=694, LH=[44,30], L0=146;
+  let cards=[];
+  function buildCards(){
+    $('cards').innerHTML='';
+    cards=PROPS.map(([name,owner,open],k)=>{
+      const g=el('g',{},$('cards'));
+      el('rect',{class:'sheet',x:0,y:0,width:CW,height:440,rx:6},g);
+      txt(g,{class:'st-b',x:18,y:17,'font-size':12.5},name);
+      txt(g,{class:'st-m',x:18+name.length*7.6+14,y:17,'font-size':11},'Owner: '+owner);
+      const cnt=txt(g,{class:'st-m',x:CW-18,y:17,'font-size':11,'text-anchor':'end'},'');
+      el('line',{class:'sln',x1:1,y1:26,x2:CW-1,y2:26},g);
+      txt(g,{class:'st-m',x:18,y:52,'font-size':14},'Detail transactions');
+      el('rect',{class:'sheet-head',x:1,y:64,width:CW-2,height:24},g);
+      [['Date',18],['Unit',96],['Account',170],['Memo',306]].forEach(([l,x])=>txt(g,{class:'st',x,y:80,'font-size':10.5},l));
+      txt(g,{class:'st',x:596,y:80,'font-size':10.5,'text-anchor':'end'},'Amount');
+      txt(g,{class:'st',x:CW-18,y:80,'font-size':10.5,'text-anchor':'end'},'Balance');
+      txt(g,{class:'st-b',x:18,y:108,'font-size':11},'Beginning cash balance as of 2026-10-01');
+      txt(g,{class:'st-b',x:CW-18,y:108,'font-size':11,'text-anchor':'end'},'$'+money(open));
+      el('line',{class:'sln',x1:1,y1:118,x2:CW-1,y2:118},g);
+      txt(g,{class:'st',x:18,y:136,'font-size':11},'Subtractions from cash');
+      el('line',{class:'sln',x1:1,y1:146,x2:CW-1,y2:146},g);
+      const lines=el('g',{},g), foot=el('g',{},g);
+      return {g,name,open,bal:open,out:0,n:0,cnt,lines,foot,slot:k,pos:SLOTS[k].slice()};
+    });
+    placeCards(true);
+  }
+  function placeCards(){
+    [...cards].sort((a,b)=>b.slot-a.slot).forEach(c=>{$('cards').appendChild(c.g);c.g.setAttribute('transform',`translate(${c.pos[0]} ${c.pos[1]})`)});
+  }
+  async function bringFront(card,id){
+    if(card.slot===0)return;
+    const old=card.slot; cards.forEach(c=>{if(c.slot<old)c.slot++}); card.slot=0;
+    $('cards').appendChild(card.g);
+    const from=cards.map(c=>c.pos.slice());
+    await tween(420,id,e=>cards.forEach((c,k)=>{const t=SLOTS[c.slot];c.pos=[from[k][0]+(t[0]-from[k][0])*e,from[k][1]+(t[1]-from[k][1])*e];c.g.setAttribute('transform',`translate(${c.pos[0]} ${c.pos[1]})`)}));
+    [...cards].sort((a,b)=>b.slot-a.slot).forEach(c=>$('cards').appendChild(c.g));
+  }
+  const cardOf=x=>cards.find(c=>c.name===x.p);
+  const lineTop=c=>L0+c.n*(LH[0]+LH[1]);
+  function stLine(c,g,y,h,x,acct,memo,amt){
+    const hl=el('rect',{class:'newline',x:1,y:y+1,width:CW-2,height:h-1},g);
+    txt(g,{class:'st-l',x:18,y:y+18,'font-size':11},'2026-10-08');
+    txt(g,{class:'st',x:96,y:y+18,'font-size':11},x.su.length>4?'Property':x.su);
+    if(x.su.length>4) txt(g,{class:'st',x:96,y:y+32,'font-size':11},'level');
+    acct.forEach((a,k)=>txt(g,{class:'st',x:170,y:y+18+k*14,'font-size':11},a));
+    memo.forEach((m,k)=>txt(g,{class:'st',x:306,y:y+18+k*14,'font-size':11},m));
+    txt(g,{class:'st',x:596,y:y+18,'font-size':11,'text-anchor':'end'},money(amt));
+    c.bal-=amt; c.out+=amt; txt(g,{class:'st',x:CW-18,y:y+18,'font-size':11,'text-anchor':'end'},money(c.bal));
+    el('line',{class:'sln',x1:1,y1:y+h,x2:CW-1,y2:y+h},g);
+    return hl;
+  }
+  function addLines(x){
+    const c=cardOf(x), g=el('g',{class:'sline'},c.lines); g.style.opacity=0; g.style.transform='translate(0px,-8px)';
+    const y=lineTop(c), o=num(x.o), h=Math.round(o*13)/100;
+    const a=stLine(c,g,y,LH[0],x,x.acct,x.memo,o);
+    const b=stLine(c,g,y+LH[0],LH[1],x,['HST 13%'],['HST 13%'],h);
+    c.n++; c.cnt.textContent=c.n+(c.n>1?' charges':' charge')+' posted';
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{g.style.opacity=1;g.style.transform='translate(0px,0px)'}));
+    setTimeout(()=>{a.style.opacity=0;b.style.opacity=0},900);
+  }
+  function footers(){
+    cards.forEach(c=>{
+      const f=c.foot, y=lineTop(c)+4; f.innerHTML='';
+      txt(f,{class:'st-b',x:18,y:y+18,'font-size':11},'Total from subtractions from cash');
+      txt(f,{class:'st-b',x:596,y:y+18,'font-size':11,'text-anchor':'end'},'$'+money(c.out));
+      el('line',{class:'sln',x1:1,y1:y+28,x2:CW-1,y2:y+28},f);
+      txt(f,{class:'st-b',x:18,y:y+48,'font-size':11},'Ending cash balance as of 2026-10-08');
+      txt(f,{class:'st-b',x:CW-18,y:y+48,'font-size':11,'text-anchor':'end'},'$'+money(c.bal));
+      el('line',{x1:1,y1:y+58,x2:CW-1,y2:y+58,stroke:'var(--sheet-fg)','stroke-width':2},f);
+    });
+  }
+
+  async function move(x,y,t,id){
+    const fx=cur.x,fy=cur.y;
+    await tween(t,id,e=>{cur={x:fx+(x-fx)*e,y:fy+(y-fy)*e};$('cursor').setAttribute('transform',`translate(${cur.x} ${cur.y})`)});
+  }
+  async function click(id){const r=$('ripple');r.classList.remove('go');void r.getBoundingClientRect();r.classList.add('go');await wait(180,id)}
+  function hover(i){rows.forEach((r,k)=>r.hover.classList.toggle('on',k===i))}
+  async function fly(label,from,to,id){
+    const g=el('g',{class:'chip'},$('chips')), w=label.length*8.6+28;
+    el('rect',{x:-w/2,y:-16,width:w,height:32,rx:8},g); txt(g,{x:0,y:5,'font-size':14,'text-anchor':'middle'},label);
+    try{await tween(520,id,e=>g.setAttribute('transform',`translate(${from[0]+(to[0]-from[0])*e} ${from[1]+(to[1]-from[1])*e})`))}finally{g.remove()}
+  }
+
+  async function sequence(id){
+    $('cursor').setAttribute('opacity',1); timing=true;
+    // scan
+    for(let i=0;i<4;i++){await move(760,rowY(i)+38,i?260:500,id);hover(i);await wait(230,id)}
+    // the duplicate
+    await move(1372,rowY(3)+30,380,id);await wait(350,id);
+    await move(1420,rowY(3)+32,300,id);rows[3].trash.classList.add('hot');await click(id);
+    hover(-1);rows[3].g.style.opacity=0;await wait(250,id);
+    rows[3].g.remove();rows.splice(3,1);rows.forEach((r,k)=>r.g.style.transform=`translate(0px,${k*RH}px)`);
+    $('readyTxt').textContent='4 of 5 ready';
+    await wait(500,id);
+    // adjust one owner charge
+    await move(1090,rowY(3)+30,420,id);hover(3);await click(id);rows[3].box.classList.add('focus');
+    await wait(250,id);
+    const target='1,150.00';
+    for(let n=1;n<=target.length;n++){rows[3].oval.textContent=target.slice(0,n);await wait(55,id)}
+    rows[3].x.o=target;rows[3].prof.textContent='$132.30';rows[3].otag.set('over');
+    $('tOwner').textContent='$3,915.70';$('tHst').textContent='$509.03';$('tProfit').textContent='$383.73';
+    await wait(250,id);
+    rows[3].box.classList.remove('focus');rows[3].st.set('ready');$('readyTxt').textContent='5 of 5 ready';
+    await wait(450,id);hover(-1);
+    // select all ready
+    await move(1175,286,520,id);await click(id);
+    $('allBox').classList.add('on');$('allTick').classList.add('on');
+    for(const r of rows){r.cb.classList.add('on');r.tick.classList.add('on');await wait(70,id)}
+    $('readyTxt').textContent='5 selected';$('postBtn').setAttribute('fill','var(--btn)');$('postTxt').setAttribute('style','fill:var(--btn-fg)');
+    await wait(400,id);
+    // approve and post
+    await move(1400,286,480,id);await click(id);
+    $('postBtn').setAttribute('fill','var(--acc)');$('postTxt').setAttribute('style','fill:#F5F2EC');$('postTxt').textContent='Posting';
+    $('postTxt').textContent='Posting';
+    await tween(250,id,e=>$('cursor').setAttribute('opacity',1-e));
+    // posting card appears, every row goes to Posting
+    posting=true;
+    for(const r of rows){r.setPosting();await wait(50,id)}
+    await tween(300,id,e=>$('toast').setAttribute('opacity',e));
+    for(let n=1;n<=5;n++){setStage(0,n);setBar(n/15);await wait(80,id)}
+    await wait(300,id);
+    // dashboard steps aside, owner statement comes in, card moves under the dashboard
+    await tween(800,id,e=>{const s=1-(1-S)*e;$('dash').setAttribute('transform',`translate(110 ${250+TY*e}) scale(${s}) translate(-110 -250)`);$('stmt').setAttribute('opacity',e);
+      $('toast').setAttribute('transform',`translate(${1090+(110-1090)*e} ${618+(596-618)*e})`)});
+    for(let i=0;i<rows.length;i++){
+      const r=rows[i];
+      const c=cardOf(r.x);
+      await bringFront(c,id);
+      await fly('$'+r.x.o,D(1360,rowY(i)+30),[SLOTS[0][0]+560,SLOTS[0][1]+lineTop(c)+18],id);
+      addLines(r.x); setStage(1,i+1); setBar((5+(i+1)*1.6)/15);
+      await wait(160,id);
+      r.setPosted(); setStage(2,i+1); setBar((5+(i+1)*2)/15);
+      await wait(120,id);
+    }
+    posting=false;$('spin').style.display='none';$('tDone').classList.add('on');$('toastTitle').textContent='Posted 5 invoices to your PMS';
+    $('postTxt').textContent='Posted';$('readyTxt').textContent='5 posted';
+    footers();
+    timing=false; $('doneTime').textContent=mmss(ms);
+    await wait(1100,id);
+    await tween(400,id,e=>$('toast').setAttribute('opacity',1-e));
+    await tween(600,id,e=>$('done').setAttribute('opacity',e));
+    await wait(4500,id);
+  }
+  function reset(){
+    $('rows').innerHTML='';$('chips').innerHTML='';rows=DATA.map(x=>({...x})).map(makeRow);buildCards();
+    $('dash').removeAttribute('transform');['stmt','done','cursor','toast'].forEach(k=>$(k).setAttribute('opacity',0));toastReset();
+    $('allBox').classList.remove('on');$('allTick').classList.remove('on');
+    $('postBtn').setAttribute('fill','var(--off)');$('postTxt').setAttribute('style','fill:#F5F2EC');$('postTxt').textContent='Post charges';
+    $('readyTxt').textContent='4 of 6 ready';
+    $('tOwner').textContent='$3,885.17';$('tHst').textContent='$505.07';$('tProfit').textContent='$353.20';
+    timing=false;ms=0;$('session').textContent='00:00';cur={x:900,y:760};$('cursor').setAttribute('transform','translate(900 760)');
+  }
+  async function loop(){const id=++run;try{for(;;){reset();await wait(600,id);await sequence(id)}}catch(e){}}
+
+  if($('replay'))$('replay').onclick=loop;
+  if($('pause'))$('pause').onclick=()=>{paused=!paused;$('pause').setAttribute('aria-pressed',paused);$('pause').textContent=paused?'Resume':'Pause'};
+  if($('dark'))$('dark').onclick=()=>{const d=$('stage').classList.toggle('dark');$('dark').setAttribute('aria-pressed',d)};
+
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+    reset();rows[3].g.remove();rows.splice(3,1);rows[3].x.o='1,150.00';
+    rows.forEach((r,k)=>{r.g.style.transform=`translate(0px,${k*RH}px)`;r.setPosted();r.cb.classList.add('on');r.tick.classList.add('on');addLines(r.x)});footers();
+    $('dash').setAttribute('transform',`translate(110 ${250+TY}) scale(${S}) translate(-110 -250)`);
+    ['stmt','done'].forEach(k=>$(k).setAttribute('opacity',1));$('session').textContent='00:17';
+  } else loop();
+})();
+</script>
+</body></html>

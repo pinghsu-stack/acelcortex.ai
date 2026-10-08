@@ -24,5 +24,6 @@
 ## Links
 - Home: https://www.acelcortex.ai/
 - Walkthrough video and booking: https://www.acelcortex.ai/start
+- FAQ: https://www.acelcortex.ai/faq
 - Book a call: https://calendly.com/ping-acelcortex/30min
 - Live demo: https://try.acelcortex.ai/

@@ -1,0 +1,29 @@
+# Acel Cortex
+
+> Acel Cortex is AI for property management back offices. It takes the first pass on accounts payable and owner billing, and a person on the property manager's team approves everything before it posts. Built by property managers who run their own property management companies on it.
+
+## What it does today
+- Collects vendor invoices from the inbox and reads them
+- Matches each invoice to its work order and flags duplicates
+- Works out the charge to the owner and the property manager's profit on each invoice
+- Posts the approved batch to the property management software
+- Works on top of Buildium, AppFolio, Rentvine, Rent Manager and other major platforms, with no migration
+- Optional chat assistant on Telegram for approvals and quick tasks
+
+## Built in-house, rolling out next
+- Maintenance request triage and main inbox management
+- Rental analysis, rental application assessment and owner leasing updates
+- Notices: rent increase, late rent, lease renewal, notice of entry
+
+## Key facts
+- Nothing posts without human approval
+- Setup takes about two weeks
+- Pricing is per unit; quotes are given on a 30-minute call
+- Serves property management companies in the US and Canada, roughly 50 to 2,000 units
+
+## Links
+- Home: https://www.acelcortex.ai/
+- Walkthrough video and booking: https://www.acelcortex.ai/start
+- FAQ: https://www.acelcortex.ai/faq
+- Book a call: https://calendly.com/ping-acelcortex/30min
+- Live demo: https://try.acelcortex.ai/

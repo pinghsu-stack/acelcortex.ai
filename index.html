@@ -420,7 +420,6 @@
   }
   @media (max-width: 760px) {
     .nav a.lnk { display: none; }
-    .nav a.lnk.lnk-faq { display: inline; }
     .hh { padding-top: 36px; }
     .hh .lede { font-size: 17px; }
     .ctas .btn, .ctas .btn-ghost { width: 100%; text-align: center; }
@@ -485,6 +484,23 @@
   @media (max-width: 1000px) { .founders { grid-template-columns: 1fr 1fr; gap: 24px; } }
   @media (max-width: 760px) { .founders { grid-template-columns: 1fr; gap: 20px; margin-top: 32px; } .person img { width: 96px; height: 96px; } }
   @media (max-width: 760px) { #workflows { display: none; } }
+
+  .menu-btn { display: none; width: 40px; height: 40px; margin-right: -8px; border: 0; background: none; cursor: pointer; align-items: center; justify-content: center; color: var(--ink); }
+  .menu-btn svg { width: 22px; height: 22px; }
+  .menu-btn .x { display: none; }
+  .top.menu-open .menu-btn .bars { display: none; }
+  .top.menu-open .menu-btn .x { display: block; }
+  .mnav { display: none; }
+  @media (max-width: 760px) {
+    .nav { gap: 14px; }
+    .nav a.lnk.lnk-faq { display: none; }
+    .menu-btn { display: inline-flex; }
+    .top.menu-open { border-bottom-color: var(--rule); }
+    .top.menu-open .mnav { display: block; }
+    .mnav { position: absolute; left: 0; right: 0; top: 100%; background: var(--paper); border-bottom: 1px solid var(--rule); box-shadow: 0 12px 24px rgba(20,20,20,0.08); }
+    .mnav a { display: block; padding: 16px 24px; font-size: 17px; color: var(--ink); text-decoration: none; border-top: 1px solid var(--rule); }
+    .mnav a:active { background: rgba(20,20,20,0.04); }
+  }
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Acel Cortex Solutions", "alternateName": "Acel Cortex", "url": "https://www.acelcortex.ai/", "logo": "https://www.acelcortex.ai/assets/logo.png", "email": "ping@acelcortex.ai", "areaServed": ["US", "CA"], "founder": [{"@type": "Person", "name": "Ping Hsu", "jobTitle": "CEO"}, {"@type": "Person", "name": "Roman Walcott", "jobTitle": "CTO"}], "description": "AI back office for property management companies, starting with accounts payable and owner billing."}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Acel Cortex", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "url": "https://www.acelcortex.ai/", "description": "AI for property management. Reads, matches and codes vendor invoices, calculates owner charges, and posts approved batches to Buildium, AppFolio, Rentvine, Rent Manager and other major platforms.", "audience": {"@type": "BusinessAudience", "audienceType": "Property management companies"}, "publisher": {"@type": "Organization", "name": "Acel Cortex Solutions"}}</script>
@@ -509,8 +525,14 @@
       <a class="lnk" href="#savings">Savings</a>
       <a class="lnk lnk-faq" href="/faq">FAQ</a>
       <a class="btn btn-sm js-book" href="https://calendly.com/ping-acelcortex/30min">Book a call</a>
+      <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><svg class="bars" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="x" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
     </nav>
   </div>
+  <nav class="mnav" id="mnav" aria-label="Menu">
+    <a href="#ai-agent">AI Agent</a>
+    <a href="#savings">Savings</a>
+    <a href="/faq">FAQ</a>
+  </nav>
 </header>
 
 <main class="home-main">
@@ -1048,6 +1070,17 @@
       }
     })();
   })();
+</script>
+<script>
+(function(){
+  var top=document.querySelector('.top'), btn=top&&top.querySelector('.menu-btn'), nav=document.getElementById('mnav');
+  if(!btn||!nav) return;
+  function set(o){ top.classList.toggle('menu-open',o); btn.setAttribute('aria-expanded',o); btn.setAttribute('aria-label',o?'Close menu':'Open menu'); }
+  btn.addEventListener('click',function(e){ e.stopPropagation(); set(!top.classList.contains('menu-open')); });
+  nav.addEventListener('click',function(e){ if(e.target.closest('a')) set(false); });
+  document.addEventListener('click',function(e){ if(!top.contains(e.target)) set(false); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') set(false); });
+})();
 </script>
 </body>
 </html>

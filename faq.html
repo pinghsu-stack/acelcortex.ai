@@ -421,7 +421,6 @@
   @media (max-width: 760px) {
     #workflows { display: none; }
     .nav a.lnk { display: none; }
-    .nav a.lnk.lnk-faq { display: inline; }
     .hh { padding-top: 36px; }
     .hh .lede { font-size: 17px; }
     .ctas .btn, .ctas .btn-ghost { width: 100%; text-align: center; }
@@ -500,6 +499,23 @@
   .faq-hero h1 .g { color: var(--green); }
   .faq-hero .lede { margin-top: 16px; font-size: 18px; color: var(--ink-soft); max-width: 52ch; }
   @media (max-width: 760px) { .faq-hero { padding-top: 36px; } }
+
+  .menu-btn { display: none; width: 40px; height: 40px; margin-right: -8px; border: 0; background: none; cursor: pointer; align-items: center; justify-content: center; color: var(--ink); }
+  .menu-btn svg { width: 22px; height: 22px; }
+  .menu-btn .x { display: none; }
+  .top.menu-open .menu-btn .bars { display: none; }
+  .top.menu-open .menu-btn .x { display: block; }
+  .mnav { display: none; }
+  @media (max-width: 760px) {
+    .nav { gap: 14px; }
+    .nav a.lnk.lnk-faq { display: none; }
+    .menu-btn { display: inline-flex; }
+    .top.menu-open { border-bottom-color: var(--rule); }
+    .top.menu-open .mnav { display: block; }
+    .mnav { position: absolute; left: 0; right: 0; top: 100%; background: var(--paper); border-bottom: 1px solid var(--rule); box-shadow: 0 12px 24px rgba(20,20,20,0.08); }
+    .mnav a { display: block; padding: 16px 24px; font-size: 17px; color: var(--ink); text-decoration: none; border-top: 1px solid var(--rule); }
+    .mnav a:active { background: rgba(20,20,20,0.04); }
+  }
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is AI for property management?", "acceptedAnswer": {"@type": "Answer", "text": "AI for property management is software that takes on the repetitive back-office work in a property management company: reading vendor invoices, matching them to work orders, sorting the inbox, triaging maintenance requests and drafting notices. With Acel Cortex, the AI does the first pass and a person on your team reviews and approves before anything is posted or sent."}}, {"@type": "Question", "name": "What does Acel Cortex do?", "acceptedAnswer": {"@type": "Answer", "text": "Today Acel Cortex handles accounts payable and owner billing. It collects vendor invoices from your inbox, reads them, matches each one to its work order, flags duplicates, works out the charge to the owner and your profit, and posts the approved batch to your property management software. In our own property management companies it also runs maintenance request triage, inbox sorting and reply drafts, vendor scheduling, rental analysis, rental application assessment, owner leasing updates, and notices for rent increases, late rent, lease renewals and entry. These roll out to clients next."}}, {"@type": "Question", "name": "Does it work with my property management software?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Acel Cortex works on top of Buildium, AppFolio, Rentvine, Rent Manager and other major platforms, so there is no migration and your team keeps the software they already use."}}, {"@type": "Question", "name": "Does anything post without my approval?", "acceptedAnswer": {"@type": "Answer", "text": "No. Acel Cortex prepares the work and a person approves it. Nothing posts to your books or goes out to a tenant or owner until someone on your team says yes."}}, {"@type": "Question", "name": "How long does it take to get started?", "acceptedAnswer": {"@type": "Answer", "text": "About two weeks from kickoff to live. Setup is done by our founder, who runs a property management company on the same system."}}, {"@type": "Question", "name": "How much does Acel Cortex cost?", "acceptedAnswer": {"@type": "Answer", "text": "Pricing is per unit, so it scales with your portfolio. Book a 30-minute call and we will give you an exact quote based on your unit count and invoice volume."}}]}</script>
@@ -523,8 +539,14 @@
       <a class="lnk" href="/#savings">Savings</a>
       <a class="lnk lnk-faq" href="/faq">FAQ</a>
       <a class="btn btn-sm js-book" href="https://calendly.com/ping-acelcortex/30min">Book a call</a>
+      <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><svg class="bars" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="x" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
     </nav>
   </div>
+  <nav class="mnav" id="mnav" aria-label="Menu">
+    <a href="/#ai-agent">AI Agent</a>
+    <a href="/#savings">Savings</a>
+    <a href="/faq">FAQ</a>
+  </nav>
 </header>
 
 <main class="home-main">
@@ -849,6 +871,17 @@
       }
     })();
   })();
+</script>
+<script>
+(function(){
+  var top=document.querySelector('.top'), btn=top&&top.querySelector('.menu-btn'), nav=document.getElementById('mnav');
+  if(!btn||!nav) return;
+  function set(o){ top.classList.toggle('menu-open',o); btn.setAttribute('aria-expanded',o); btn.setAttribute('aria-label',o?'Close menu':'Open menu'); }
+  btn.addEventListener('click',function(e){ e.stopPropagation(); set(!top.classList.contains('menu-open')); });
+  nav.addEventListener('click',function(e){ if(e.target.closest('a')) set(false); });
+  document.addEventListener('click',function(e){ if(!top.contains(e.target)) set(false); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') set(false); });
+})();
 </script>
 </body>
 </html>

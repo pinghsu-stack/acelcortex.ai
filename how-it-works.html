@@ -296,6 +296,27 @@
   .bring .n { font-family: var(--font-mono); font-size: 12px; color: var(--green); }
   .bring h3 { margin-top: 10px; font-size: 19px; font-weight: 600; letter-spacing: -0.02em; }
   .bring p { margin-top: 6px; font-size: 15px; color: var(--ink-soft); }
+  .tl .kicker { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); }
+  .tl { margin-top: 24px; padding: 72px 0 0; border-top: 1px solid var(--rule); }
+  .tl h2 { margin-top: 12px; font-size: clamp(28px, 3.6vw, 40px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.05; }
+  .tl .sub { margin-top: 12px; color: var(--ink-soft); max-width: 56ch; }
+  .tl-steps { list-style: none; margin-top: 36px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+  .tl-steps::before { content: ""; position: absolute; left: 7px; right: 0; top: 7px; height: 2px; background: var(--rule); }
+  .tl-steps li { position: relative; padding: 0 24px 0 0; }
+  .tl-dot { position: relative; display: block; width: 16px; height: 16px; border-radius: 50%; background: var(--paper); border: 2px solid var(--green); }
+  .tl-steps li:last-child .tl-dot { background: var(--green); }
+  .tl-when { display: block; margin-top: 16px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); }
+  .tl-steps h3 { margin-top: 8px; font-size: 19px; font-weight: 600; letter-spacing: -0.02em; }
+  .tl-steps p { margin-top: 6px; font-size: 15px; color: var(--ink-soft); }
+  @media (max-width: 760px) {
+    .tl { padding-top: 56px; }
+    .tl-steps { grid-template-columns: 1fr; gap: 26px; }
+    .tl-steps::before { display: none; }
+    .tl-steps li:not(:last-child)::after { content: ""; position: absolute; left: 7px; top: 18px; bottom: -26px; width: 2px; background: var(--rule); }
+    .tl-steps li { padding: 0 0 0 36px; }
+    .tl-dot { position: absolute; left: 0; top: 2px; }
+    .tl-when { margin-top: 0; }
+  }
   .hw-cta { padding: 72px 0 96px; text-align: center; }
   .hw-cta h2 { font-size: clamp(30px, 4vw, 40px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.05; }
   .hw-cta p { margin: 14px auto 0; max-width: 52ch; color: var(--ink-soft); }
@@ -393,6 +414,18 @@
       <h2>Nothing posts without your approval.</h2>
       <p>The agent prepares the work. Your team reviews it and approves before anything touches your books. It works on top of the property management software you already use, with no migration.</p>
     </div>
+  </section>
+
+  <section class="tl" aria-labelledby="tl-title">
+    <div class="kicker">Getting started</div>
+    <h2 id="tl-title">Live in 1 to 2 weeks.</h2>
+    <p class="sub">We do the setup. You answer a few questions and approve the plan, then your team's time starts coming back.</p>
+    <ol class="tl-steps">
+      <li><span class="tl-dot" aria-hidden="true"></span><span class="tl-when">Day 1</span><h3>Kickoff</h3><p>A short welcome call and a quick questionnaire about your portfolio and team.</p></li>
+      <li><span class="tl-dot" aria-hidden="true"></span><span class="tl-when">Days 2 to 3</span><h3>Connect your PMS</h3><p>You add a dedicated Acel Cortex user to your property management software. No migration.</p></li>
+      <li><span class="tl-dot" aria-hidden="true"></span><span class="tl-when">Week 1</span><h3>Map your workflow</h3><p>One call to walk through how invoices move in your office. We send you a written plan to approve.</p></li>
+      <li><span class="tl-dot" aria-hidden="true"></span><span class="tl-when">Week 1 to 2</span><h3>Go live</h3><p>We configure everything to your plan. Your team starts reviewing and approving instead of entering.</p></li>
+    </ol>
   </section>
 
   <section class="hw-cta">

@@ -418,4 +418,9 @@ svg text{font-family:var(--sans);fill:var(--fg)}
   } else loop();
 })();
 </script>
+<script>
+(function(){if(new URLSearchParams(location.search).get('crop')!=='1')return;
+var v=document.querySelector('.stage svg');if(v)v.setAttribute('viewBox','620 235 880 610');
+var st=document.querySelector('.stage');if(st)st.style.aspectRatio='880/610';})();
+</script>
 </body></html>

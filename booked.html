@@ -308,6 +308,16 @@
   .bk-confirm { padding: 56px 0 96px; }
   .bk-confirm .confirm { margin-top: 0; }
   @media (max-width: 760px) { .anim-list { gap: 40px; } .anim figcaption p { font-size: 16px; } .bk-confirm { padding-bottom: 72px; } }
+  .swipe-hint { display: none; }
+  @media (max-width: 760px) {
+    .m-swipe .anim .frame { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .m-swipe .anim .frame::-webkit-scrollbar { display: none; }
+    .m-swipe .anim { min-width: 0; }
+    .m-swipe .anim-list { grid-template-columns: minmax(0, 1fr); }
+    .m-swipe .anim .frame { aspect-ratio: auto; width: 100%; }
+    .m-swipe .anim iframe { width: 780px; height: 312px; max-width: none; }
+    .m-swipe .swipe-hint { display: block; margin-top: 8px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  }
   .anim-note { margin-top: 12px; font-size: 13px; color: var(--muted); }
   @media (max-width: 760px) { .anims { margin-top: 56px; } .anim-list { gap: 18px; } .anim .frame { border-radius: 12px; } }
   .bk-call { padding: 72px 0 56px; display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; align-items: start; }
@@ -368,19 +378,23 @@
     <div class="anim-list">
       <figure class="anim">
         <figcaption><span class="stepn">Step 1</span><h3>Every invoice, one place</h3><p>Email, paper and timesheets land in one queue, already entered.</p></figcaption>
-        <div class="frame"><iframe src="/assets/booked/01-invoices" title="Every invoice, one place" loading="lazy" tabindex="-1"></iframe></div>
+        <div class="frame"><iframe data-crop="870/540" src="/assets/booked/01-invoices" title="Every invoice, one place" loading="lazy" tabindex="-1"></iframe></div>
+        <div class="swipe-hint">Swipe to see more &rarr;</div>
       </figure>
       <figure class="anim">
         <figcaption><span class="stepn">Step 2</span><h3>Every detail, read for you</h3><p>Vendor, property, work order, description and cost, pulled from each invoice into your dashboard.</p></figcaption>
-        <div class="frame"><iframe src="/assets/booked/02-reads" title="Every detail, read for you" loading="lazy" tabindex="-1"></iframe></div>
+        <div class="frame"><iframe data-crop="790/560" src="/assets/booked/02-reads" title="Every detail, read for you" loading="lazy" tabindex="-1"></iframe></div>
+        <div class="swipe-hint">Swipe to see more &rarr;</div>
       </figure>
       <figure class="anim">
         <figcaption><span class="stepn">Step 3</span><h3>Check it. Approve it. Done.</h3><p>Your team fixes what needs a person and approves. The agent posts every charge to your PMS.</p></figcaption>
-        <div class="frame"><iframe src="/assets/booked/03-review" title="Check it. Approve it. Done." loading="lazy" tabindex="-1"></iframe></div>
+        <div class="frame"><iframe data-crop="880/610" src="/assets/booked/03-review" title="Check it. Approve it. Done." loading="lazy" tabindex="-1"></iframe></div>
+        <div class="swipe-hint">Swipe to see more &rarr;</div>
       </figure>
       <figure class="anim">
         <figcaption><span class="stepn">Step 4</span><h3>Your week, back</h3><p>Invoicing day and daily bill processing shrink to quick reviews. The rest goes to growing the book.</p></figcaption>
-        <div class="frame"><iframe src="/assets/booked/04-week" title="Your week, back" loading="lazy" tabindex="-1"></iframe></div>
+        <div class="frame"><iframe data-crop="880/590" src="/assets/booked/04-week" title="Your week, back" loading="lazy" tabindex="-1"></iframe></div>
+        <div class="swipe-hint">Swipe to see more &rarr;</div>
       </figure>
     </div>
     <p class="anim-note">Sample data. Vendors, properties and amounts are illustrative.</p>
@@ -591,6 +605,17 @@
       r.innerHTML = 'Need a different time? <a></a>';
       const a = r.querySelector('a'); a.textContent = 'Reschedule here'; a.href = 'https://calendly.com/reschedulings/' + encodeURIComponent(inv);
     }
+  })();
+
+  // Mobile comparison: ?m=swipe or ?m=crop (phones only)
+  (() => {
+    const m = new URLSearchParams(location.search).get('m');
+    if (!matchMedia('(max-width: 760px)').matches) return;
+    if (m === 'swipe') document.body.classList.add('m-swipe');
+    if (m === 'crop') document.querySelectorAll('iframe[data-crop]').forEach(f => {
+      f.src = f.getAttribute('src') + '?crop=1';
+      f.parentElement.style.aspectRatio = f.dataset.crop;
+    });
   })();
 </script>
 </body>

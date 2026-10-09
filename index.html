@@ -349,6 +349,9 @@
 
   .flag-grid { margin-top: 44px; }
   .flag-grid .mock-sec { margin-top: 0; }
+  .ap-anim { aspect-ratio: 1600/640; border: 1px solid var(--rule); border-radius: 16px; overflow: hidden; background: var(--paper); box-shadow: 0 1px 2px rgba(20,20,20,0.04), 0 12px 32px rgba(20,20,20,0.06); }
+  .ap-anim iframe { width: 100%; height: 100%; border: 0; display: block; pointer-events: none; }
+  @media (max-width: 760px) { .ap-anim { border-radius: 12px; } }
 
   /* Telegram */
   .tg { margin-top: 128px; background: var(--ink); color: var(--paper); }
@@ -564,94 +567,9 @@
       <p>Every invoice on one screen, matched to its work order, with the owner charge and your profit worked out. Adjust anything, then post the batch.</p>
     </div>
     <div class="flag-grid">
-  <div class="mock-sec">
-    <p class="sr">Animation: a cursor selects four ready invoices, skips a flagged duplicate, and clicks Post charges.</p>
-    <div class="mock" aria-hidden="true">
-      <svg class="cursor" viewBox="0 0 24 24" width="22" height="22"><path d="M3 2l7.5 19 2.6-7.6L21 10.8z" fill="#141414" stroke="#FBFAF7" stroke-width="1.5" stroke-linejoin="round"/></svg>
-      <span class="ring"></span>
-      <div class="mock-bar">
-        <div>
-          <div class="mock-title">Invoices to review</div>
-          <div class="mock-sub" id="mock-sub">5 received · 4 ready to post · 1 flagged</div>
-        </div>
-        <div class="mock-actions">
-          <span><span id="mock-count">0</span> selected · cost <span class="mock-total" id="mock-total">$0.00</span> · owner <span class="mock-total" id="mock-own">$0.00</span> · profit <span class="mock-total profit" id="mock-pr">$0.00</span></span>
-          <button class="btn-post" id="mock-post" type="button" tabindex="-1">Post charges</button>
-        </div>
-      </div>
-      <div class="mock-scroll">
-        <table>
-          <thead><tr>
-            <th>Received</th><th>Vendor</th><th>Property · Unit</th>
-            <th>Description</th><th class="num">Cost</th><th class="num">Charge to owner</th><th class="num">Profit</th><th>Work order</th><th>Status</th><th class="sel">Select</th>
-          </tr></thead>
-          <tbody>
-          <tr>
-            <td class="muted">Oct 6</td>
-            <td class="vendor">Northline Plumbing</td>
-            <td>412 Maple Ave · Unit 2</td>
-            <td>Replaced kitchen faucet cartridge. Tested for leaks.<br><span class="chip chip-agent">Cleaned up by AI</span></td>
-            <td class="num">$185.00</td>
-            <td class="num"><span class="own-field" data-orig="225.00">225.00</span><br><span class="chip chip-agent own-chip">Auto</span></td>
-            <td class="num"><span class="profit">$40.00</span></td>
-            <td><span class="wo">WO 20418</span><br><span class="chip chip-ready">Matched</span></td>
-            <td class="st"><span class="chip chip-ready">Ready to post</span></td>
-            <td class="sel"><input type="checkbox" tabindex="-1" data-amt="185.00" data-own="225.00" data-pr="40.00" aria-label="Select Northline Plumbing invoice"></td>
-          </tr>
-          <tr>
-            <td class="muted">Oct 6</td>
-            <td class="vendor">Cedar Grounds Co.</td>
-            <td>88 Birch Crescent</td>
-            <td>Fallen branches removed. Hedges trimmed.</td>
-            <td class="num">$22.00</td>
-            <td class="num"><span class="own-field" data-orig="40.00">40.00</span><br><span class="chip chip-agent own-chip">Auto</span></td>
-            <td class="num"><span class="profit">$18.00</span></td>
-            <td><span class="wo">WO 20421</span><br><span class="chip chip-ready">Matched</span></td>
-            <td class="st"><span class="chip chip-ready">Ready to post</span></td>
-            <td class="sel"><input type="checkbox" tabindex="-1" data-amt="22.00" data-own="40.00" data-pr="18.00" aria-label="Select Cedar Grounds Co. invoice"></td>
-          </tr>
-          <tr>
-            <td class="muted">Oct 5</td>
-            <td class="vendor">Brightway Electric</td>
-            <td>1550 King St · Unit 7</td>
-            <td>Replaced faulty breaker in unit panel.<br><span class="chip chip-agent">Cleaned up by AI</span></td>
-            <td class="num">$240.00</td>
-            <td class="num"><span class="own-field" data-orig="300.00">300.00</span><br><span class="chip chip-agent own-chip">Auto</span></td>
-            <td class="num"><span class="profit">$60.00</span></td>
-            <td><span class="wo">WO 20397</span><br><span class="chip chip-ready">Matched</span></td>
-            <td class="st"><span class="chip chip-ready">Ready to post</span></td>
-            <td class="sel"><input type="checkbox" tabindex="-1" data-amt="240.00" data-own="300.00" data-pr="60.00" aria-label="Select Brightway Electric invoice"></td>
-          </tr>
-          <tr class="flag">
-            <td class="muted">Oct 5</td>
-            <td class="vendor">Cedar Grounds Co.</td>
-            <td>88 Birch Crescent</td>
-            <td>Fallen branches removed. Hedges trimmed.</td>
-            <td class="num">$22.00</td>
-            <td class="num"><span class="muted">$40.00</span></td>
-            <td class="num"><span class="muted">$18.00</span></td>
-            <td><span class="wo">WO 20421</span><br><span class="muted">Already billed</span></td>
-            <td><span class="chip chip-warn">Possible duplicate</span></td>
-            <td class="sel"><input type="checkbox" tabindex="-1" disabled aria-label="Flagged as possible duplicate"></td>
-          </tr>
-          <tr>
-            <td class="muted">Oct 4</td>
-            <td class="vendor">Summit Appliance Repair</td>
-            <td>230 Oak Lane · Unit 1</td>
-            <td>Dryer belt replaced. Unit tested.<br><span class="chip chip-agent">Cleaned up by AI</span></td>
-            <td class="num">$145.00</td>
-            <td class="num"><span class="own-field" data-orig="195.00">195.00</span><br><span class="chip chip-agent own-chip">Auto</span></td>
-            <td class="num"><span class="profit">$50.00</span></td>
-            <td><span class="wo">WO 20385</span><br><span class="chip chip-ready">Matched</span></td>
-            <td class="st"><span class="chip chip-ready">Ready to post</span></td>
-            <td class="sel"><input type="checkbox" tabindex="-1" data-amt="145.00" data-own="195.00" data-pr="50.00" aria-label="Select Summit Appliance Repair invoice"></td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <p class="mock-note">Sample data. Posted charges go back into your PMS.</p>
-  </div>
+      <p class="sr">Animation: a reviewer deletes a duplicate, adjusts one owner charge, selects every ready invoice and posts them. Each charge lands on the owner statement in your PMS.</p>
+      <div class="ap-anim"><iframe data-crop="880/610" data-src="/assets/booked/03-review" title="Check it. Approve it. Done." tabindex="-1" aria-hidden="true"></iframe></div>
+      <p class="mock-note">Sample data. Posted charges go back into your PMS.</p>
     </div>
   </section>
 
@@ -1083,6 +1001,18 @@
   document.addEventListener('click',function(e){ if(!top.contains(e.target)) set(false); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') set(false); });
 })();
+
+  // AP animation: starts when scrolled into view; phones get the zoomed-in version
+  (() => {
+    const f = document.querySelector('.ap-anim iframe');
+    if (!f) return;
+    const phone = matchMedia('(max-width: 760px)').matches;
+    if (phone) f.parentElement.style.aspectRatio = f.dataset.crop;
+    const go = () => { if (!f.src) f.src = f.dataset.src + (phone ? '?crop=1' : ''); };
+    if (!('IntersectionObserver' in window)) return go();
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { go(); io.disconnect(); } }), { threshold: 0.35 });
+    io.observe(f);
+  })();
 </script>
 </body>
 </html>

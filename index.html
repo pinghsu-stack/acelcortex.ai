@@ -140,6 +140,7 @@
   .btn-post:hover { opacity: 0.88; }
   .btn-post.done { background: var(--green-deep); }
   .mock-scroll { overflow-x: auto; }
+  @media (max-width: 760px) and (prefers-reduced-motion: no-preference) { .mock-scroll { overflow-x: hidden; touch-action: pan-y; } }
   .mock table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
   .mock th {
     text-align: left; font-family: var(--font-mono); font-weight: 400; font-size: 10px;
@@ -904,6 +905,7 @@
         reset();
         await sleep(700);
 
+        if (scroller.scrollWidth > scroller.clientWidth) { scroller.scrollTo({ left: 0 }); await sleep(1400); }
         // 1. adjust one owner charge by hand (bring its column into view on phones)
         const sr = scroller.getBoundingClientRect(), fr = editField.getBoundingClientRect();
         if (fr.right > sr.right || fr.left < sr.left) {
@@ -933,7 +935,7 @@
         p = await moveTo(postBtn); await click(p);
         post();
         await sleep(3400);
-        scroller.scrollTo({ left: 0 });
+        scroller.scrollTo({ left: 0, behavior: 'smooth' }); await sleep(600);
       }
     })();
   })();

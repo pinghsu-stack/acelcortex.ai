@@ -165,6 +165,11 @@ svg text{font-family:var(--sans);fill:var(--fg)}
   const MAP=[['v',0,322],['p',1,455],['wo',2,443],['desc',3,560],['cost',4,560]];
   const RH=106, R0=364;
   let run=0, paused=false, rows=[], tot={c:0,o:0,h:0,p:0,n:0};
+  const CROP=new URLSearchParams(location.search).get('crop')==='1', CW_=604, CH_=560, CY_=246, HOME=96, AWAY=900;
+  let camX=HOME; const svgEl=document.querySelector('.stage svg');
+  function setCam(x){camX=x;if(CROP)svgEl.setAttribute('viewBox',`${x} ${CY_} ${CW_} ${CH_}`)}
+  function panTo(x,ms,id){const x0=camX;return tween(ms,id,e=>setCam(x0+(x-x0)*e))}
+  if(CROP)setCam(HOME);
 
   function el(tag,a,parent){const e=document.createElementNS(NS,tag);for(const k in a)e.setAttribute(k,a[k]);parent&&parent.appendChild(e);return e}
   function txt(parent,a,s){const t=el('text',a,parent);t.textContent=s;return t}
@@ -248,17 +253,20 @@ svg text{font-family:var(--sans);fill:var(--fg)}
       });
     });
     scan.setAttribute('opacity',0);
+    const pan=CROP?panTo(AWAY,1300,id):null;
     await Promise.all(flights);
+    if(pan)await pan;
     await wait(350,id); on(c.owner);
     await wait(250,id); on(c.profit);
     await wait(250,id); on(c.match);
     await wait(250,id); on(c.ready); totals(x);
     await wait(1100,id);
+    if(CROP)await wait(600,id);
     c.glow.style.opacity=0; clearHL(); $('paper').style.opacity=0;
-    await wait(450,id);
+    if(CROP)await panTo(HOME,900,id); else await wait(450,id);
   }
   async function loop(){
-    const id=++run; rows=[]; tot={c:0,o:0,h:0,p:0,n:0};
+    const id=++run; rows=[]; tot={c:0,o:0,h:0,p:0,n:0}; setCam(HOME);
     $('rows').innerHTML=''; $('chips').innerHTML='';
     ['tCost','tOwner','tHst','tProfit'].forEach(k=>$(k).textContent='$0.00'); $('tReady').textContent='0 of 0 ready';
     let i=0;
@@ -276,8 +284,6 @@ svg text{font-family:var(--sans);fill:var(--fg)}
 })();
 </script>
 <script>
-(function(){if(new URLSearchParams(location.search).get('crop')!=='1')return;
-var v=document.querySelector('.stage svg');if(v)v.setAttribute('viewBox','96 246 424 504');
-var st=document.querySelector('.stage');if(st)st.style.aspectRatio='424/504';})();
+(function(){if(new URLSearchParams(location.search).get('crop')!=='1')return;var st=document.querySelector('.stage');if(st)st.style.aspectRatio='604/560';})();
 </script>
 </body></html>

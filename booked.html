@@ -368,19 +368,19 @@
     <div class="anim-list">
       <figure class="anim">
         <figcaption><span class="stepn">Step 1</span><h3>Every invoice, one place</h3><p>Email, paper and timesheets land in one queue, already entered.</p></figcaption>
-        <div class="frame"><iframe data-crop="870/540" src="/assets/booked/01-invoices" title="Every invoice, one place" loading="lazy" tabindex="-1"></iframe></div>
+        <div class="frame"><iframe data-crop="870/540" data-src="/assets/booked/01-invoices" title="Every invoice, one place" tabindex="-1"></iframe></div>
       </figure>
       <figure class="anim">
         <figcaption><span class="stepn">Step 2</span><h3>Every detail, read for you</h3><p>Vendor, property, work order, description and cost, pulled from each invoice into your dashboard.</p></figcaption>
-        <div class="frame"><iframe data-crop="604/560" src="/assets/booked/02-reads" title="Every detail, read for you" loading="lazy" tabindex="-1"></iframe></div>
+        <div class="frame"><iframe data-crop="604/560" data-src="/assets/booked/02-reads" title="Every detail, read for you" tabindex="-1"></iframe></div>
       </figure>
       <figure class="anim">
         <figcaption><span class="stepn">Step 3</span><h3>Check it. Approve it. Done.</h3><p>Your team fixes what needs a person and approves. The agent posts every charge to your PMS.</p></figcaption>
-        <div class="frame"><iframe data-crop="880/610" src="/assets/booked/03-review" title="Check it. Approve it. Done." loading="lazy" tabindex="-1"></iframe></div>
+        <div class="frame"><iframe data-crop="880/610" data-src="/assets/booked/03-review" title="Check it. Approve it. Done." tabindex="-1"></iframe></div>
       </figure>
       <figure class="anim">
         <figcaption><span class="stepn">Step 4</span><h3>Your week, back</h3><p>Invoicing day and daily bill processing shrink to quick reviews. The rest goes to growing the book.</p></figcaption>
-        <div class="frame"><iframe data-crop="880/590" src="/assets/booked/04-week" title="Your week, back" loading="lazy" tabindex="-1"></iframe></div>
+        <div class="frame"><iframe data-crop="880/590" data-src="/assets/booked/04-week" title="Your week, back" tabindex="-1"></iframe></div>
       </figure>
     </div>
     <p class="anim-note">Sample data. Vendors, properties and amounts are illustrative.</p>
@@ -593,13 +593,17 @@
     }
   })();
 
-  // Phones: zoom each animation in on its main part
+  // Animations start when scrolled into view. Phones get the zoomed-in version.
   (() => {
-    if (!matchMedia('(max-width: 760px)').matches) return;
-    document.querySelectorAll('iframe[data-crop]').forEach(f => {
-      f.src = f.getAttribute('src') + '?crop=1';
-      f.parentElement.style.aspectRatio = f.dataset.crop;
-    });
+    const phone = matchMedia('(max-width: 760px)').matches;
+    const frames = [...document.querySelectorAll('iframe[data-src]')];
+    const start = f => { if (!f.src) f.src = f.dataset.src + (phone ? '?crop=1' : ''); };
+    frames.forEach(f => { if (phone) f.parentElement.style.aspectRatio = f.dataset.crop; });
+    if (!('IntersectionObserver' in window)) { frames.forEach(start); return; }
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { start(e.target); io.unobserve(e.target); }
+    }), { threshold: 0.35 });
+    frames.forEach(f => io.observe(f));
   })();
 </script>
 </body>

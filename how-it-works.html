@@ -317,6 +317,10 @@
     .tl-dot { position: absolute; left: 0; top: 2px; }
     .tl-when { margin-top: 0; }
   }
+  .hw-video { margin: 32px auto 0; max-width: 1040px; border-radius: 16px; overflow: hidden; background: #141414; box-shadow: 0 1px 2px rgba(20,20,20,0.04), 0 18px 48px rgba(20,20,20,0.10); aspect-ratio: 16/9; }
+  .hw-video video { width: 100%; height: 100%; display: block; }
+  .hw-under { margin-top: 20px; }
+  @media (max-width: 760px) { .hw-video { border-radius: 12px; margin-top: 24px; } .hw-under .btn { width: 100%; text-align: center; } }
   .hw-cta { padding: 72px 0 96px; text-align: center; }
   .hw-cta h2 { font-size: clamp(30px, 4vw, 40px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.05; }
   .hw-cta p { margin: 14px auto 0; max-width: 52ch; color: var(--ink-soft); }
@@ -380,6 +384,12 @@
     <div class="bk-kicker"><i aria-hidden="true"></i>How it works</div>
     <h1>From inbox to posted, in four steps.</h1>
     <p class="bk-when">Acel Cortex takes the first pass on your accounts payable. Your team reviews and approves. Nothing posts without a person.</p>
+    <div class="hw-video">
+      <video controls playsinline preload="metadata" poster="/assets/video/how-it-works-poster.jpg">
+        <source src="/assets/video/how-it-works.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hw-under"><a class="btn js-book" href="https://calendly.com/ping-acelcortex/30min">Book a 30-minute call</a></div>
   </section>
 
   <section class="anims" aria-labelledby="anims-title">

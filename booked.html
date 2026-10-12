@@ -307,7 +307,7 @@
   .anim h3 { margin-top: 8px; font-size: clamp(26px, 3.2vw, 36px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; }
   .anim figcaption p { margin-top: 8px; font-size: 17px; color: var(--ink-soft); max-width: 60ch; }
   .anim-list { gap: 56px; }
-  .bk-confirm { padding: 56px 0 96px; }
+  .bk-confirm { padding: 32px 0 96px; }
   .bk-confirm .confirm { margin-top: 0; }
   @media (max-width: 760px) { .anim-list { gap: 40px; } .anim figcaption p { font-size: 16px; } .bk-confirm { padding-bottom: 72px; } }
   .anim-note { margin-top: 12px; font-size: 13px; color: var(--muted); }
@@ -350,46 +350,18 @@
   <section class="bk-hero">
     <div class="bk-kicker"><i aria-hidden="true"></i>You're booked</div>
     <h1>Before we confirm your meeting... Watch this!</h1>
-    <p class="bk-when" id="bk-when">About 75 seconds. It covers what we'll do on the call.</p>
+    <p class="bk-when" id="bk-when">About 55 seconds. It covers what we'll do on the call.</p>
 
     <div class="video-frame">
       <div class="ratio">
-        <!--
-          REPLACE this placeholder with the pre-call video.
-          Loom: <iframe src="https://www.loom.com/embed/VIDEO_ID?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" title="Before our call" allowfullscreen></iframe>
-        -->
-        <div class="video-placeholder">
-          <div class="play" aria-hidden="true"></div>
-          Video embed goes here
-        </div>
+        <video controls playsinline preload="metadata" poster="/assets/video/pre-call-poster.jpg">
+          <source src="/assets/video/pre-call.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
 
   </section>
 
-  <section class="anims" aria-labelledby="anims-title">
-    <h2 id="anims-title">How it works in our office</h2>
-    <p class="sub">Four steps, start to finish. This is what we'll walk through on the call.</p>
-    <div class="anim-list">
-      <figure class="anim">
-        <figcaption><span class="stepn">Step 1</span><h3>Every invoice, one place</h3><p>Email, paper and timesheets land in one queue, already entered.</p></figcaption>
-        <div class="frame"><iframe data-crop="870/540" data-src="/assets/booked/01-invoices" title="Every invoice, one place" tabindex="-1"></iframe></div>
-      </figure>
-      <figure class="anim">
-        <figcaption><span class="stepn">Step 2</span><h3>Every detail, read for you</h3><p>Vendor, property, work order, description and cost, pulled from each invoice into your dashboard.</p></figcaption>
-        <div class="frame"><iframe data-crop="604/560" data-src="/assets/booked/02-reads" title="Every detail, read for you" tabindex="-1"></iframe></div>
-      </figure>
-      <figure class="anim">
-        <figcaption><span class="stepn">Step 3</span><h3>Check it. Approve it. Done.</h3><p>Your team fixes what needs a person and approves. The agent posts every charge to your PMS.</p></figcaption>
-        <div class="frame"><iframe data-crop="880/610" data-src="/assets/booked/03-review" title="Check it. Approve it. Done." tabindex="-1"></iframe></div>
-      </figure>
-      <figure class="anim">
-        <figcaption><span class="stepn">Step 4</span><h3>Your week, back</h3><p>Invoicing day and daily bill processing shrink to quick reviews. The rest goes to growing the book.</p></figcaption>
-        <div class="frame"><iframe data-crop="880/590" data-src="/assets/booked/04-week" title="Your week, back" tabindex="-1"></iframe></div>
-      </figure>
-    </div>
-    <p class="anim-note">Sample data. Vendors, properties and amounts are illustrative.</p>
-  </section>
 
   <section class="bk-confirm">
     <div class="confirm" id="confirm">
@@ -584,7 +556,7 @@
       if (!isNaN(d)) when = d.toLocaleString('en-US', { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
     }
     const whenEl = document.getElementById('bk-when');
-    if (when) whenEl.innerHTML = (first ? first + ', see' : 'See') + ' you <b></b>. Take 75 seconds to watch this first.';
+    if (when) whenEl.innerHTML = (first ? first + ', see' : 'See') + ' you <b></b>. Take 55 seconds to watch this first.';
     if (when) whenEl.querySelector('b').textContent = when;
     const me = full ? `Hi Ping, this is ${full}.` : 'Hi Ping,';
     const msg = `${me} I watched the video and I'm still good for our call${when ? ' on ' + when : ''}.`;

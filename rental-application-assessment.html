@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rental application assessment | Acel Cortex</title>
+<meta name="description" content="Acel Cortex reads a rental application and its documents. Your team approves before the owner is asked.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="apple-touch-icon" href="/assets/logo.png">
+<link rel="canonical" href="https://www.acelcortex.ai/rental-application-assessment">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Acel Cortex Solutions">
+<meta property="og:title" content="Rental application assessment | Acel Cortex">
+<meta property="og:description" content="Built by property managers, for property managers.">
+<meta property="og:url" content="https://www.acelcortex.ai/rental-application-assessment">
+<meta property="og:image" content="https://www.acelcortex.ai/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  var mode = new URLSearchParams(location.search).get('mode');
+  if (mode) document.documentElement.setAttribute('data-mode', mode);
+</script>
+<style>
+  :root {
+    --paper: #F5F2EC;
+    --paper-2: #EEEAE2;
+    --ink: #141414;
+    --ink-soft: #2B2721;
+    --green: #10846C;
+    --green-soft: #4FB89C;
+    --muted: #6B655B;
+    --rule: #E3DED4;
+    --font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --header-h: 64px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: var(--font-sans); font-size: 17px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  button { font: inherit; }
+  :focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 4px; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  .top {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--paper);
+    border-bottom: 1px solid transparent;
+    transition: border-color 150ms var(--ease);
+  }
+  .top.scrolled { border-bottom-color: var(--rule); }
+  .top .wrap { max-width: 1200px; height: var(--header-h); display: flex; align-items: center; justify-content: space-between; }
+  .lockup { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .lockup svg { width: 28px; height: 28px; }
+  .wordmark { font-weight: 500; font-size: 20px; letter-spacing: -0.04em; }
+  .wordmark span { color: var(--green); }
+
+  .nav { display: flex; align-items: center; gap: 26px; }
+  .nav a.lnk { font-size: 14px; color: var(--ink-soft); text-decoration: none; }
+  .nav a.lnk:hover { color: var(--ink); }
+  .btn {
+    display: inline-block; text-decoration: none; cursor: pointer; border: 0;
+    background: var(--ink); color: var(--paper);
+    font-weight: 500; font-size: 16px;
+    padding: 15px 28px; border-radius: 999px;
+    transition: opacity 150ms var(--ease);
+  }
+  .btn:hover { opacity: 0.88; }
+  .btn-sm { font-size: 14px; padding: 10px 18px; }
+
+  .intro { padding: 36px 0 20px; }
+  h1 {
+    font-weight: 500;
+    font-size: clamp(32px, 4vw, 48px);
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+  }
+
+  /* The stage switches at a 900px frame. Below that, keep the portrait stage at most 430px wide. */
+  .demo { container-type: inline-size; width: 100%; }
+  .demo-sizer { width: calc(100% - 48px); max-width: 430px; margin: 0 auto 48px; }
+  .demo-frame {
+    position: relative; width: 100%; aspect-ratio: 390 / 844;
+    border-radius: 12px; overflow: hidden; background: var(--paper);
+    outline: 1px solid var(--rule); outline-offset: -1px;
+  }
+  .demo-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: var(--paper); }
+  @container (min-width: 900px) {
+    .demo-sizer { max-width: 1600px; width: 100%; }
+    .demo-frame { aspect-ratio: 1600 / 900; }
+  }
+  @container (min-width: 996px) {
+    .demo-sizer { width: calc(100% - 48px); }
+  }
+  html[data-mode="desktop"] .demo-sizer { max-width: 1600px; width: calc(100% - 48px); }
+  html[data-mode="desktop"] .demo-frame { aspect-ratio: 1600 / 900; }
+  html[data-mode]:not([data-mode="desktop"]) .demo-sizer { max-width: 430px; width: calc(100% - 48px); }
+  html[data-mode]:not([data-mode="desktop"]) .demo-frame { aspect-ratio: 390 / 844; }
+
+  .menu-btn { display: none; width: 40px; height: 40px; margin-right: -8px; border: 0; background: none; cursor: pointer; align-items: center; justify-content: center; color: var(--ink); }
+  .menu-btn svg { width: 22px; height: 22px; }
+  .menu-btn .x { display: none; }
+  .top.menu-open .menu-btn .bars { display: none; }
+  .top.menu-open .menu-btn .x { display: block; }
+  .mnav { display: none; }
+  @media (max-width: 760px) {
+    :root { --header-h: 58px; }
+    .nav { gap: 14px; }
+    .nav a.lnk { display: none; }
+    .menu-btn { display: inline-flex; }
+    .top.menu-open { border-bottom-color: var(--rule); }
+    .top.menu-open .mnav { display: block; }
+    .mnav { position: absolute; left: 0; right: 0; top: 100%; background: var(--paper); border-bottom: 1px solid var(--rule); }
+    .mnav a { display: block; padding: 16px 24px; font-size: 17px; color: var(--ink); text-decoration: none; border-top: 1px solid var(--rule); }
+    .mnav a:active { background: rgba(20,20,20,0.04); }
+    .intro { padding-top: 28px; }
+  }
+
+  footer { background: var(--ink); color: #A39C90; padding: 36px 0; font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  footer .wordmark { color: var(--paper); font-size: 18px; }
+  footer .wordmark span { color: var(--green-soft); }
+  footer .legal-links a { color: inherit; text-decoration: none; margin-left: 18px; }
+  footer .legal-links a:hover { text-decoration: underline; }
+  @media (max-width: 760px) { footer .legal-links { display: block; margin-top: 8px; } footer .legal-links a:first-child { margin-left: 0; } }
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="lockup" href="/" aria-label="Acel Cortex home">
+      <svg viewBox="0 0 80 80" aria-hidden="true">
+        <circle cx="40" cy="40" r="32" fill="none" stroke="#141414" stroke-width="3"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#141414" stroke-width="2.5" opacity="0.3"/>
+        <circle cx="40" cy="40" r="6" fill="#141414"/>
+        <circle cx="66.2" cy="21.6" r="8" fill="#10846C"/>
+      </svg>
+      <span class="wordmark">acel<span>·</span>cortex</span>
+    </a>
+    <nav class="nav">
+      <a class="lnk" href="/#savings">Savings</a>
+      <a class="lnk" href="/faq">FAQ</a>
+      <a class="btn btn-sm" href="https://calendly.com/ping-acelcortex/30min">Book a call</a>
+      <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><svg class="bars" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="x" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </nav>
+  </div>
+  <nav class="mnav" id="mnav" aria-label="Menu">
+    <a href="/#savings">Savings</a>
+    <a href="/faq">FAQ</a>
+  </nav>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="intro">
+      <h1>Rental application assessment</h1>
+    </div>
+  </div>
+  <div class="demo" id="demo">
+    <div class="demo-sizer">
+      <div class="demo-frame">
+        <iframe id="anim" title="Rental application assessment"></iframe>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="wordmark">acel<span>·</span>cortex</span>
+    <span>Acel Cortex Solutions · acelcortex.ai<span class="legal-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a></span></span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('anim').src = '/assets/rental-application-assessment' + location.search;
+
+  const topBar = document.getElementById('top');
+  const onScroll = () => topBar.classList.toggle('scrolled', window.scrollY > 4);
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  (function () {
+    var top = document.querySelector('.top'), btn = top && top.querySelector('.menu-btn'), nav = document.getElementById('mnav');
+    if (!btn || !nav) return;
+    function set(o) { top.classList.toggle('menu-open', o); btn.setAttribute('aria-expanded', o ? 'true' : 'false'); btn.setAttribute('aria-label', o ? 'Close menu' : 'Open menu'); }
+    btn.addEventListener('click', function (e) { e.stopPropagation(); set(!top.classList.contains('menu-open')); });
+    nav.addEventListener('click', function (e) { if (e.target.closest('a')) set(false); });
+    document.addEventListener('click', function (e) { if (!top.contains(e.target)) set(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+  })();
+</script>
+</body>
+</html>

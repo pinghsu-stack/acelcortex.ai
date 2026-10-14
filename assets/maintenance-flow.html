@@ -1,0 +1,257 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Maintenance, start to finish</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Mobile 390x844 stage, desktop 1600x900 at >=900px (or ?mode=). Pure function of t: ?t=ms freezes a frame. Flat: no gradients, no shadows. */
+:root{--paper:#F5F2EC;--paper-2:#EEEAE2;--paper-3:#FBFAF7;--ink:#141414;--green:#10846C;--green-deep:#0A5E4D;--tint:#DCEDE7;--muted:#6B655B;--rule:#E3DED4;
+--och:#B7832A;--och-t:#F3E7CD;--och-d:#7A5512;
+--sans:'Space Grotesk',-apple-system,system-ui,sans-serif;--mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;--ease:cubic-bezier(.2,.8,.2,1)}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--paper);overflow:hidden;font-family:var(--sans);color:var(--ink);height:100%}
+#fit{position:fixed;inset:0;overflow:hidden;background:var(--paper)}
+#stage{position:absolute;left:0;top:0;width:390px;height:844px;transform-origin:0 0}
+#stage *{min-width:0}
+.abs{position:absolute}
+.fade{transition:opacity .45s var(--ease),transform .6s var(--ease)}
+.hid{opacity:0;pointer-events:none}
+.mono{font-family:var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.ell{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.av{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:10.5px;font-weight:600;flex:none;background:var(--paper-2);color:var(--muted)}
+.av.ai{background:var(--green);color:var(--paper)}.av.ow{background:var(--och-t);color:var(--och-d)}.av.vd{background:var(--ink);color:var(--paper)}
+.lb{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;border-radius:5px;white-space:nowrap;border:1.5px solid transparent}
+.lU{background:var(--ink);color:var(--paper)}.lP{border-color:var(--ink);color:var(--ink)}.lG{background:var(--tint);color:var(--green-deep)}.lS{background:var(--green);color:var(--paper)}.lD{background:var(--paper-2);color:var(--muted)}.lO{background:var(--och-t);color:var(--och-d)}
+/* steps */
+#steps{left:22px;top:16px;width:346px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px}
+.st i{display:block;height:5px;border-radius:3px;background:var(--rule);overflow:hidden}.st i b{display:block;height:100%;width:0;background:var(--green)}
+.st.o i b{background:var(--och)}.st.o i{background:#EADFC8}
+.st span{display:block;font-family:var(--mono);font-size:7.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.st.o span{color:var(--och-d)}.st.on span{color:var(--ink)}.st.o.on span{color:var(--och-d);font-weight:500}
+#wm{right:22px;top:52px;font-size:16px;font-weight:500;letter-spacing:-.6px}#wm span{color:var(--green)}
+#hd{left:22px;top:54px;width:250px}
+#hd .mono{font-size:10px}
+#title{left:22px;top:74px;width:346px;font-size:25px;font-weight:600;letter-spacing:-.9px;line-height:1.1;transition:opacity .35s}
+#actor{left:22px;top:118px;width:346px;height:44px;border-radius:999px;background:var(--paper-3);border:1.5px solid var(--rule);display:flex;align-items:center;gap:9px;padding:0 6px 0 7px;transition:opacity .35s}
+#actor b{font-size:14px;font-weight:600}#actor .rl{font-size:12.5px;color:var(--muted)}
+#actor .tm{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;background:var(--ink);color:var(--paper);padding:7px 10px;border-radius:999px;white-space:nowrap}
+.sc{left:22px;top:182px;width:346px;height:640px}
+.card{background:#fff;border:1.5px solid var(--rule);border-radius:16px;padding:14px;margin-bottom:12px;transition:opacity .45s var(--ease),transform .55s var(--ease),border-color .3s}
+.card.in{opacity:0;transform:translateY(14px)}
+.card .w{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.card .w b{font-size:13.5px;font-weight:600}.card .w small{display:block;font-size:11.5px;color:var(--muted)}
+.subj{font-size:16px;font-weight:600;letter-spacing:-.3px;margin:2px 0 4px}
+.body{font-size:13px;line-height:1.45;color:#3A3630}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;min-height:22px}
+.tags .lb{transition:opacity .3s,transform .4s var(--ease)}.tags .lb.in{opacity:0;transform:scale(.8)}
+.note{display:flex;gap:9px;align-items:center;background:var(--tint);border-radius:12px;padding:10px 12px;font-size:12.5px;color:var(--green-deep);line-height:1.35;transition:opacity .4s}
+.note b{font-weight:600}
+.kv{display:grid;grid-template-columns:78px minmax(0,1fr);gap:5px 10px;font-size:12.5px;margin-top:6px}
+.kv>span:nth-child(odd){font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-top:2px}
+.pick{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1.5px solid var(--green);background:var(--tint);border-radius:10px;padding:8px 10px;font-size:12.5px;margin-bottom:8px}
+.pick b{font-weight:600}.pick span{color:var(--green-deep);font-size:11.5px}
+.bub{background:var(--paper-3);border:1.5px solid var(--rule);border-radius:14px 14px 14px 4px;padding:11px 13px;font-size:14px;font-weight:500}
+/* phone */
+.phone{position:relative;margin:0 auto;width:290px;height:500px;border:8px solid var(--ink);border-radius:36px;background:var(--paper);overflow:hidden}
+.phone .notch{position:absolute;left:50%;top:7px;width:84px;height:16px;margin-left:-42px;border-radius:10px;background:var(--ink);z-index:5}
+.scr{position:absolute;left:10px;right:10px;top:34px;bottom:10px;overflow:hidden}
+.ptop{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-bottom:10px}
+.ask{font-size:19px;font-weight:600;letter-spacing:-.5px;line-height:1.2;margin:4px 0 10px}
+.btns{position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-columns:1fr 1.5fr;gap:8px}
+.btn{display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;height:44px;border-radius:999px;background:var(--ink);color:var(--paper);transition:background .2s;white-space:nowrap;overflow:hidden}
+.btn.sec{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.btn.ok{background:var(--green)}
+.otag{display:flex;gap:8px;align-items:center;background:var(--och-t);color:var(--och-d);border-radius:12px;padding:9px 12px;font-size:12.5px;line-height:1.35;margin-bottom:12px}
+.otag .lb{background:var(--och);color:#fff}
+.done{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:10px;font-size:13px;color:var(--green-deep);transition:opacity .3s}
+/* ledger */
+.lg{display:grid;grid-template-columns:minmax(0,1fr) auto;font-size:13px}
+.lg>span{padding:8px 0;border-bottom:1.5px solid var(--rule);transition:opacity .35s}
+.lg>span:nth-child(even){text-align:right;font-variant-numeric:tabular-nums}
+.lg .tot{font-weight:600;font-size:15px;border-bottom:0}
+.stat{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+/* close */
+#cl{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;top:120px;height:680px}
+#cl svg{width:72px;height:72px}
+#cl .wmk{font-size:30px;font-weight:500;letter-spacing:-1.2px;margin:12px 0 34px}#cl .wmk span{color:var(--green)}
+#cl p{margin:0;font-size:26px;font-weight:600;letter-spacing:-.9px;line-height:1.2;transition:opacity .45s}
+#cl p.g{color:var(--green)}
+/* job panel (desktop) */
+#job{display:none}
+.ck{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1.5px solid var(--rule);font-size:16px;color:var(--muted);transition:color .3s}
+.ck i{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--rule);flex:none;display:grid;place-items:center;transition:background .3s,border-color .3s}
+.ck i svg{width:12px;height:12px;opacity:0}
+.ck.on{color:var(--ink)}.ck.on i{background:var(--green);border-color:var(--green)}.ck.on i svg{opacity:1}
+.ck.o.on i{background:var(--och);border-color:var(--och)}
+.ck .lb{margin-left:auto}
+#cur{left:0;top:0;z-index:20;transition:transform .5s var(--ease),opacity .3s}
+#cur .fp{position:absolute;left:-19px;top:-19px;width:38px;height:38px;border-radius:50%;background:rgba(20,20,20,.28);border:2px solid rgba(255,255,255,.9);transition:transform .15s}
+#cur.press .fp{transform:scale(.82);background:rgba(16,132,108,.45)}
+.rip{position:absolute;left:-24px;top:-24px;width:48px;height:48px;border-radius:50%;border:2px solid var(--green);opacity:0}
+.rip.go{animation:rp .5s ease-out}
+@keyframes rp{0%{opacity:.9;transform:scale(.3)}100%{opacity:0;transform:scale(1.6)}}
+/* desktop */
+#stage.dk #steps{left:110px;top:40px;width:1380px;gap:12px}
+#stage.dk .st i{height:7px}#stage.dk .st span{font-size:11px;margin-top:9px}
+#stage.dk #wm{right:110px;top:96px;font-size:24px}
+#stage.dk #hd{left:110px;top:100px;width:600px}#stage.dk #hd .mono{font-size:12px}
+#stage.dk #title{left:110px;top:124px;width:900px;font-size:46px;letter-spacing:-1.6px}
+#stage.dk #actor{left:auto;right:110px;top:140px;width:420px;height:50px}
+#stage.dk .sc{left:690px;top:230px;width:560px;height:640px}
+#stage.dk #job{display:block;left:110px;top:240px;width:440px;background:var(--paper-3);border:1.5px solid var(--rule);border-radius:18px;padding:24px}
+#stage.dk .card{padding:20px}#stage.dk .subj{font-size:20px}#stage.dk .body,#stage.dk .kv{font-size:15px}#stage.dk .bub{font-size:17px}
+#stage.dk .phone{width:330px;height:600px}
+#stage.dk .ask{font-size:22px}
+#stage.dk #cl{left:110px;width:1380px;top:200px;height:640px}
+#stage.dk #cl svg{width:96px;height:96px}#stage.dk #cl .wmk{font-size:42px}#stage.dk #cl p{font-size:48px;letter-spacing:-1.6px}
+@media (prefers-reduced-motion:reduce){.fade,.card,#cur{transition:none}}
+</style></head><body>
+<div id="fit"><div id="stage">
+<div id="steps" class="abs">
+ <div class="st" id="st0"><i><b></b></i><span>1 Triage</span></div>
+ <div class="st" id="st1"><i><b></b></i><span>2 Vendor</span></div>
+ <div class="st o" id="st2"><i><b></b></i><span>3 Owner</span></div>
+ <div class="st" id="st3"><i><b></b></i><span>4 Notice</span></div>
+ <div class="st o" id="st4"><i><b></b></i><span>5 Owner</span></div>
+ <div class="st" id="st5"><i><b></b></i><span>6 Bill</span></div>
+</div>
+<div id="hd" class="abs fade"><div class="mono" id="stn"></div></div>
+<div id="wm" class="abs">acel<span>·</span>cortex</div>
+<div id="title" class="abs"></div>
+<div id="actor" class="abs"><span id="aav"></span><b id="anm"></b><span class="rl" id="arl"></span><span class="tm" id="atm"></span></div>
+
+<div id="job" class="abs fade">
+ <div class="mono" style="font-size:11px">Job 1042 · 12 Maple St, Unit 3</div>
+ <div style="font-size:24px;font-weight:600;letter-spacing:-.6px;margin:8px 0 14px">Leaking kitchen sink</div>
+ <div class="ck" id="ck0"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Tagged Urgent, Plumbing</div>
+ <div class="ck" id="ck1"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Plumber booked, $280</div>
+ <div class="ck o" id="ck2"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Owner approved<span class="lb lO">Optional</span></div>
+ <div class="ck" id="ck3"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Notice of entry sent</div>
+ <div class="ck o" id="ck4"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Add-on approved, $90<span class="lb lO">Optional</span></div>
+ <div class="ck" id="ck5" style="border-bottom:0"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Bill posted, $370</div>
+</div>
+
+<!-- 1 triage -->
+<div id="s0" class="abs sc fade">
+ <div class="card in" id="e0"><div class="w"><span class="av">SR</span><span><b>Sam Reyes</b><small>Tenant · 12 Maple St, Unit 3 · 7:52 AM</small></span></div>
+  <div class="subj">Sink leaking under cabinet</div><div class="body">Water is pooling under the kitchen sink. I put a towel down but it keeps dripping.</div>
+  <div class="tags"><span class="lb lU in" id="tg0">Urgent</span><span class="lb lP in" id="tg1">Plumbing</span><span class="lb lG in" id="tg2">Job 1042</span></div></div>
+ <div class="note fade" id="n0"><span class="av ai">AC</span><span><b>Acel tagged it in 4 seconds.</b> Water leak, active, needs a plumber today.</span></div>
+</div>
+<!-- 2 vendor -->
+<div id="s1" class="abs sc fade hid">
+ <div class="card" id="wo"><div class="w"><span class="av ai">AC</span><span><b>Work order WO-1042</b><small>Drafted by Acel · to Northline Plumbing</small></span></div>
+  <div class="pick"><span><b>Northline Plumbing</b></span><span>Preferred, nearest</span></div>
+  <div class="kv"><span>Property</span><span>12 Maple St, Unit 3</span><span>Issue</span><span>Leak under kitchen sink, water in cabinet</span><span>Priority</span><span>Urgent</span><span>Tenant</span><span>Sam Reyes, (555) 014-3307</span></div></div>
+ <div class="card in" id="vr"><div class="w"><span class="av vd">NP</span><span><b>Northline Plumbing</b><small>Reply · 8:06 AM</small></span></div>
+  <div class="bub">Can do Thursday 10 AM, quote $280.</div></div>
+</div>
+<!-- 3 owner 1 -->
+<div id="s2" class="abs sc fade hid">
+ <div class="otag"><span class="lb">Optional</span><span>Only when it's over the owner's spending limit.</span></div>
+ <div class="phone"><span class="notch"></span><div class="scr">
+  <div class="ptop"><span class="av ai">AC</span><span>Acel Cortex · 12 Maple St</span></div>
+  <div class="ask">Approve $280 repair?</div>
+  <div class="card" style="padding:12px"><div class="kv" style="margin:0"><span>Unit</span><span>12 Maple St, Unit 3</span><span>Issue</span><span>Kitchen sink leak</span><span>Vendor</span><span>Northline Plumbing</span><span>When</span><span>Thursday, 10 AM</span><span>Quote</span><span><b>$280</b></span><span>Your limit</span><span>$250</span></div></div>
+  <div class="done" id="dn0">Approved · Acel books the job</div>
+  <div class="btns"><span class="btn sec">Decline</span><span class="btn" id="ap0">Approve</span></div>
+ </div></div>
+</div>
+<!-- 4 notice -->
+<div id="s3" class="abs sc fade hid">
+ <div class="card"><div class="stat"><span class="mono" style="font-size:9.5px">24-hour notice of entry</span><span class="lb lD" id="nst">Draft</span></div>
+  <div class="w" style="margin-top:8px"><span class="av">SR</span><span><b>To Sam Reyes</b><small>12 Maple St, Unit 3</small></span></div>
+  <div class="body">Hi Sam, Northline Plumbing will enter Unit 3 on <b>Thursday at 10 AM</b> to repair the leak under your kitchen sink. You do not need to be home. Thank you for reporting it quickly.</div>
+  <div class="kv" style="margin-top:12px"><span>Entry</span><span>Thursday, 10 AM</span><span>Notice</span><span>24 hours or more</span><span>Sent by</span><span>Acel, for your PM team</span></div></div>
+ <div class="note fade" id="n3"><span class="av ai">AC</span><span><b>Sent and logged.</b> A copy is saved on the job.</span></div>
+</div>
+<!-- 5 owner 2 -->
+<div id="s4" class="abs sc fade hid">
+ <div class="otag"><span class="lb">Optional</span><span>Only when it's over the owner's spending limit.</span></div>
+ <div class="phone"><span class="notch"></span><div class="scr">
+  <div class="ptop"><span class="av ai">AC</span><span>Acel Cortex · 12 Maple St</span></div>
+  <div class="ask">Plumber found a worn shut-off valve</div>
+  <div class="card" style="padding:12px"><div class="body" style="margin-bottom:8px">Replacing it now avoids a second visit.</div><div class="kv" style="margin:0"><span>Approved</span><span>$280</span><span>Add-on</span><span><b>+$90</b> shut-off valve</span><span>New total</span><span><b>$370</b></span></div></div>
+  <div class="done" id="dn1">Add-on approved</div>
+  <div class="btns"><span class="btn sec">Decline</span><span class="btn" id="ap1">Approve add-on</span></div>
+ </div></div>
+</div>
+<!-- 6 bill -->
+<div id="s5" class="abs sc fade hid">
+ <div class="card"><div class="stat"><span class="mono" style="font-size:9.5px">PMS · Bills</span><span class="lb lD" id="bst">Draft</span></div>
+  <div class="w" style="margin-top:8px"><span class="av vd">NP</span><span><b>Northline Plumbing · INV-2207</b><small>12 Maple St, Unit 3 · Repairs and maintenance</small></span></div>
+  <div class="lg"><span id="l0">Kitchen sink leak repair</span><span id="l1">$280.00</span><span id="l2">Shut-off valve replacement</span><span id="l3">$90.00</span><span id="l4" class="tot">Total</span><span id="l5" class="tot">$370.00</span></div></div>
+ <div class="note fade" id="n5"><span class="av ai">AC</span><span><b>Entered by Acel.</b> Matched to WO-1042 and both owner approvals.</span></div>
+</div>
+<!-- close -->
+<div id="cl" class="abs fade hid">
+ <svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="32" fill="none" stroke="#141414" stroke-width="3"/><circle cx="40" cy="40" r="18" fill="none" stroke="#141414" stroke-width="2.5" opacity="0.3"/><circle cx="40" cy="40" r="6" fill="#141414"/><circle cx="66.2" cy="21.6" r="8" fill="#10846C"/></svg>
+ <div class="wmk">acel<span>·</span>cortex</div>
+ <p id="c0">One request.</p><p id="c1">Every step handled.</p><p id="c2" class="g">Owners approve only when it matters.</p>
+</div>
+
+<div id="cur" class="abs" style="opacity:0"><i class="rip" id="rip"></i><i class="fp"></i></div>
+</div></div>
+<script>
+(function(){
+const $=id=>document.getElementById(id),L=31000;
+const fit=$('fit'),stage=$('stage');
+const QM=new URLSearchParams(location.search).get('mode');let DK=false;
+function scale(){const W=fit.clientWidth,H=fit.clientHeight;DK=QM?QM==='desktop':(W>=900&&W/H>1.2);
+  stage.classList.toggle('dk',DK);const sw=DK?1600:390,sh=DK?900:844;stage.style.width=sw+'px';stage.style.height=sh+'px';
+  const k=Math.min(W/sw,H/sh),ox=(W-sw*k)/2,oy=DK?(H-sh*k)/2:0;stage.style.transform=`translate(${ox}px,${oy}px) scale(${k})`;stage.dataset.k=k}
+addEventListener('resize',()=>{scale();if(window.__r)window.__r()});scale();
+function pt(el,fx,fy){const s=stage.getBoundingClientRect(),r=el.getBoundingClientRect(),k=+stage.dataset.k;return[(r.left-s.left+r.width*fx)/k,(r.top-s.top+r.height*fy)/k]}
+const clamp=x=>Math.max(0,Math.min(1,x)),cl=(e,c,on)=>e.classList.toggle(c,!!on),hid=(id,on)=>cl($(id),'hid',on),op=(id,on)=>$(id).style.opacity=on?1:0;
+const set=(id,v,h)=>{const e=$(id);if(e.dataset.v!==v){e.dataset.v=v;h?e.innerHTML=v:e.textContent=v}};
+const SB=[0,5000,10000,14000,19000,23000,28000];
+const TT=['A tenant reports a leak','Acel books the plumber','Owner approves the quote','Tenant gets notice of entry','Owner approves the add-on','The bill is posted'];
+const SN=['Step 1 of 6 · Triage','Step 2 of 6 · Vendor','Step 3 of 6 · Owner, optional','Step 4 of 6 · Notice','Step 5 of 6 · Owner, optional','Step 6 of 6 · Bill'];
+const ACT={ac:['<span class="av ai">AC</span>','Acel','AI assistant'],vd:['<span class="av vd">NP</span>','Northline Plumbing','Vendor'],ow:['<span class="av ow">HP</span>','Helen Park','Owner']};
+let lastC=0;
+function render(t){
+  t=((t%L)+L)%L;
+  let S=6;for(let i=0;i<6;i++)if(t<SB[i+1]){S=i;break}
+  for(let i=0;i<6;i++){$('st'+i).querySelector('b').style.width=(100*clamp((t-SB[i])/(SB[i+1]-SB[i])))+'%';cl($('st'+i),'on',S===i);cl($('ck'+i),'on',t>=SB[i+1]-600)}
+  set('title',S<6?TT[S]:'');set('stn',S<6?SN[S]:'Start to finish');
+  $('title').style.opacity=S<6?1:0;$('actor').style.opacity=S<6?1:0;$('job').style.opacity=S<6?1:0;
+  const a=S===2||S===4?'ow':S===1&&t>7300?'vd':'ac';
+  set('aav',ACT[a][0],1);set('anm',ACT[a][1]);set('arl',ACT[a][2]);
+  set('atm',['Mon 7:52 AM','Mon 8:06 AM','Mon 8:09 AM','Wed 9:30 AM','Thu 10:40 AM','Thu 2:15 PM','Done'][S]);
+  for(let i=0;i<6;i++)hid('s'+i,S!==i);hid('cl',S!==6);
+  // 1
+  cl($('e0'),'in',t<500);['tg0','tg1','tg2'].forEach((id,i)=>cl($(id),'in',t<1900+i*450));op('n0',t>3300);
+  // 2
+  cl($('vr'),'in',t<7300);
+  // 3, 5
+  const a0=t>12300;cl($('ap0'),'ok',a0);set('ap0',a0?'Approved':'Approve');op('dn0',t>12500);
+  const a1=t>21300;cl($('ap1'),'ok',a1);set('ap1',a1?'Approved':'Approve add-on');op('dn1',t>21500);
+  // 4
+  const sn=t>16300;set('nst',sn?'Sent':'Draft');$('nst').className='lb '+(sn?'lS':'lD');op('n3',t>16900);
+  // 6
+  for(let i=0;i<6;i++)op('l'+i,t>23600+Math.floor(i/2)*500);
+  const po=t>25600;set('bst',po?'Posted':'Draft');$('bst').className='lb '+(po?'lS':'lD');op('n5',t>26200);
+  // close
+  op('c0',t>28300);op('c1',t>28900);op('c2',t>29500);
+  // fingertip
+  let cp=null,click=0;
+  if(t>11500&&t<12800){cp=pt($('ap0'),.5,.5);click=12200}else if(t>20500&&t<21800){cp=pt($('ap1'),.5,.5);click=21200}
+  cl($('cur'),'press',click&&t>click-120&&t<click+200);
+  $('cur').style.opacity=cp?1:0;if(cp)$('cur').style.transform=`translate(${cp[0]}px,${cp[1]}px)`;
+  if(click&&t>click&&lastC!==click){lastC=click;const r=$('rip');r.classList.remove('go');void r.offsetWidth;r.classList.add('go')}
+  if(t<1000)lastC=0;
+}
+function audit(){const W=fit.clientWidth,bad=[];
+ const skip=e=>e.closest('.hid,.wait,.down,.off,#cur,.fb,.ch');
+ stage.querySelectorAll('*').forEach(e=>{if(skip(e))return;const cs=getComputedStyle(e);if(cs.display==='none'||cs.opacity==='0')return;const r=e.getBoundingClientRect();if(!r.width)return;
+  if(r.right>W+.5||r.left<-.5)bad.push('VIEW '+(e.id||e.className||e.tagName)+':'+(e.textContent||'').trim().slice(0,30)+' R='+Math.round(r.right));
+  let p=e.parentElement,clip=false;while(p&&p!==stage){const ps=getComputedStyle(p);if(ps.overflow!=='visible')clip=true;
+   const box=ps.borderTopWidth!=='0px'||(ps.backgroundColor!=='rgba(0, 0, 0, 0)'&&ps.backgroundColor!=='transparent');
+   if(box){if(!clip){const q=p.getBoundingClientRect();if(r.right>q.right+1||r.bottom>q.bottom+1||r.left<q.left-1||r.top<q.top-1)bad.push('CARD '+(e.id||e.className||e.tagName)+' in '+(p.id||p.className)+':'+(e.textContent||'').trim().slice(0,24))}break}
+   p=p.parentElement}});
+ const p=document.createElement('pre');p.id='audit';p.textContent='AUDIT W='+W+' '+(bad.length?bad.join(' | '):'OK');document.body.appendChild(p)}
+const q=new URLSearchParams(location.search);
+function start(){if(q.has('t')){document.querySelectorAll('*').forEach(e=>e.style.transition='none');render(+q.get('t'));render(+q.get('t'));window.__r=()=>render(+q.get('t'));if(q.has('audit'))audit()}
+ else if(matchMedia('(prefers-reduced-motion: reduce)').matches)render(30500);
+ else{const t0=performance.now();(function loop(x){render(x-t0);requestAnimationFrame(loop)})(t0)}}
+(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(start);
+})();
+</script></body></html>

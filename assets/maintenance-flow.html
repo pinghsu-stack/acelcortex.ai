@@ -168,7 +168,7 @@ html,body{margin:0;padding:0;background:var(--paper);overflow:hidden;font-family
 #tf{position:absolute;left:0;top:16px;height:4px;border-radius:2px;background:var(--green)}
 .tk{position:absolute;top:12px;width:1.5px;height:12px;background:#B5AEA2}
 #th{position:absolute;top:10px;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:var(--green);border:2px solid var(--paper)}
-#map{cursor:pointer}
+#map{cursor:pointer}#map .nb{cursor:pointer}#map .ring{opacity:0;transition:opacity .2s}#map .nb:hover .ring,#map .nb:active .ring{opacity:1}#hint{transition:opacity .6s}#hint.gone{opacity:0}
 /* desktop */
 #stage.dk #steps{left:110px;top:40px;width:1380px;gap:12px}
 #stage.dk .st i{height:7px}#stage.dk .st span{font-size:11px;margin-top:9px}
@@ -311,11 +311,13 @@ function buildMap(){const W=DK?1380:370,H=DK?130:60,fs=DK?13:7.5,r=DK?11:6,px=DK
       if(DK)g+=`<text x="${(x1+x2)/2}" y="${cy-br*1.2-2}" font-size="${fs*.85}" text-anchor="middle" fill="${ask?'#7A5512':'#A39C90'}">Ask</text><text x="${(x1+x2)/2}" y="${cy+br*1.2+fs}" font-size="${fs*.85}" text-anchor="middle" fill="${ask?'#A39C90':'#7A5512'}">Skip</text>`}
     else{g+=`<path d="M${x1} ${cy} L${x2} ${cy}" stroke="#E3DED4" stroke-width="${DK?2:1.2}"/><path id="cg${i}" d="M${x1} ${cy} L${x2} ${cy}" stroke="#10846C" stroke-width="${DK?3:1.8}" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/>`}}
   for(let i=0;i<7;i++){const x=X(i),o=OWN.includes(i);
+    const hw=DK?100:54;g+=`<g class="nb" data-i="${i}"><rect class="hit" x="${Math.max(0,Math.min(W-hw,x-hw/2))}" y="0" width="${hw}" height="${DK?96:52}" fill="transparent"/>`;
     g+=o?`<rect id="nd${i}" x="${x-r}" y="${cy-r}" width="${2*r}" height="${2*r}" rx="${DK?3:1.5}" transform="rotate(45 ${x} ${cy})" fill="#F5F2EC" stroke="#B7832A" stroke-width="${DK?2.5:1.5}"/>`:`<circle id="nd${i}" cx="${x}" cy="${cy}" r="${r}" fill="#F5F2EC" stroke="#B5AEA2" stroke-width="${DK?2.5:1.5}"/>`;
-    g+=`<text id="nl${i}" x="${x}" y="${cy+r+fs+(o?7:5)}" font-size="${fs}" text-anchor="middle" fill="${o?'#7A5512':'#6B655B'}">${ND[i]}</text>`}
+    g+=`<text id="nl${i}" x="${x}" y="${cy+r+fs+(o?7:5)}" font-size="${fs}" text-anchor="middle" fill="${o?'#7A5512':'#6B655B'}">${ND[i]}</text><circle class="ring" cx="${x}" cy="${cy}" r="${r+(DK?7:4)}" fill="none" stroke="#10846C" stroke-width="${DK?2:1.2}"/></g>`}
+  g+=`<text id="hint" class="${hintGone?'gone':''}" x="${W/2}" y="${DK?124:58}" font-size="${DK?12:6.5}" text-anchor="middle" fill="#10846C">Tap a step to jump</text>`;
   g+=`<circle id="dot" r="${DK?7:3.6}" fill="#10846C"/>`;
   $('map').setAttribute('viewBox',`0 0 ${W} ${H}`);$('map').innerHTML=g;MK=DK}
-let lastC=0;
+let lastC=0,hintGone=false;function hideHint(){hintGone=true;const h=$('hint');if(h)h.classList.add('gone')}
 function render(t){
   t=((t%L)+L)%L;if(MK!==DK)buildMap();
   let S=7;for(let i=0;i<7;i++)if(t<SB[i+1]){S=i;break}
@@ -396,18 +398,18 @@ window.__seek=seek;
 function wire(){
   $('tt').textContent=fmt(L);$('tks').innerHTML=CHS.slice(1).map(c=>`<i class="tk" style="left:${c/L*100}%"></i>`).join('');
   $('pp').onclick=()=>setPlay(!playing);$('bk5').onclick=()=>seek(cur()-5000);$('fw5').onclick=()=>seek(cur()+5000);
-  document.querySelectorAll('.chip').forEach(e=>e.onclick=()=>seek(CHS[+e.dataset.i]+200));
+  document.querySelectorAll('.chip').forEach(e=>e.onclick=()=>{hideHint();seek(CHS[+e.dataset.i]);setPlay(true)});
   const trk=$('trk');let drag=false,was=false;const at=e=>{const r=trk.getBoundingClientRect();return clamp((e.clientX-r.left)/r.width)*L*0.9999};
   trk.addEventListener('pointerdown',e=>{drag=true;was=playing;setPlay(false);trk.setPointerCapture(e.pointerId);seek(at(e))});
   trk.addEventListener('pointermove',e=>{if(drag)seek(at(e))});
   const up=()=>{if(drag){drag=false;setPlay(was)}};trk.addEventListener('pointerup',up);trk.addEventListener('pointercancel',up);
-  $('map').addEventListener('click',e=>{const r=$('map').getBoundingClientRect(),W=DK?1380:370,px=DK?40:16,x=(e.clientX-r.left)/r.width*W;const i=Math.max(0,Math.min(6,Math.round((x-px)/((W-2*px)/6))));seek(SB[i]+200)});
+  $('map').addEventListener('click',e=>{const r=$('map').getBoundingClientRect(),W=DK?1380:370,px=DK?40:16,x=(e.clientX-r.left)/r.width*W;const nb=e.target.closest('.nb');const i=nb?+nb.dataset.i:Math.max(0,Math.min(6,Math.round((x-px)/((W-2*px)/6))));hideHint();seek(SB[i]);setPlay(true)});
 }
 function start(){wire();
  if(q.has('t')){document.querySelectorAll('#stage *').forEach(e=>e.style.transition='none');off=+q.get('t');render(off);render(off);bar(off);$('pp').innerHTML=PLAY;window.__r=()=>render(cur());if(q.has('audit'))audit()}
  else if(matchMedia('(prefers-reduced-motion: reduce)').matches){off=36000;render(off);bar(off);$('pp').innerHTML=PLAY}
  else{playing=true;wall=performance.now();off=0}
- (function loop(){if(playing){const t=((cur()%L)+L)%L;render(t);bar(t)}requestAnimationFrame(loop)})()}
+ (function loop(){if(playing){if(!hintGone&&cur()>=L)hideHint();const t=((cur()%L)+L)%L;render(t);bar(t)}requestAnimationFrame(loop)})()}
 (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(start);
 })();
 </script></body></html>

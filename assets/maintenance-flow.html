@@ -125,6 +125,16 @@ html,body{margin:0;padding:0;background:var(--paper);overflow:hidden;font-family
 .ur b{font-size:13.5px;font-weight:600}.ur small{grid-column:1;font-size:12px;color:var(--muted)}.ur .it{font-size:11px;color:var(--muted)}
 .ur.sel{border-color:var(--green);background:var(--tint)}
 #stage.dk #trays{top:352px;height:230px}#stage.dk .tr .tc{font-size:34px}#stage.dk .sl{height:12px}#stage.dk .tr .lb{font-size:9px}
+.vtx{font-size:16px;font-weight:500;line-height:1.4}
+.hx{border-radius:4px;padding:0 2px;transition:background .3s}
+.hx.on{background:var(--tint);color:var(--green-deep);outline:1.5px solid var(--green)}
+.att{display:inline-flex;align-items:center;gap:7px;max-width:100%;margin-top:10px;border:1.5px solid var(--rule);border-radius:8px;padding:5px 9px 5px 5px;font-size:12px;background:var(--paper-3)}
+.pdf{font-family:var(--mono);font-size:8px;letter-spacing:.06em;background:var(--ink);color:var(--paper);border-radius:4px;padding:3px 4px;flex:none}
+.xt{background:#fff;border:1.5px solid var(--green);border-radius:16px;padding:12px 14px}
+.xf{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+.xf>span{display:grid;gap:2px;background:var(--tint);border-radius:10px;padding:8px 10px;color:var(--green-deep)}
+.xf b{font-size:14px;font-weight:600}.xf small{font-size:11px}
+#stage.dk .vtx{font-size:20px}#stage.dk .xf b{font-size:17px}
 /* desktop */
 #stage.dk #steps{left:110px;top:40px;width:1380px;gap:12px}
 #stage.dk .st i{height:7px}#stage.dk .st span{font-size:11px;margin-top:9px}
@@ -153,11 +163,10 @@ html,body{margin:0;padding:0;background:var(--paper);overflow:hidden;font-family
  <div style="font-size:24px;font-weight:600;letter-spacing:-.6px;margin:8px 0 14px">Leaking kitchen sink</div>
  <div class="ck" id="ck0"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Inbox: 84 unread emails</div>
  <div class="ck" id="ck1"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Sorted, leak marked urgent</div>
- <div class="ck" id="ck2"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Plumber booked, $280</div>
+ <div class="ck" id="ck2"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Plumber confirmed, Thu 10 AM, $280</div>
  <div class="ck o" id="ck3"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Owner approved<span class="lb lO">Optional</span></div>
  <div class="ck" id="ck4"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Notice of entry sent</div>
- <div class="ck o" id="ck5"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Add-on $90, under limit<span class="lb lO" id="ck5t">Optional</span></div>
- <div class="ck" id="ck6" style="border-bottom:0"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Bill posted, $370</div>
+ <div class="ck" id="ck5" style="border-bottom:0"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Bill posted, $280</div>
 </div>
 
 <!-- 0 inbox + sort -->
@@ -178,11 +187,14 @@ html,body{margin:0;padding:0;background:var(--paper);overflow:hidden;font-family
 </div>
 <!-- 2 vendor -->
 <div id="s2" class="abs sc fade hid">
- <div class="card" id="wo"><div class="w"><span class="av ai">AC</span><span><b>Work order WO-1042</b><small>Drafted by Acel · to Northline Plumbing</small></span></div>
+ <div class="card" id="wo"><div class="w"><span class="av ai">AC</span><span><b>Work order WO-1042</b><small>Drafted by Acel · to Northline Plumbing</small></span><span class="lb lD" id="wos" style="margin-left:auto">Draft</span></div>
   <div class="pick"><span><b>Northline Plumbing</b></span><span>Preferred, nearest</span></div>
   <div class="kv"><span>Property</span><span>12 Maple St, Unit 3</span><span>Issue</span><span>Leak under kitchen sink, water in cabinet</span><span>Priority</span><span>Urgent</span><span>Tenant</span><span>Sam Reyes, (555) 014-3307</span></div></div>
- <div class="card in" id="vr"><div class="w"><span class="av vd">NP</span><span><b>Northline Plumbing</b><small>Reply · 8:06 AM</small></span></div>
-  <div class="bub">Can do Thursday 10 AM, quote $280.</div></div>
+ <div class="card in" id="vr"><div class="w"><span class="av vd">NP</span><span><b>Northline Plumbing</b><small>Re: WO-1042 · 8:06 AM</small></span><span class="lb lU" style="margin-left:auto">Vendor</span></div>
+  <div class="vtx">Can do <span class="hx" id="hx0">Thursday 10 AM</span>. Quote <span class="hx" id="hx1">$280</span>.</div>
+  <div class="att"><span class="pdf">PDF</span><span class="ell">Quote-1042.pdf · $280</span></div></div>
+ <div class="xt fade" id="xt"><div class="mono" style="font-size:9px;margin-bottom:7px">Extracted by Acel</div>
+  <div class="xf"><span><b>Entry: Thu 10:00 AM</b><small>for the notice of entry</small></span><span><b>Quote: $280</b><small>for owner approval</small></span></div></div>
 </div>
 <!-- 3 owner 1 -->
 <div id="s3" class="abs sc fade hid">
@@ -203,19 +215,12 @@ html,body{margin:0;padding:0;background:var(--paper);overflow:hidden;font-family
   <div class="kv" style="margin-top:12px"><span>Entry</span><span>Thursday, 10 AM</span><span>Notice</span><span>24 hours or more</span><span>Sent by</span><span>Acel, for your PM team</span></div></div>
  <div class="note fade" id="n3"><span class="av ai">AC</span><span><b>Sent and logged.</b> A copy is saved on the job.</span></div>
 </div>
-<!-- 5 owner 2 -->
+<!-- 5 bill -->
 <div id="s5" class="abs sc fade hid">
- <div class="otag" style="display:block"><div style="display:flex;gap:8px;align-items:center"><span class="lb">Optional</span><span>Owner approval: on if over the $250 limit</span></div><div class="tg2"><span id="o2a" class="on">Ask owner</span><span id="o2s">Skip</span></div><div class="rl2">Add-on $90 is under the limit, so Acel skips it.</div></div>
- <div class="card"><div class="w"><span class="av vd">NP</span><span><b>Northline Plumbing</b><small>On site · Thu 10:40 AM</small></span></div>
-  <div class="subj">Worn shut-off valve found</div><div class="kv" style="margin:0"><span>Approved</span><span>$280 repair</span><span>Add-on</span><span><b>+$90</b> shut-off valve</span><span>New total</span><span><b>$370</b></span></div></div>
- <div class="stamp" id="o2st"><span class="av ai">AC</span><span><b>Skipped, under owner's limit.</b> Add-on auto-approved by Acel. Owner sees it in the job summary.</span></div>
-</div>
-<!-- 6 bill -->
-<div id="s6" class="abs sc fade hid">
  <div class="card"><div class="stat"><span class="mono" style="font-size:9.5px">PMS · Bills</span><span class="lb lD" id="bst">Draft</span></div>
   <div class="w" style="margin-top:8px"><span class="av vd">NP</span><span><b>Northline Plumbing · INV-2207</b><small>12 Maple St, Unit 3 · Repairs and maintenance</small></span></div>
-  <div class="lg"><span id="l0">Kitchen sink leak repair</span><span id="l1">$280.00</span><span id="l2">Shut-off valve replacement</span><span id="l3">$90.00</span><span id="l4" class="tot">Total</span><span id="l5" class="tot">$370.00</span></div></div>
- <div class="note fade" id="n5"><span class="av ai">AC</span><span><b>Entered by Acel.</b> Matched to WO-1042, the owner approval and the auto-approved add-on.</span></div>
+  <div class="lg"><span id="l0">Kitchen sink leak repair</span><span id="l1">$280.00</span><span id="l2">Owner approval</span><span id="l3">Approved, $280</span><span id="l4" class="tot">Total</span><span id="l5" class="tot">$280.00</span></div></div>
+ <div class="note fade" id="n5"><span class="av ai">AC</span><span><b>Entered by Acel.</b> Matched to WO-1042 and the owner approval.</span></div>
 </div>
 <!-- close -->
 <div id="cl" class="abs fade hid">
@@ -228,7 +233,7 @@ html,body{margin:0;padding:0;background:var(--paper);overflow:hidden;font-family
 </div></div>
 <script>
 (function(){
-const $=id=>document.getElementById(id),L=35000;
+const $=id=>document.getElementById(id),L=32500;
 const fit=$('fit'),stage=$('stage');
 const QM=new URLSearchParams(location.search).get('mode');let DK=false;
 function scale(){const W=fit.clientWidth,H=fit.clientHeight;DK=QM?QM==='desktop':(W>=900&&W/H>1.2);
@@ -238,23 +243,23 @@ addEventListener('resize',()=>{scale();if(window.__r)window.__r()});scale();
 function pt(el,fx,fy){const s=stage.getBoundingClientRect(),r=el.getBoundingClientRect(),k=+stage.dataset.k;return[(r.left-s.left+r.width*fx)/k,(r.top-s.top+r.height*fy)/k]}
 const clamp=x=>Math.max(0,Math.min(1,x)),cl=(e,c,on)=>e.classList.toggle(c,!!on),hid=(id,on)=>cl($(id),'hid',on),op=(id,on)=>$(id).style.opacity=on?1:0;
 const set=(id,v,h)=>{const e=$(id);if(e.dataset.v!==v){e.dataset.v=v;h?e.innerHTML=v:e.textContent=v}};
-const SB=[0,2500,10500,15500,19500,24000,28000,32000];
-const TT=['Monday morning, 84 unread','Acel sorts the inbox','Acel books the plumber','Owner approves the quote','Tenant gets notice of entry','Add-on skips approval','The bill is posted'];
-const SN=['Step 1 of 7 · Inbox','Step 2 of 7 · Sort','Step 3 of 7 · Dispatch','Step 4 of 7 · Owner, ask','Step 5 of 7 · Notice','Step 6 of 7 · Owner, skip','Step 7 of 7 · Bill'];
+const SB=[0,2500,10500,17500,21500,26000,30000];
+const TT=['Monday morning, 84 unread','Acel sorts the inbox','Acel books the plumber','Owner approves the quote','Tenant gets notice of entry','The bill is posted'];
+const SN=['Step 1 of 6 · Inbox','Step 2 of 6 · Sort','Step 3 of 6 · Dispatch','Step 4 of 6 · Owner, ask','Step 5 of 6 · Notice','Step 6 of 6 · Bill'];
 const ACT={ac:['<span class="av ai">AC</span>','Acel','AI assistant'],vd:['<span class="av vd">NP</span>','Northline Plumbing','Vendor'],ow:['<span class="av ow">HP</span>','Helen Park','Owner'],ib:['<span class="av">IN</span>','Inbox','pm@maplest'],pm:['<span class="av vd">PM</span>','You','Property manager']};
 const BK=["P", "P", "N", "P", "F", "U", "U", "N", "F", "P", "F", "N", "P", "P", "F", "F"],BL='UPFN',FIN=[4,14,26,40],NI=BK.length,SLOT=[],VIS=[0,0,0,0];BK.forEach((c,i)=>{const b=BL.indexOf(c);SLOT[i]=VIS[b]++});
 const TS=i=>2900+i*230,FD=500;
 // process map
-const ND=['Inbox','Sort','Dispatch','Owner?','Notice','Owner?','Bill'],OWN=[3,5];let MK='';
+const ND=['Inbox','Sort','Dispatch','Owner?','Notice','Bill'],OWN=[3];let MK='';
 function buildMap(){const W=DK?1380:370,H=DK?130:60,fs=DK?13:7.5,r=DK?11:6,px=DK?40:16,cy=DK?52:24,br=DK?30:9;
-  const X=i=>px+i*(W-2*px)/6;let g='';
-  for(let i=0;i<6;i++){const x1=X(i)+r,x2=X(i+1)-r;
+  const X=i=>px+i*(W-2*px)/5;let g='';
+  for(let i=0;i<5;i++){const x1=X(i)+r,x2=X(i+1)-r;
     if(OWN.includes(i)){const ask=i===3;const up=`M${x1} ${cy} C ${x1+br} ${cy-br*1.6}, ${x2-br} ${cy-br*1.6}, ${x2} ${cy}`,dn=`M${x1} ${cy} C ${x1+br} ${cy+br*1.6}, ${x2-br} ${cy+br*1.6}, ${x2} ${cy}`;
       g+=`<path d="${up}" fill="none" stroke="${ask?'#E3DED4':'#D9CBB0'}" stroke-width="${DK?2:1.2}" ${ask?'':'stroke-dasharray="3 3"'}/><path d="${dn}" fill="none" stroke="${ask?'#D9CBB0':'#E3DED4'}" stroke-width="${DK?2:1.2}" ${ask?'stroke-dasharray="3 3"':''}/>`;
       g+=`<path id="cg${i}" d="${ask?up:dn}" fill="none" stroke="#B7832A" stroke-width="${DK?3:1.8}" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/>`;
       if(DK)g+=`<text x="${(x1+x2)/2}" y="${cy-br*1.2-2}" font-size="${fs*.85}" text-anchor="middle" fill="${ask?'#7A5512':'#A39C90'}">Ask</text><text x="${(x1+x2)/2}" y="${cy+br*1.2+fs}" font-size="${fs*.85}" text-anchor="middle" fill="${ask?'#A39C90':'#7A5512'}">Skip</text>`}
     else{g+=`<path d="M${x1} ${cy} L${x2} ${cy}" stroke="#E3DED4" stroke-width="${DK?2:1.2}"/><path id="cg${i}" d="M${x1} ${cy} L${x2} ${cy}" stroke="#10846C" stroke-width="${DK?3:1.8}" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/>`}}
-  for(let i=0;i<7;i++){const x=X(i),o=OWN.includes(i);
+  for(let i=0;i<6;i++){const x=X(i),o=OWN.includes(i);
     g+=o?`<rect id="nd${i}" x="${x-r}" y="${cy-r}" width="${2*r}" height="${2*r}" rx="${DK?3:1.5}" transform="rotate(45 ${x} ${cy})" fill="#F5F2EC" stroke="#B7832A" stroke-width="${DK?2.5:1.5}"/>`:`<circle id="nd${i}" cx="${x}" cy="${cy}" r="${r}" fill="#F5F2EC" stroke="#B5AEA2" stroke-width="${DK?2.5:1.5}"/>`;
     g+=`<text id="nl${i}" x="${x}" y="${cy+r+fs+(o?7:5)}" font-size="${fs}" text-anchor="middle" fill="${o?'#7A5512':'#6B655B'}">${ND[i]}</text>`}
   g+=`<circle id="dot" r="${DK?7:3.6}" fill="#10846C"/>`;
@@ -262,25 +267,25 @@ function buildMap(){const W=DK?1380:370,H=DK?130:60,fs=DK?13:7.5,r=DK?11:6,px=DK
 let lastC=0;
 function render(t){
   t=((t%L)+L)%L;if(MK!==DK)buildMap();
-  let S=7;for(let i=0;i<7;i++)if(t<SB[i+1]){S=i;break}
+  let S=6;for(let i=0;i<6;i++)if(t<SB[i+1]){S=i;break}
   // map: dot travels during last 700ms of each scene
   let dp=null;
-  for(let i=0;i<7;i++){const done=t>=SB[i+1],cur=S===i,n=$('nd'+i),o=OWN.includes(i);
+  for(let i=0;i<6;i++){const done=t>=SB[i+1],cur=S===i,n=$('nd'+i),o=OWN.includes(i);
     n.setAttribute('fill',done?(o?'#B7832A':'#10846C'):cur?'#fff':'#F5F2EC');n.setAttribute('stroke',done?(o?'#B7832A':'#10846C'):cur?(o?'#B7832A':'#10846C'):(o?'#B7832A':'#B5AEA2'));
     $('nl'+i).setAttribute('font-weight',cur?'600':'400');$('nl'+i).setAttribute('fill',cur?'#141414':o?'#7A5512':'#6B655B');
     cl($('ck'+i),'on',done)}
-  for(let i=0;i<6;i++){const p=clamp((t-(SB[i+1]-700))/700),c=$('cg'+i);c.setAttribute('stroke-dashoffset',String(100-100*p));
+  for(let i=0;i<5;i++){const p=clamp((t-(SB[i+1]-700))/700),c=$('cg'+i);c.setAttribute('stroke-dashoffset',String(100-100*p));
     if(p>0&&p<1){const L2=c.getTotalLength(),q=c.getPointAtLength(L2*p);dp=[q.x,q.y]}}
-  if(!dp){const k=Math.min(S,6),n=$('nd'+k),b=n.getBBox();dp=[b.x+b.width/2,b.y+b.height/2];if(n.tagName==='rect'){const W=DK?1380:370,px=DK?40:16;dp=[px+k*(W-2*px)/6,DK?52:24]}}
+  if(!dp){const k=Math.min(S,5),n=$('nd'+k),b=n.getBBox();dp=[b.x+b.width/2,b.y+b.height/2];if(n.tagName==='rect'){const W=DK?1380:370,px=DK?40:16;dp=[px+k*(W-2*px)/5,DK?52:24]}}
   $('dot').setAttribute('cx',dp[0]);$('dot').setAttribute('cy',dp[1]);
-  const skp=t>24900;set('ck5t',skp?'Skipped':'Optional');
+  
   const urg=S===1&&t>=7300;
-  set('title',S<7?(S===1?(urg?'Urgent jobs first':TT[1]):TT[S]):'');set('stn',S<7?SN[S]:'Start to finish');
-  $('title').style.opacity=S<7?1:0;$('actor').style.opacity=S<7?1:0;$('job').style.opacity=S<7?1:0;
-  const a=S===0?'ib':S===1?(t>6500&&t<8800?'pm':'ac'):S===3?'ow':S===2&&t>12800?'vd':'ac';
+  set('title',S<6?(S===1?(urg?'Urgent jobs first':TT[1]):TT[S]):'');set('stn',S<6?SN[S]:'Start to finish');
+  $('title').style.opacity=S<6?1:0;$('actor').style.opacity=S<6?1:0;$('job').style.opacity=S<6?1:0;
+  const a=S===0?'ib':S===1?(t>6500&&t<8800?'pm':'ac'):S===3?'ow':S===2&&t>12800&&t<14200?'vd':'ac';
   set('aav',ACT[a][0],1);set('anm',ACT[a][1]);set('arl',ACT[a][2]);
-  set('atm',['Mon 7:40 AM','Mon 7:41 AM','Mon 8:06 AM','Mon 8:09 AM','Wed 9:30 AM','Thu 10:40 AM','Thu 2:15 PM','Done'][S]);
-  hid('s0',!(S===0||S===1&&!urg));hid('s1',!urg);for(let i=2;i<7;i++)hid('s'+i,S!==i);hid('cl',S!==7);
+  set('atm',['Mon 7:40 AM','Mon 7:41 AM','Mon 8:06 AM','Mon 8:09 AM','Wed 9:30 AM','Thu 2:15 PM','Done'][S]);
+  hid('s0',!(S===0||S===1&&!urg));hid('s1',!urg);for(let i=2;i<6;i++)hid('s'+i,S!==i);hid('cl',S!==6);
   // sort
   const sorting=S===1&&!urg;$('mail').style.height=sorting?(DK?'340px':'360px'):'';$('trays').style.opacity=sorting?1:0;
   const rem=[];for(let i=0;i<NI;i++)if(!(sorting&&t>=TS(i)))rem.push(i);
@@ -294,21 +299,21 @@ function render(t){
   // urgent list
   cl($('ur0'),'sel',t>8300);op('dsp',t>8800);
   // 2 vendor
-  cl($('vr'),'in',t<12800);
+  const ws=t>11800;set('wos',ws?'Sent':'Draft');$('wos').className='lb '+(ws?'lS':'lD');cl($('vr'),'in',t<12800);cl($('hx0'),'on',t>14000);cl($('hx1'),'on',t>14000);op('xt',t>14300);
   // 3
-  const a0=t>17800;cl($('ap0'),'ok',a0);set('ap0',a0?'Approved':'Approve');op('dn0',t>18000);
+  const a0=t>19800;cl($('ap0'),'ok',a0);set('ap0',a0?'Approved':'Approve');op('dn0',t>20000);
   // 4
-  const sn=t>21800;set('nst',sn?'Sent':'Draft');$('nst').className='lb '+(sn?'lS':'lD');op('n3',t>22400);
+  const sn=t>23800;set('nst',sn?'Sent':'Draft');$('nst').className='lb '+(sn?'lS':'lD');op('n3',t>24400);
   // 5 skipped
-  cl($('o2a'),'on',!skp);cl($('o2s'),'on',skp);op('o2st',t>25400);
+  
   // 6
-  for(let i=0;i<6;i++)op('l'+i,t>28600+Math.floor(i/2)*500);
-  const po=t>30600;set('bst',po?'Posted':'Draft');$('bst').className='lb '+(po?'lS':'lD');op('n5',t>31200);
+  for(let i=0;i<6;i++)op('l'+i,t>26600+Math.floor(i/2)*500);
+  const po=t>28600;set('bst',po?'Posted':'Draft');$('bst').className='lb '+(po?'lS':'lD');op('n5',t>29200);
   // close
-  op('c0',t>32300);op('c1',t>32900);op('c2',t>33500);
+  op('c0',t>30300);op('c1',t>30800);op('c2',t>31300);
   // fingertip
   let cp=null,click=0;
-  if(t>6500&&t<7300){cp=pt($('tr0'),.5,.5);click=7000}else if(t>7800&&t<8700){cp=pt($('ur0'),.5,.5);click=8300}else if(t>17000&&t<18300){cp=pt($('ap0'),.5,.5);click=17700}
+  if(t>6500&&t<7300){cp=pt($('tr0'),.5,.5);click=7000}else if(t>7800&&t<8700){cp=pt($('ur0'),.5,.5);click=8300}else if(t>19000&&t<20300){cp=pt($('ap0'),.5,.5);click=19700}
   cl($('cur'),'press',click&&t>click-120&&t<click+200);
   $('cur').style.opacity=cp?1:0;if(cp)$('cur').style.transform=`translate(${cp[0]}px,${cp[1]}px)`;
   if(click&&t>click&&lastC!==click){lastC=click;const r=$('rip');r.classList.remove('go');void r.offsetWidth;r.classList.add('go')}
@@ -325,7 +330,7 @@ function audit(){const W=fit.clientWidth,bad=[];
  const p=document.createElement('pre');p.id='audit';p.textContent='AUDIT W='+W+' '+(bad.length?bad.join(' | '):'OK');document.body.appendChild(p)}
 const q=new URLSearchParams(location.search);
 function start(){if(q.has('t')){document.querySelectorAll('*').forEach(e=>e.style.transition='none');render(+q.get('t'));render(+q.get('t'));window.__r=()=>render(+q.get('t'));if(q.has('audit'))audit()}
- else if(matchMedia('(prefers-reduced-motion: reduce)').matches)render(34500);
+ else if(matchMedia('(prefers-reduced-motion: reduce)').matches)render(32000);
  else{const t0=performance.now();(function loop(x){render(x-t0);requestAnimationFrame(loop)})(t0)}}
 (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(start);
 })();

@@ -85,25 +85,26 @@
   }
 
   /* The stage switches at a 900px frame. Below that, keep the portrait stage at most 430px wide. */
-  .demo { container-type: inline-size; width: 100%; }
-  .demo-sizer { width: calc(100% - 48px); max-width: 430px; margin: 0 auto 48px; }
+  .demo { container: demo / inline-size; width: 100%; }
+  .demo-sizer { width: calc(100% - 48px); max-width: 430px; margin: 0 auto 48px; container: sizer / inline-size; }
+  /* Stage plus the 112px player bar under it. */
   .demo-frame {
-    position: relative; width: 100%; aspect-ratio: 390 / 844;
+    position: relative; width: 100%; height: calc(100cqw * 844 / 390 + 112px);
     border-radius: 12px; overflow: hidden; background: var(--paper);
     outline: 1px solid var(--rule); outline-offset: -1px;
   }
   .demo-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: var(--paper); }
-  @container (min-width: 900px) {
+  @container demo (min-width: 900px) {
     .demo-sizer { max-width: 1600px; width: 100%; }
-    .demo-frame { aspect-ratio: 1600 / 900; }
+    .demo-frame { height: calc(100cqw * 900 / 1600 + 112px); }
   }
-  @container (min-width: 996px) {
+  @container demo (min-width: 996px) {
     .demo-sizer { width: calc(100% - 48px); }
   }
   html[data-mode="desktop"] .demo-sizer { max-width: 1600px; width: calc(100% - 48px); }
-  html[data-mode="desktop"] .demo-frame { aspect-ratio: 1600 / 900; }
+  html[data-mode="desktop"] .demo-frame { height: calc(100cqw * 900 / 1600 + 112px); }
   html[data-mode]:not([data-mode="desktop"]) .demo-sizer { max-width: 430px; width: calc(100% - 48px); }
-  html[data-mode]:not([data-mode="desktop"]) .demo-frame { aspect-ratio: 390 / 844; }
+  html[data-mode]:not([data-mode="desktop"]) .demo-frame { height: calc(100cqw * 844 / 390 + 112px); }
 
   .menu-btn { display: none; width: 40px; height: 40px; margin-right: -8px; border: 0; background: none; cursor: pointer; align-items: center; justify-content: center; color: var(--ink); }
   .menu-btn svg { width: 22px; height: 22px; }

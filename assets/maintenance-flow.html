@@ -19,21 +19,21 @@ html,body{margin:0;padding:0;background:var(--paper);overflow:hidden;font-family
 .av{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:10.5px;font-weight:600;flex:none;background:var(--paper-2);color:var(--muted)}
 .av.ai{background:var(--green);color:var(--paper)}.av.ow{background:var(--och-t);color:var(--och-d)}.av.vd{background:var(--ink);color:var(--paper)}
 .lb{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;border-radius:5px;white-space:nowrap;border:1.5px solid transparent}
-.lU{background:var(--ink);color:var(--paper)}.lP{border-color:var(--ink);color:var(--ink)}.lG{background:var(--tint);color:var(--green-deep)}.lS{background:var(--green);color:var(--paper)}.lD{background:var(--paper-2);color:var(--muted)}.lO{background:var(--och-t);color:var(--och-d)}
+.lN2{border-color:#C9C2B5;border-style:dashed;color:var(--muted)}.lU{background:var(--ink);color:var(--paper)}.lP{border-color:var(--ink);color:var(--ink)}.lG{background:var(--tint);color:var(--green-deep)}.lS{background:var(--green);color:var(--paper)}.lD{background:var(--paper-2);color:var(--muted)}.lO{background:var(--och-t);color:var(--och-d)}
 /* steps */
 #steps{left:22px;top:16px;width:346px;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
 .st i{display:block;height:5px;border-radius:3px;background:var(--rule);overflow:hidden}.st i b{display:block;height:100%;width:0;background:var(--green)}
 .st.o i b{background:var(--och)}.st.o i{background:#EADFC8}
 .st span{display:block;font-family:var(--mono);font-size:7.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .st.o span{color:var(--och-d)}.st.on span{color:var(--ink)}.st.o.on span{color:var(--och-d);font-weight:500}
-#wm{right:22px;top:52px;font-size:16px;font-weight:500;letter-spacing:-.6px}#wm span{color:var(--green)}
-#hd{left:22px;top:54px;width:250px}
+#wm{right:22px;top:76px;font-size:16px;font-weight:500;letter-spacing:-.6px}#wm span{color:var(--green)}
+#hd{left:22px;top:78px;width:240px}
 #hd .mono{font-size:10px}
-#title{left:22px;top:74px;width:346px;font-size:25px;font-weight:600;letter-spacing:-.9px;line-height:1.1;transition:opacity .35s}
-#actor{left:22px;top:118px;width:346px;height:44px;border-radius:999px;background:var(--paper-3);border:1.5px solid var(--rule);display:flex;align-items:center;gap:9px;padding:0 6px 0 7px;transition:opacity .35s}
+#title{left:22px;top:98px;width:346px;font-size:25px;font-weight:600;letter-spacing:-.9px;line-height:1.1;transition:opacity .35s}
+#actor{left:22px;top:140px;width:346px;height:44px;border-radius:999px;background:var(--paper-3);border:1.5px solid var(--rule);display:flex;align-items:center;gap:9px;padding:0 6px 0 7px;transition:opacity .35s}
 #actor b{font-size:14px;font-weight:600}#actor .rl{font-size:12.5px;color:var(--muted)}
 #actor .tm{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;background:var(--ink);color:var(--paper);padding:7px 10px;border-radius:999px;white-space:nowrap}
-.sc{left:22px;top:182px;width:346px;height:640px}
+.sc{left:22px;top:198px;width:346px;height:626px}
 .card{background:#fff;border:1.5px solid var(--rule);border-radius:16px;padding:14px;margin-bottom:12px;transition:opacity .45s var(--ease),transform .55s var(--ease),border-color .3s}
 .card.in{opacity:0;transform:translateY(14px)}
 .card .w{display:flex;align-items:center;gap:9px;margin-bottom:8px}
@@ -88,7 +88,7 @@ html,body{margin:0;padding:0;background:var(--paper);overflow:hidden;font-family
 .rip{position:absolute;left:-24px;top:-24px;width:48px;height:48px;border-radius:50%;border:2px solid var(--green);opacity:0}
 .rip.go{animation:rp .5s ease-out}
 @keyframes rp{0%{opacity:.9;transform:scale(.3)}100%{opacity:0;transform:scale(1.6)}}
-.mail{background:#fff;border:1.5px solid var(--rule);border-radius:16px;overflow:hidden;height:630px;display:flex;flex-direction:column}
+.mail{background:#fff;border:1.5px solid var(--rule);border-radius:16px;overflow:hidden;height:620px;transition:height .5s var(--ease);display:flex;flex-direction:column}
 .mh{display:flex;justify-content:space-between;align-items:baseline;padding:14px 14px 8px}.mh>b{font-size:26px;font-weight:600;letter-spacing:-.8px}.mh span{font-size:12.5px;color:var(--muted)}.mh span b{color:var(--ink);font-variant-numeric:tabular-nums}
 .msr{display:flex;align-items:center;gap:7px;height:34px;border-radius:10px;background:var(--paper-2);margin:0 14px 8px;padding:0 10px;font-size:13px;color:var(--muted)}
 #irs{position:relative;flex:1;overflow:hidden;border-top:1.5px solid var(--rule)}
@@ -104,33 +104,45 @@ html,body{margin:0;padding:0;background:var(--paper);overflow:hidden;font-family
 .skp{transition:opacity .4s}.skp.dim{opacity:.4}
 .stamp{display:flex;gap:9px;align-items:center;border:1.5px solid var(--och);background:var(--och-t);color:var(--och-d);border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.35;transition:opacity .4s}
 .stamp b{font-weight:600}
-#stage.dk .mail{height:620px}#stage.dk .ir{height:56px}
+#stage.dk .mail{height:590px}#stage.dk .ir{height:56px}
+#map{left:10px;top:8px;width:370px;height:60px}
+#map text{font-family:var(--mono);text-transform:uppercase}
+#stage.dk #map{left:110px;top:30px;width:1380px;height:130px}
+.ir.gone{opacity:0}
+#trays{position:absolute;left:0;right:0;top:372px;height:150px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;transition:opacity .4s}
+.tr{border:1.5px solid var(--rule);border-radius:12px;background:var(--paper-3);padding:7px 4px;display:flex;flex-direction:column;align-items:center;transition:border-color .3s,opacity .3s}
+.tr .lb{font-size:8px;padding:3px 5px;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.tr .tc{font-size:24px;font-weight:600;letter-spacing:-.8px;margin:5px 0 4px;font-variant-numeric:tabular-nums;line-height:1}
+.stk{position:relative;flex:1;width:100%}
+.sl{position:absolute;left:4px;right:4px;bottom:0;height:8px;border-radius:3px;opacity:0}
+.sU{background:var(--ink)}.sP{background:var(--green)}.sF{background:var(--paper-2);border:1.5px solid var(--rule)}.sN{border:1.5px dashed #C9C2B5}
+.tr.hl{border-color:var(--ink);background:#fff}.tr.dm{opacity:.4}
+#fly{left:0;top:0;width:0;height:0;z-index:15}
+.ch{position:absolute;left:0;top:0;border-radius:8px;border:1.5px solid var(--green);background:#fff;overflow:hidden;font-size:12.5px;padding:0 10px;display:none;align-items:center;white-space:nowrap}
+.ch.cU{background:var(--ink);border-color:var(--ink)}.ch.cP{background:var(--green)}.ch.cF{background:var(--paper-2);border-color:var(--rule)}.ch.cN{background:var(--paper-3);border:1.5px dashed #C9C2B5}
+.uh{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:14px;color:var(--muted)}
+.ur{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 8px;padding:11px 12px;border:1.5px solid var(--rule);border-radius:12px;background:#fff;margin-bottom:8px;transition:border-color .3s,background .3s}
+.ur b{font-size:13.5px;font-weight:600}.ur small{grid-column:1;font-size:12px;color:var(--muted)}.ur .it{font-size:11px;color:var(--muted)}
+.ur.sel{border-color:var(--green);background:var(--tint)}
+#stage.dk #trays{top:352px;height:230px}#stage.dk .tr .tc{font-size:34px}#stage.dk .sl{height:12px}#stage.dk .tr .lb{font-size:9px}
 /* desktop */
 #stage.dk #steps{left:110px;top:40px;width:1380px;gap:12px}
 #stage.dk .st i{height:7px}#stage.dk .st span{font-size:11px;margin-top:9px}
-#stage.dk #wm{right:110px;top:96px;font-size:24px}
-#stage.dk #hd{left:110px;top:100px;width:600px}#stage.dk #hd .mono{font-size:12px}
-#stage.dk #title{left:110px;top:124px;width:900px;font-size:46px;letter-spacing:-1.6px}
-#stage.dk #actor{left:auto;right:110px;top:140px;width:420px;height:50px}
-#stage.dk .sc{left:690px;top:230px;width:560px;height:640px}
-#stage.dk #job{display:block;left:110px;top:240px;width:440px;background:var(--paper-3);border:1.5px solid var(--rule);border-radius:18px;padding:24px}
+#stage.dk #wm{right:110px;top:176px;font-size:24px}
+#stage.dk #hd{left:110px;top:178px;width:600px}#stage.dk #hd .mono{font-size:12px}
+#stage.dk #title{left:110px;top:200px;width:900px;font-size:46px;letter-spacing:-1.6px}
+#stage.dk #actor{left:auto;right:110px;top:214px;width:420px;height:50px}
+#stage.dk .sc{left:690px;top:290px;width:560px;height:590px}
+#stage.dk #job{display:block;left:110px;top:300px;width:440px;background:var(--paper-3);border:1.5px solid var(--rule);border-radius:18px;padding:24px}
 #stage.dk .card{padding:20px}#stage.dk .subj{font-size:20px}#stage.dk .body,#stage.dk .kv{font-size:15px}#stage.dk .bub{font-size:17px}
-#stage.dk .phone{width:330px;height:600px}
+#stage.dk .phone{width:320px;height:470px}
 #stage.dk .ask{font-size:22px}
 #stage.dk #cl{left:110px;width:1380px;top:200px;height:640px}
 #stage.dk #cl svg{width:96px;height:96px}#stage.dk #cl .wmk{font-size:42px}#stage.dk #cl p{font-size:48px;letter-spacing:-1.6px}
 @media (prefers-reduced-motion:reduce){.fade,.card,#cur{transition:none}}
 </style></head><body>
 <div id="fit"><div id="stage">
-<div id="steps" class="abs">
- <div class="st " id="st0"><i><b></b></i><span id="stl0">1 Inbox</span></div>
- <div class="st " id="st1"><i><b></b></i><span id="stl1">2 Triage</span></div>
- <div class="st " id="st2"><i><b></b></i><span id="stl2">3 Vendor</span></div>
- <div class="st o" id="st3"><i><b></b></i><span id="stl3">4 Owner</span></div>
- <div class="st " id="st4"><i><b></b></i><span id="stl4">5 Notice</span></div>
- <div class="st o" id="st5"><i><b></b></i><span id="stl5">6 Owner</span></div>
- <div class="st " id="st6"><i><b></b></i><span id="stl6">7 Bill</span></div>
-</div>
+<svg id="map" class="abs"></svg>
 <div id="hd" class="abs fade"><div class="mono" id="stn"></div></div>
 <div id="wm" class="abs">acel<span>·</span>cortex</div>
 <div id="title" class="abs"></div>
@@ -139,8 +151,8 @@ html,body{margin:0;padding:0;background:var(--paper);overflow:hidden;font-family
 <div id="job" class="abs fade">
  <div class="mono" style="font-size:11px">Job 1042 · 12 Maple St, Unit 3</div>
  <div style="font-size:24px;font-weight:600;letter-spacing:-.6px;margin:8px 0 14px">Leaking kitchen sink</div>
- <div class="ck" id="ck0"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Found in 84 unread emails</div>
- <div class="ck" id="ck1"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Tagged Urgent, Plumbing</div>
+ <div class="ck" id="ck0"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Inbox: 84 unread emails</div>
+ <div class="ck" id="ck1"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Sorted, leak marked urgent</div>
  <div class="ck" id="ck2"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Plumber booked, $280</div>
  <div class="ck o" id="ck3"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Owner approved<span class="lb lO">Optional</span></div>
  <div class="ck" id="ck4"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Notice of entry sent</div>
@@ -148,17 +160,21 @@ html,body{margin:0;padding:0;background:var(--paper);overflow:hidden;font-family
  <div class="ck" id="ck6" style="border-bottom:0"><i><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5 9.5 3.5"/></svg></i>Bill posted, $370</div>
 </div>
 
-<!-- 0 inbox -->
+<!-- 0 inbox + sort -->
 <div id="s0" class="abs sc fade">
- <div class="mail"><div class="mh"><b>Inbox</b><span><b id="uc">58</b> unread</span></div><div class="msr"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" width="14" height="14"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5 14 14"/></svg>Search</div>
- <div id="irs"><div class="ir" id="ir0"><span class="ud"></span><span class="ell"><b>Rent payments</b><span class="ell">Payment received: Unit 7, $1,850.00</span></span><span class="it">7:06</span></div><div class="ir" id="ir1"><span class="ud"></span><span class="ell"><b>Brightwell Cleaning</b><span class="ell">Lobby clean moves to Thursday</span></span><span class="it">7:08</span></div><div class="ir" id="ir2"><span class="ud"></span><span class="ell"><b>Voicemail</b><span class="ell">New voicemail from (905) 555-0182, 0:47</span></span><span class="it">7:10</span></div><div class="ir" id="ir3"><span class="ud"></span><span class="ell"><b>Lena Gauthier</b><span class="ell">Can we raise rent at renewal</span></span><span class="it">7:12</span></div><div class="ir" id="ir4"><span class="ud"></span><span class="ell"><b>PropTech Weekly</b><span class="ell">Webinar: five ways to cut vacancy</span></span><span class="it">7:14</span></div><div class="ir" id="ir5"><span class="ud"></span><span class="ell"><b>Harbour Insurance</b><span class="ell">Policy renewal documents attached</span></span><span class="it">7:16</span></div><div class="ir" id="ir6"><span class="ud"></span><span class="ell"><b>Dmitri Valk</b><span class="ell">Parking stall question</span></span><span class="it">7:18</span></div><div class="ir" id="ir7"><span class="ud"></span><span class="ell"><b>City water services</b><span class="ell">Water shutoff on Maple St, Oct 15</span></span><span class="it">7:20</span></div><div class="ir" id="ir8"><span class="ud"></span><span class="ell"><b>Camera system</b><span class="ell">Motion alert: garage, 3:12 AM</span></span><span class="it">7:22</span></div><div class="ir" id="ir9"><span class="ud"></span><span class="ell"><b>Sam Reyes</b><span class="ell">Sink leaking under cabinet</span></span><span class="it">7:24</span></div><div class="ir" id="ir10"><span class="ud"></span><span class="ell"><b>Mina Tran</b><span class="ell">Locked out, please call me back</span></span><span class="it">7:26</span></div><div class="ir" id="ir11"><span class="ud"></span><span class="ell"><b>Strata office</b><span class="ell">Minutes from the September AGM</span></span><span class="it">7:28</span></div><div class="ir" id="ir12"><span class="ud"></span><span class="ell"><b>Kofi Mensah</b><span class="ell">Dryer is making a grinding noise</span></span><span class="it">7:30</span></div><div class="ir" id="ir13"><span class="ud"></span><span class="ell"><b>Office deals</b><span class="ell">Your offer on office chairs</span></span><span class="it">7:32</span></div><div class="ir" id="ir14"><span class="ud"></span><span class="ell"><b>Ruth Okonjo</b><span class="ell">Question on the Q3 statement</span></span><span class="it">7:34</span></div><div class="ir" id="ir15"><span class="ud"></span><span class="ell"><b>Omar Patel</b><span class="ell">Balcony door will not lock</span></span><span class="it">7:36</span></div></div></div>
+ <div class="mail" id="mail"><div class="mh"><b>Inbox</b><span><b id="uc">84</b> unread</span></div><div class="msr"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" width="14" height="14"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5 14 14"/></svg>Search</div>
+ <div id="irs"><div class="ir" id="ir0"><span class="ud"></span><span class="ell"><b>Omar Patel</b><span class="ell">Balcony door will not lock</span></span><span class="it">7:36</span></div><div class="ir" id="ir1"><span class="ud"></span><span class="ell"><b>Ruth Okonjo</b><span class="ell">Question on the Q3 statement</span></span><span class="it">7:34</span></div><div class="ir" id="ir2"><span class="ud"></span><span class="ell"><b>Office deals</b><span class="ell">Your offer on office chairs</span></span><span class="it">7:32</span></div><div class="ir" id="ir3"><span class="ud"></span><span class="ell"><b>Kofi Mensah</b><span class="ell">Dryer is making a grinding noise</span></span><span class="it">7:30</span></div><div class="ir" id="ir4"><span class="ud"></span><span class="ell"><b>Strata office</b><span class="ell">Minutes from the September AGM</span></span><span class="it">7:28</span></div><div class="ir" id="ir5"><span class="ud"></span><span class="ell"><b>Mina Tran</b><span class="ell">Locked out, please call me back</span></span><span class="it">7:26</span></div><div class="ir" id="ir6"><span class="ud"></span><span class="ell"><b>Sam Reyes</b><span class="ell">Sink leaking under cabinet</span></span><span class="it">7:24</span></div><div class="ir" id="ir7"><span class="ud"></span><span class="ell"><b>Camera system</b><span class="ell">Motion alert: garage, 3:12 AM</span></span><span class="it">7:22</span></div><div class="ir" id="ir8"><span class="ud"></span><span class="ell"><b>City water services</b><span class="ell">Water shutoff on Maple St, Oct 15</span></span><span class="it">7:20</span></div><div class="ir" id="ir9"><span class="ud"></span><span class="ell"><b>Dmitri Valk</b><span class="ell">Parking stall question</span></span><span class="it">7:18</span></div><div class="ir" id="ir10"><span class="ud"></span><span class="ell"><b>Harbour Insurance</b><span class="ell">Policy renewal documents attached</span></span><span class="it">7:16</span></div><div class="ir" id="ir11"><span class="ud"></span><span class="ell"><b>PropTech Weekly</b><span class="ell">Webinar: five ways to cut vacancy</span></span><span class="it">7:14</span></div><div class="ir" id="ir12"><span class="ud"></span><span class="ell"><b>Lena Gauthier</b><span class="ell">Can we raise rent at renewal</span></span><span class="it">7:12</span></div><div class="ir" id="ir13"><span class="ud"></span><span class="ell"><b>Voicemail</b><span class="ell">New voicemail from (905) 555-0182, 0:47</span></span><span class="it">7:10</span></div><div class="ir" id="ir14"><span class="ud"></span><span class="ell"><b>Brightwell Cleaning</b><span class="ell">Lobby clean moves to Thursday</span></span><span class="it">7:08</span></div><div class="ir" id="ir15"><span class="ud"></span><span class="ell"><b>Rent payments</b><span class="ell">Payment received: Unit 7, $1,850.00</span></span><span class="it">7:06</span></div></div></div>
+ <div id="trays"><div class="tr" id="tr0"><span class="lb lU">Urgent</span><b class="tc" id="tc0">0</b><div class="stk"><i class="sl sU" id="slU0"></i><i class="sl sU" id="slU1"></i></div></div><div class="tr" id="tr1"><span class="lb lS">Needs PM</span><b class="tc" id="tc1">0</b><div class="stk"><i class="sl sP" id="slP0"></i><i class="sl sP" id="slP1"></i><i class="sl sP" id="slP2"></i><i class="sl sP" id="slP3"></i><i class="sl sP" id="slP4"></i><i class="sl sP" id="slP5"></i></div></div><div class="tr" id="tr2"><span class="lb lD">FYI</span><b class="tc" id="tc2">0</b><div class="stk"><i class="sl sF" id="slF0"></i><i class="sl sF" id="slF1"></i><i class="sl sF" id="slF2"></i><i class="sl sF" id="slF3"></i><i class="sl sF" id="slF4"></i></div></div><div class="tr" id="tr3"><span class="lb lN2">Noise</span><b class="tc" id="tc3">0</b><div class="stk"><i class="sl sN" id="slN0"></i><i class="sl sN" id="slN1"></i><i class="sl sN" id="slN2"></i></div></div></div>
 </div>
-<!-- 1 triage -->
-<div id="s1" class="abs sc fade">
- <div class="card in" id="e0"><div class="w"><span class="av">SR</span><span><b>Sam Reyes</b><small>Tenant · 12 Maple St, Unit 3 · 7:24 AM</small></span></div>
-  <div class="subj">Sink leaking under cabinet</div><div class="body">Water is pooling under the kitchen sink. I put a towel down but it keeps dripping.</div>
-  <div class="tags"><span class="lb lU in" id="tg0">Urgent</span><span class="lb lP in" id="tg1">Plumbing</span><span class="lb lG in" id="tg2">Job 1042</span></div></div>
- <div class="note fade" id="n0"><span class="av ai">AC</span><span><b>Acel tagged it in 4 seconds.</b> Water leak, active, needs a plumber today.</span></div>
+<div id="fly" class="abs"><div class="ch" id="ch0"><span><b>Omar Patel</b>&nbsp; Balcony door will not lock</span></div><div class="ch" id="ch1"><span><b>Ruth Okonjo</b>&nbsp; Question on the Q3 statement</span></div><div class="ch" id="ch2"><span><b>Office deals</b>&nbsp; Your offer on office chairs</span></div><div class="ch" id="ch3"><span><b>Kofi Mensah</b>&nbsp; Dryer is making a grinding noise</span></div><div class="ch" id="ch4"><span><b>Strata office</b>&nbsp; Minutes from the September AGM</span></div><div class="ch" id="ch5"><span><b>Mina Tran</b>&nbsp; Locked out, please call me back</span></div><div class="ch" id="ch6"><span><b>Sam Reyes</b>&nbsp; Sink leaking under cabinet</span></div><div class="ch" id="ch7"><span><b>Camera system</b>&nbsp; Motion alert: garage, 3:12 AM</span></div><div class="ch" id="ch8"><span><b>City water services</b>&nbsp; Water shutoff on Maple St, Oct 15</span></div><div class="ch" id="ch9"><span><b>Dmitri Valk</b>&nbsp; Parking stall question</span></div><div class="ch" id="ch10"><span><b>Harbour Insurance</b>&nbsp; Policy renewal documents attached</span></div><div class="ch" id="ch11"><span><b>PropTech Weekly</b>&nbsp; Webinar: five ways to cut vacancy</span></div><div class="ch" id="ch12"><span><b>Lena Gauthier</b>&nbsp; Can we raise rent at renewal</span></div><div class="ch" id="ch13"><span><b>Voicemail</b>&nbsp; New voicemail from (905) 555-0182, 0:47</span></div><div class="ch" id="ch14"><span><b>Brightwell Cleaning</b>&nbsp; Lobby clean moves to Thursday</span></div><div class="ch" id="ch15"><span><b>Rent payments</b>&nbsp; Payment received: Unit 7, $1,850.00</span></div></div>
+<!-- 1 urgent -->
+<div id="s1" class="abs sc fade hid">
+ <div class="uh"><span class="lb lU">Urgent</span><span>4 jobs · sorted by Acel</span></div>
+ <div class="ur" id="ur0"><b>Sam Reyes · 12 Maple St, Unit 3</b><span class="it">7:24</span><small class="ell">Sink leaking under cabinet</small></div>
+ <div class="ur"><b>Mina Tran · 88 Cedar Rd, Unit 9</b><span class="it">7:26</span><small class="ell">Locked out, please call me back</small></div>
+ <div class="ur"><b>Alicia Brandt · 40 Birch Ave, Unit 5</b><span class="it">6:58</span><small class="ell">No heat since last night</small></div>
+ <div class="ur"><b>Northvale Fire Monitoring</b><span class="it">6:41</span><small class="ell">Trouble signal: panel 2, 40 Birch Ave</small></div>
+ <div class="note fade" id="dsp" style="margin-top:6px"><span class="av ai">AC</span><span><b>Acel is dispatching a plumber</b> for Job 1042.<span class="tags" style="margin-top:6px"><span class="lb lU">Urgent</span><span class="lb lP">Plumbing</span><span class="lb lG">Job 1042</span></span></span></div>
 </div>
 <!-- 2 vendor -->
 <div id="s2" class="abs sc fade hid">
@@ -212,7 +228,7 @@ html,body{margin:0;padding:0;background:var(--paper);overflow:hidden;font-family
 </div></div>
 <script>
 (function(){
-const $=id=>document.getElementById(id),L=34000;
+const $=id=>document.getElementById(id),L=35000;
 const fit=$('fit'),stage=$('stage');
 const QM=new URLSearchParams(location.search).get('mode');let DK=false;
 function scale(){const W=fit.clientWidth,H=fit.clientHeight;DK=QM?QM==='desktop':(W>=900&&W/H>1.2);
@@ -222,45 +238,77 @@ addEventListener('resize',()=>{scale();if(window.__r)window.__r()});scale();
 function pt(el,fx,fy){const s=stage.getBoundingClientRect(),r=el.getBoundingClientRect(),k=+stage.dataset.k;return[(r.left-s.left+r.width*fx)/k,(r.top-s.top+r.height*fy)/k]}
 const clamp=x=>Math.max(0,Math.min(1,x)),cl=(e,c,on)=>e.classList.toggle(c,!!on),hid=(id,on)=>cl($(id),'hid',on),op=(id,on)=>$(id).style.opacity=on?1:0;
 const set=(id,v,h)=>{const e=$(id);if(e.dataset.v!==v){e.dataset.v=v;h?e.innerHTML=v:e.textContent=v}};
-const SB=[0,3000,8000,13000,17000,22000,26000,31000];
-const TT=['Monday morning, 84 unread','A tenant reports a leak','Acel books the plumber','Owner approves the quote','Tenant gets notice of entry','Add-on skips approval','The bill is posted'];
-const SN=['Step 1 of 7 · Inbox','Step 2 of 7 · Triage','Step 3 of 7 · Vendor','Step 4 of 7 · Owner, optional','Step 5 of 7 · Notice','Step 6 of 7 · Owner, optional','Step 7 of 7 · Bill'];
-const ACT={ac:['<span class="av ai">AC</span>','Acel','AI assistant'],vd:['<span class="av vd">NP</span>','Northline Plumbing','Vendor'],ow:['<span class="av ow">HP</span>','Helen Park','Owner'],ib:['<span class="av">IN</span>','Inbox','pm@maplest']};
-const NI=16,PRE=8,TA=i=>i<PRE?-1:300+(i-PRE)*260,SAM=9;
+const SB=[0,2500,10500,15500,19500,24000,28000,32000];
+const TT=['Monday morning, 84 unread','Acel sorts the inbox','Acel books the plumber','Owner approves the quote','Tenant gets notice of entry','Add-on skips approval','The bill is posted'];
+const SN=['Step 1 of 7 · Inbox','Step 2 of 7 · Sort','Step 3 of 7 · Dispatch','Step 4 of 7 · Owner, ask','Step 5 of 7 · Notice','Step 6 of 7 · Owner, skip','Step 7 of 7 · Bill'];
+const ACT={ac:['<span class="av ai">AC</span>','Acel','AI assistant'],vd:['<span class="av vd">NP</span>','Northline Plumbing','Vendor'],ow:['<span class="av ow">HP</span>','Helen Park','Owner'],ib:['<span class="av">IN</span>','Inbox','pm@maplest'],pm:['<span class="av vd">PM</span>','You','Property manager']};
+const BK=["P", "P", "N", "P", "F", "U", "U", "N", "F", "P", "F", "N", "P", "P", "F", "F"],BL='UPFN',FIN=[4,14,26,40],NI=BK.length,SLOT=[],VIS=[0,0,0,0];BK.forEach((c,i)=>{const b=BL.indexOf(c);SLOT[i]=VIS[b]++});
+const TS=i=>2900+i*230,FD=500;
+// process map
+const ND=['Inbox','Sort','Dispatch','Owner?','Notice','Owner?','Bill'],OWN=[3,5];let MK='';
+function buildMap(){const W=DK?1380:370,H=DK?130:60,fs=DK?13:7.5,r=DK?11:6,px=DK?40:16,cy=DK?52:24,br=DK?30:9;
+  const X=i=>px+i*(W-2*px)/6;let g='';
+  for(let i=0;i<6;i++){const x1=X(i)+r,x2=X(i+1)-r;
+    if(OWN.includes(i)){const ask=i===3;const up=`M${x1} ${cy} C ${x1+br} ${cy-br*1.6}, ${x2-br} ${cy-br*1.6}, ${x2} ${cy}`,dn=`M${x1} ${cy} C ${x1+br} ${cy+br*1.6}, ${x2-br} ${cy+br*1.6}, ${x2} ${cy}`;
+      g+=`<path d="${up}" fill="none" stroke="${ask?'#E3DED4':'#D9CBB0'}" stroke-width="${DK?2:1.2}" ${ask?'':'stroke-dasharray="3 3"'}/><path d="${dn}" fill="none" stroke="${ask?'#D9CBB0':'#E3DED4'}" stroke-width="${DK?2:1.2}" ${ask?'stroke-dasharray="3 3"':''}/>`;
+      g+=`<path id="cg${i}" d="${ask?up:dn}" fill="none" stroke="#B7832A" stroke-width="${DK?3:1.8}" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/>`;
+      if(DK)g+=`<text x="${(x1+x2)/2}" y="${cy-br*1.2-2}" font-size="${fs*.85}" text-anchor="middle" fill="${ask?'#7A5512':'#A39C90'}">Ask</text><text x="${(x1+x2)/2}" y="${cy+br*1.2+fs}" font-size="${fs*.85}" text-anchor="middle" fill="${ask?'#A39C90':'#7A5512'}">Skip</text>`}
+    else{g+=`<path d="M${x1} ${cy} L${x2} ${cy}" stroke="#E3DED4" stroke-width="${DK?2:1.2}"/><path id="cg${i}" d="M${x1} ${cy} L${x2} ${cy}" stroke="#10846C" stroke-width="${DK?3:1.8}" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/>`}}
+  for(let i=0;i<7;i++){const x=X(i),o=OWN.includes(i);
+    g+=o?`<rect id="nd${i}" x="${x-r}" y="${cy-r}" width="${2*r}" height="${2*r}" rx="${DK?3:1.5}" transform="rotate(45 ${x} ${cy})" fill="#F5F2EC" stroke="#B7832A" stroke-width="${DK?2.5:1.5}"/>`:`<circle id="nd${i}" cx="${x}" cy="${cy}" r="${r}" fill="#F5F2EC" stroke="#B5AEA2" stroke-width="${DK?2.5:1.5}"/>`;
+    g+=`<text id="nl${i}" x="${x}" y="${cy+r+fs+(o?7:5)}" font-size="${fs}" text-anchor="middle" fill="${o?'#7A5512':'#6B655B'}">${ND[i]}</text>`}
+  g+=`<circle id="dot" r="${DK?7:3.6}" fill="#10846C"/>`;
+  $('map').setAttribute('viewBox',`0 0 ${W} ${H}`);$('map').innerHTML=g;MK=DK}
 let lastC=0;
 function render(t){
-  t=((t%L)+L)%L;
+  t=((t%L)+L)%L;if(MK!==DK)buildMap();
   let S=7;for(let i=0;i<7;i++)if(t<SB[i+1]){S=i;break}
-  for(let i=0;i<7;i++){$('st'+i).querySelector('b').style.width=(100*clamp((t-SB[i])/(SB[i+1]-SB[i])))+'%';cl($('st'+i),'on',S===i);cl($('ck'+i),'on',t>=SB[i+1]-600)}
-  const skp=t>22900;cl($('st5'),'sk',skp);set('stl5',skp?'6 Skipped':'6 Owner');set('ck5t',skp?'Skipped':'Optional');
-  set('title',S<7?TT[S]:'');set('stn',S<7?SN[S]:'Start to finish');
+  // map: dot travels during last 700ms of each scene
+  let dp=null;
+  for(let i=0;i<7;i++){const done=t>=SB[i+1],cur=S===i,n=$('nd'+i),o=OWN.includes(i);
+    n.setAttribute('fill',done?(o?'#B7832A':'#10846C'):cur?'#fff':'#F5F2EC');n.setAttribute('stroke',done?(o?'#B7832A':'#10846C'):cur?(o?'#B7832A':'#10846C'):(o?'#B7832A':'#B5AEA2'));
+    $('nl'+i).setAttribute('font-weight',cur?'600':'400');$('nl'+i).setAttribute('fill',cur?'#141414':o?'#7A5512':'#6B655B');
+    cl($('ck'+i),'on',done)}
+  for(let i=0;i<6;i++){const p=clamp((t-(SB[i+1]-700))/700),c=$('cg'+i);c.setAttribute('stroke-dashoffset',String(100-100*p));
+    if(p>0&&p<1){const L2=c.getTotalLength(),q=c.getPointAtLength(L2*p);dp=[q.x,q.y]}}
+  if(!dp){const k=Math.min(S,6),n=$('nd'+k),b=n.getBBox();dp=[b.x+b.width/2,b.y+b.height/2];if(n.tagName==='rect'){const W=DK?1380:370,px=DK?40:16;dp=[px+k*(W-2*px)/6,DK?52:24]}}
+  $('dot').setAttribute('cx',dp[0]);$('dot').setAttribute('cy',dp[1]);
+  const skp=t>24900;set('ck5t',skp?'Skipped':'Optional');
+  const urg=S===1&&t>=7300;
+  set('title',S<7?(S===1?(urg?'Urgent jobs first':TT[1]):TT[S]):'');set('stn',S<7?SN[S]:'Start to finish');
   $('title').style.opacity=S<7?1:0;$('actor').style.opacity=S<7?1:0;$('job').style.opacity=S<7?1:0;
-  const a=S===0?'ib':S===3?'ow':S===2&&t>10300?'vd':'ac';
+  const a=S===0?'ib':S===1?(t>6500&&t<8800?'pm':'ac'):S===3?'ow':S===2&&t>12800?'vd':'ac';
   set('aav',ACT[a][0],1);set('anm',ACT[a][1]);set('arl',ACT[a][2]);
   set('atm',['Mon 7:40 AM','Mon 7:41 AM','Mon 8:06 AM','Mon 8:09 AM','Wed 9:30 AM','Thu 10:40 AM','Thu 2:15 PM','Done'][S]);
-  for(let i=0;i<7;i++)hid('s'+i,S!==i);hid('cl',S!==7);
-  // 0 inbox
-  set('uc',String(58+Math.round(26*clamp((t-200)/2300))));
-  const rem=[];for(let i=NI-1;i>=0;i--)if(t>=TA(i))rem.push(i);
-  for(let i=0;i<NI;i++){const r=$('ir'+i),k=rem.indexOf(i);r.style.transform=`translateY(${Math.max(0,k)*(DK?56:54)}px)`;r.style.opacity=k<0?0:1;cl(r,'grab',i===SAM&&t>2300)}
-  // 1 triage
-  cl($('e0'),'in',t<3400);['tg0','tg1','tg2'].forEach((id,i)=>cl($(id),'in',t<4600+i*450));op('n0',t>6200);
-  // 2
-  cl($('vr'),'in',t<10300);
+  hid('s0',!(S===0||S===1&&!urg));hid('s1',!urg);for(let i=2;i<7;i++)hid('s'+i,S!==i);hid('cl',S!==7);
+  // sort
+  const sorting=S===1&&!urg;$('mail').style.height=sorting?(DK?'340px':'360px'):'';$('trays').style.opacity=sorting?1:0;
+  const rem=[];for(let i=0;i<NI;i++)if(!(sorting&&t>=TS(i)))rem.push(i);
+  set('uc',String(Math.round(84*rem.length/NI)));
+  const rh=DK?56:54,ro=pt($('irs'),0,0),kk=+stage.dataset.k,rw=$('irs').getBoundingClientRect().width/kk,land=[0,0,0,0];
+  for(let i=0;i<NI;i++){const r=$('ir'+i),k=rem.indexOf(i);r.style.transform=`translateY(${Math.max(0,k)*rh}px)`;cl(r,'gone',k<0);cl(r,'grab',sorting&&t>=TS(i)-200&&t<TS(i));
+    const b=BL.indexOf(BK[i]),sl=$('sl'+BK[i]+SLOT[i]),c=$('ch'+i),ld=sorting&&t>=TS(i)+FD;if(ld)land[b]++;sl.style.opacity=ld?1:0;sl.style.bottom=SLOT[i]*(DK?16:11)+'px';
+    if(sorting&&t>=TS(i)&&t<TS(i)+FD){const p=(t-TS(i))/FD,e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2,s1=pt(sl,0,0),sr=sl.getBoundingClientRect(),w1=sr.width/kk,h1=sr.height/kk;
+      c.style.display='flex';c.style.transform=`translate(${ro[0]+(s1[0]-ro[0])*e}px,${ro[1]+(s1[1]-ro[1])*e-Math.sin(Math.PI*e)*30}px)`;c.style.width=(rw+(w1-rw)*e)+'px';c.style.height=(rh+(h1-rh)*e)+'px';c.className='ch'+(e>.45?' c'+BK[i]:'');c.firstChild.style.opacity=1-clamp(e*2.2)}else c.style.display='none'}
+  for(let b=0;b<4;b++){set('tc'+b,String(Math.round(FIN[b]*land[b]/VIS[b])));cl($('tr'+b),'hl',sorting&&t>6700&&b===0);cl($('tr'+b),'dm',sorting&&t>6700&&b!==0)}
+  // urgent list
+  cl($('ur0'),'sel',t>8300);op('dsp',t>8800);
+  // 2 vendor
+  cl($('vr'),'in',t<12800);
   // 3
-  const a0=t>15300;cl($('ap0'),'ok',a0);set('ap0',a0?'Approved':'Approve');op('dn0',t>15500);
+  const a0=t>17800;cl($('ap0'),'ok',a0);set('ap0',a0?'Approved':'Approve');op('dn0',t>18000);
   // 4
-  const sn=t>19300;set('nst',sn?'Sent':'Draft');$('nst').className='lb '+(sn?'lS':'lD');op('n3',t>19900);
+  const sn=t>21800;set('nst',sn?'Sent':'Draft');$('nst').className='lb '+(sn?'lS':'lD');op('n3',t>22400);
   // 5 skipped
-  cl($('o2a'),'on',!skp);cl($('o2s'),'on',skp);op('o2st',t>23400);
+  cl($('o2a'),'on',!skp);cl($('o2s'),'on',skp);op('o2st',t>25400);
   // 6
-  for(let i=0;i<6;i++)op('l'+i,t>26600+Math.floor(i/2)*500);
-  const po=t>28600;set('bst',po?'Posted':'Draft');$('bst').className='lb '+(po?'lS':'lD');op('n5',t>29200);
+  for(let i=0;i<6;i++)op('l'+i,t>28600+Math.floor(i/2)*500);
+  const po=t>30600;set('bst',po?'Posted':'Draft');$('bst').className='lb '+(po?'lS':'lD');op('n5',t>31200);
   // close
-  op('c0',t>31300);op('c1',t>31900);op('c2',t>32500);
+  op('c0',t>32300);op('c1',t>32900);op('c2',t>33500);
   // fingertip
   let cp=null,click=0;
-  if(t>14500&&t<15800){cp=pt($('ap0'),.5,.5);click=15200}
+  if(t>6500&&t<7300){cp=pt($('tr0'),.5,.5);click=7000}else if(t>7800&&t<8700){cp=pt($('ur0'),.5,.5);click=8300}else if(t>17000&&t<18300){cp=pt($('ap0'),.5,.5);click=17700}
   cl($('cur'),'press',click&&t>click-120&&t<click+200);
   $('cur').style.opacity=cp?1:0;if(cp)$('cur').style.transform=`translate(${cp[0]}px,${cp[1]}px)`;
   if(click&&t>click&&lastC!==click){lastC=click;const r=$('rip');r.classList.remove('go');void r.offsetWidth;r.classList.add('go')}
@@ -277,7 +325,7 @@ function audit(){const W=fit.clientWidth,bad=[];
  const p=document.createElement('pre');p.id='audit';p.textContent='AUDIT W='+W+' '+(bad.length?bad.join(' | '):'OK');document.body.appendChild(p)}
 const q=new URLSearchParams(location.search);
 function start(){if(q.has('t')){document.querySelectorAll('*').forEach(e=>e.style.transition='none');render(+q.get('t'));render(+q.get('t'));window.__r=()=>render(+q.get('t'));if(q.has('audit'))audit()}
- else if(matchMedia('(prefers-reduced-motion: reduce)').matches)render(33500);
+ else if(matchMedia('(prefers-reduced-motion: reduce)').matches)render(34500);
  else{const t0=performance.now();(function loop(x){render(x-t0);requestAnimationFrame(loop)})(t0)}}
 (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(start);
 })();

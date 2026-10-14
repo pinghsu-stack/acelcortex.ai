@@ -182,12 +182,12 @@ svg text{font-family:var(--sans);fill:var(--fg)}
     auto:['Auto','--ai-bg','--ai-fg',42],over:['Overridden','--wa-bg','--wa-fg',84],matched:['Matched','--ok-bg','--ok-fg',70]};
   const num=s=>parseFloat(s.replace(/[$,]/g,''));
   const money=n=>n.toLocaleString('en-CA',{minimumFractionDigits:2,maximumFractionDigits:2});
-  let run=0, paused=false, rows=[], cur={x:900,y:760}, ms=0, timing=false, bal=6840;
+  let ff=false, target=0, sec=-1, run=0, paused=false, rows=[], cur={x:900,y:760}, ms=0, timing=false, bal=6840;
 
   function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e}
   function txt(p,a,s){const t=el('text',a,p);t.textContent=s;return t}
-  function wait(t,id){return new Promise((res,rej)=>{let left=t;const iv=setInterval(()=>{if(id!==run){clearInterval(iv);rej('reset');return}if(!paused)left-=40;if(left<=0){clearInterval(iv);res()}},40)})}
-  function tween(t,id,fn){return new Promise((res,rej)=>{let e=0,last=performance.now();function f(now){if(id!==run){rej('reset');return}if(!paused)e+=now-last;last=now;const p=Math.min(1,e/t);fn(p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2,p);if(p<1)requestAnimationFrame(f);else res()}requestAnimationFrame(f)})}
+  function wait(t,id){if(ff){if(id!==run)return Promise.reject('reset');if(timing)ms+=t;return Promise.resolve()}return new Promise((res,rej)=>{let left=t;const iv=setInterval(()=>{if(id!==run){clearInterval(iv);rej('reset');return}if(!paused)left-=40;if(left<=0){clearInterval(iv);res()}},40)})}
+  function tween(t,id,fn){if(ff){if(id!==run)return Promise.reject('reset');if(timing)ms+=t;fn(1,1);return Promise.resolve()}return new Promise((res,rej)=>{let e=0,last=performance.now();function f(now){if(id!==run){rej('reset');return}if(!paused)e+=now-last;last=now;const p=Math.min(1,e/t);fn(p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2,p);if(p<1)requestAnimationFrame(f);else res()}requestAnimationFrame(f)})}
   function tag(p,x,y,kind){
     const g=el('g',{},p), r=el('rect',{x,y,height:19,rx:4},g), t=el('text',{class:'mono',y:y+13.5,'font-size':9,'text-anchor':'middle'},g);
     g.set=k=>{const [l,bg,fg,w]=TAGS[k];r.setAttribute('width',w);r.setAttribute('fill',`var(${bg})`);t.setAttribute('x',x+w/2);t.setAttribute('style',`fill:var(${fg})`);t.textContent=l};
@@ -327,7 +327,7 @@ svg text{font-family:var(--sans);fill:var(--fg)}
     const fx=cur.x,fy=cur.y;
     await tween(t,id,e=>{cur={x:fx+(x-fx)*e,y:fy+(y-fy)*e};$('cursor').setAttribute('transform',`translate(${cur.x} ${cur.y})`)});
   }
-  async function click(id){const r=$('ripple');r.classList.remove('go');void r.getBoundingClientRect();r.classList.add('go');await wait(180,id)}
+  async function click(id){if(ff)return wait(180,id);const r=$('ripple');r.classList.remove('go');void r.getBoundingClientRect();r.classList.add('go');await wait(180,id)}
   function hover(i){rows.forEach((r,k)=>r.hover.classList.toggle('on',k===i))}
   async function fly(label,from,to,id){
     const g=el('g',{class:'chip'},$('chips')), w=label.length*8.6+28;
@@ -335,8 +335,9 @@ svg text{font-family:var(--sans);fill:var(--fg)}
     try{await tween(520,id,e=>g.setAttribute('transform',`translate(${from[0]+(to[0]-from[0])*e} ${from[1]+(to[1]-from[1])*e})`))}finally{g.remove()}
   }
 
+  function mark(k){sec=k;if(ff&&k>=target){ff=false;$('session').textContent=mmss(ms)}try{parent.postMessage({acelSec:k,paused},'*')}catch(e){}}
   async function sequence(id){
-    $('cursor').setAttribute('opacity',1); timing=true;
+    mark(0);$('cursor').setAttribute('opacity',1); timing=true;
     // scan
     for(let i=0;i<4;i++){await move(760,rowY(i)+38,i?260:500,id);hover(i);await wait(230,id)}
     // the duplicate
@@ -357,12 +358,14 @@ svg text{font-family:var(--sans);fill:var(--fg)}
     rows[3].box.classList.remove('focus');rows[3].st.set('ready');$('readyTxt').textContent='5 of 5 ready';
     await wait(450,id);hover(-1);
     // select all ready
+    mark(1);
     await move(1175,286,520,id);await click(id);
     $('allBox').classList.add('on');$('allTick').classList.add('on');
     for(const r of rows){r.cb.classList.add('on');r.tick.classList.add('on');await wait(70,id)}
     $('readyTxt').textContent='5 selected';$('postBtn').setAttribute('fill','var(--btn)');$('postTxt').setAttribute('style','fill:var(--btn-fg)');
     await wait(400,id);
     // approve and post
+    mark(2);
     await move(1400,286,480,id);await click(id);
     $('postBtn').setAttribute('fill','var(--acc)');$('postTxt').setAttribute('style','fill:#F5F2EC');$('postTxt').textContent='Posting';
     $('postTxt').textContent='Posting';
@@ -404,7 +407,12 @@ svg text{font-family:var(--sans);fill:var(--fg)}
     $('tOwner').textContent='$3,885.17';$('tHst').textContent='$505.07';$('tProfit').textContent='$353.20';
     timing=false;ms=0;$('session').textContent='00:00';cur={x:900,y:760};$('cursor').setAttribute('transform','translate(900 760)');
   }
-  async function loop(){const id=++run;try{for(;;){reset();await wait(600,id);await sequence(id)}}catch(e){}}
+  async function loop(){const id=++run;try{for(;;){reset();await wait(600,id);await sequence(id);target=0;ff=false}}catch(e){}}
+  // jump to a section (0 start, 1 ready to post, 2 posting): replay earlier steps instantly, then play
+  function jump(k){target=k;ff=k>0;paused=false;loop();if($('pause')){$('pause').setAttribute('aria-pressed',false);$('pause').textContent='Pause'}}
+  function setPaused(p){paused=!!p;try{parent.postMessage({acelSec:sec,paused},'*')}catch(e){}}
+  window.__acel={jump,setPaused,get paused(){return paused},get sec(){return sec}};
+  addEventListener('message',e=>{const d=e.data||{};if(e.source!==parent)return;if(typeof d.acelJump==='number')jump(d.acelJump);if(typeof d.acelPause==='boolean')setPaused(d.acelPause)});
 
   if($('replay'))$('replay').onclick=loop;
   if($('pause'))$('pause').onclick=()=>{paused=!paused;$('pause').setAttribute('aria-pressed',paused);$('pause').textContent=paused?'Resume':'Pause'};

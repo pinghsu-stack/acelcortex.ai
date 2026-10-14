@@ -135,6 +135,17 @@ html,body{margin:0;padding:0;background:var(--paper);overflow:hidden;font-family
 .xf>span{display:grid;gap:2px;background:var(--tint);border-radius:10px;padding:8px 10px;color:var(--green-deep)}
 .xf b{font-size:14px;font-weight:600}.xf small{font-size:11px}
 #stage.dk .vtx{font-size:20px}#stage.dk .xf b{font-size:17px}
+.smh{display:flex;align-items:center;gap:8px;padding-bottom:8px;border-bottom:1.5px solid var(--rule)}
+.smh .bk{font-size:20px;color:var(--green);line-height:1}.smh b{display:block;font-size:13.5px;font-weight:600}.smh small{display:block;font-size:11px;color:var(--muted)}.smh .lb{margin-left:auto}
+.smd{text-align:center;font-size:10.5px;color:var(--muted);margin:10px 0}
+.bo,.bi{padding:9px 12px;font-size:13.5px;line-height:1.4;max-width:86%;margin-bottom:4px}
+.bo{margin-left:auto;background:var(--green);color:#fff;border:0;border-radius:16px 16px 4px 16px}
+.bi{background:var(--paper-2);border:0;border-radius:16px 16px 16px 4px;margin-top:10px}
+.bmeta{text-align:right;font-size:10.5px;color:var(--muted)}
+.ty{display:inline-flex;gap:4px;padding:12px 14px}.ty i{width:7px;height:7px;border-radius:50%;background:#A39C90}
+.bi .hx.on{background:#fff}
+.smsp{height:440px}
+#stage.dk .smsp{height:440px}#stage.dk .bo,#stage.dk .bi{font-size:14.5px}
 /* desktop */
 #stage.dk #steps{left:110px;top:40px;width:1380px;gap:12px}
 #stage.dk .st i{height:7px}#stage.dk .st span{font-size:11px;margin-top:9px}
@@ -187,13 +198,15 @@ html,body{margin:0;padding:0;background:var(--paper);overflow:hidden;font-family
 </div>
 <!-- 2 vendor -->
 <div id="s2" class="abs sc fade hid">
- <div class="card" id="wo"><div class="w"><span class="av ai">AC</span><span><b>Work order WO-1042</b><small>Drafted by Acel · to Northline Plumbing</small></span><span class="lb lD" id="wos" style="margin-left:auto">Draft</span></div>
-  <div class="pick"><span><b>Northline Plumbing</b></span><span>Preferred, nearest</span></div>
-  <div class="kv"><span>Property</span><span>12 Maple St, Unit 3</span><span>Issue</span><span>Leak under kitchen sink, water in cabinet</span><span>Priority</span><span>Urgent</span><span>Tenant</span><span>Sam Reyes, (555) 014-3307</span></div></div>
- <div class="card in" id="vr"><div class="w"><span class="av vd">NP</span><span><b>Northline Plumbing</b><small>Re: WO-1042 · 8:06 AM</small></span><span class="lb lU" style="margin-left:auto">Vendor</span></div>
-  <div class="vtx">Can do <span class="hx" id="hx0">Thursday 10 AM</span>. Quote <span class="hx" id="hx1">$280</span>.</div>
-  <div class="att"><span class="pdf">PDF</span><span class="ell">Quote-1042.pdf · $280</span></div></div>
- <div class="xt fade" id="xt"><div class="mono" style="font-size:9px;margin-bottom:7px">Extracted by Acel</div>
+ <div class="phone smsp"><span class="notch"></span><div class="scr">
+  <div class="smh"><span class="bk">‹</span><span class="av vd">NP</span><span class="ell"><b>Northline Plumbing</b><small>Mike · mobile</small></span><span class="lb lU">Vendor</span></div>
+  <div class="smd">Text message · Mon 8:02 AM</div>
+  <div class="bo card in" id="ob">Hi Mike, urgent leak under kitchen sink at 12 Maple St, Unit 3. Tenant Sam Reyes. WO-1042. Can you attend this week? Please send a time and quote.</div>
+  <div class="bmeta" id="wos">Drafted by Acel</div>
+  <div class="bi ty card in" id="ty"><i></i><i></i><i></i></div>
+  <div class="bi card in" id="vr">Can do <span class="hx" id="hx0">Thursday 10 AM</span>. Quote <span class="hx" id="hx1">$280</span> parts and labour.</div>
+ </div></div>
+ <div class="xt fade" id="xt" style="margin-top:12px"><div class="mono" style="font-size:9px;margin-bottom:7px">Extracted by Acel</div>
   <div class="xf"><span><b>Entry: Thu 10:00 AM</b><small>for the notice of entry</small></span><span><b>Quote: $280</b><small>for owner approval</small></span></div></div>
 </div>
 <!-- 3 owner 1 -->
@@ -299,7 +312,7 @@ function render(t){
   // urgent list
   cl($('ur0'),'sel',t>8300);op('dsp',t>8800);
   // 2 vendor
-  const ws=t>11800;set('wos',ws?'Sent':'Draft');$('wos').className='lb '+(ws?'lS':'lD');cl($('vr'),'in',t<12800);cl($('hx0'),'on',t>14000);cl($('hx1'),'on',t>14000);op('xt',t>14300);
+  cl($('ob'),'in',t<10900);set('wos',t>11800?'Sent by Acel from the PM line · 8:02 AM':'Drafted by Acel');op('wos',t>11000);cl($('ty'),'in',!(t>12100&&t<12800));$('ty').style.display=t<12800?'inline-flex':'none';cl($('vr'),'in',t<12800);$('vr').style.display=t<12800?'none':'';cl($('hx0'),'on',t>14000);cl($('hx1'),'on',t>14000);op('xt',t>14300);
   // 3
   const a0=t>19800;cl($('ap0'),'ok',a0);set('ap0',a0?'Approved':'Approve');op('dn0',t>20000);
   // 4

@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI for Property Management: The AI Back Office | Acel Cortex</title>
-<meta name="description" content="AI for property management back offices. Acel Cortex reads, matches and codes vendor invoices, works out owner charges, and posts to your PMS after you approve. Built by property managers.">
+<title>AI for Property Management: Maintenance, Start to Finish | Acel Cortex</title>
+<meta name="description" content="AI for property management. Acel Cortex sorts your inbox, coordinates maintenance with vendors, owners and tenants, and posts the invoice to your PMS. Built by property managers running 800 doors.">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="apple-touch-icon" href="/assets/logo.png">
 <link rel="canonical" href="https://www.acelcortex.ai/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Acel Cortex Solutions">
-<meta property="og:title" content="AI for Property Management: The AI Back Office | Acel Cortex">
+<meta property="og:title" content="Maintenance handled, start to finish | Acel Cortex">
 <meta property="og:description" content="Built by property managers, for property managers.">
 <meta property="og:url" content="https://www.acelcortex.ai/">
 <meta property="og:image" content="https://www.acelcortex.ai/assets/og.png">
@@ -348,6 +348,17 @@
   .legend span { display: inline-flex; gap: 8px; align-items: center; }
 
   .flag-grid { margin-top: 44px; }
+  .vsl-frame { margin-top: 44px; border: 1px solid var(--rule); border-radius: 16px; overflow: hidden; background: var(--ink); box-shadow: 0 1px 2px rgba(20,20,20,0.04), 0 12px 32px rgba(20,20,20,0.06); }
+  .vsl-ratio { position: relative; aspect-ratio: 16 / 9; }
+  .vsl-ratio video { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .me-note { margin-top: 40px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 32px; align-items: center; padding-top: 32px; border-top: 1px solid var(--rule); }
+  .me { display: flex; align-items: center; gap: 16px; }
+  .me img { flex: none; width: 88px; height: 88px; border-radius: 50%; object-fit: cover; background: #fff; border: 1px solid var(--rule); }
+  .me b { display: block; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+  .me span { display: block; font-size: 14px; color: var(--muted); margin-top: 2px; }
+  .me-note h3 { font-size: 24px; font-weight: 600; letter-spacing: -0.025em; line-height: 1.15; }
+  .me-note p { margin-top: 10px; color: var(--ink-soft); max-width: 56ch; }
+  @media (max-width: 760px) { .vsl-frame { border-radius: 12px; margin-top: 28px; } .vsl-ratio { aspect-ratio: 780 / 1688; } .me-note { grid-template-columns: 1fr; gap: 20px; } }
   .flag-grid .mock-sec { margin-top: 0; }
   .ap-anim { aspect-ratio: 1600/640; border: 1px solid var(--rule); border-radius: 16px; overflow: hidden; background: var(--paper); box-shadow: 0 1px 2px rgba(20,20,20,0.04), 0 12px 32px rgba(20,20,20,0.06); }
   .ap-anim iframe { width: 100%; height: 100%; border: 0; display: block; pointer-events: none; }
@@ -509,8 +520,8 @@
   footer .legal-links a:hover { text-decoration: underline; }
   @media (max-width: 760px) { footer .legal-links { display: block; margin-top: 8px; } footer .legal-links a:first-child { margin-left: 0; } }
 </style>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Acel Cortex Solutions", "alternateName": "Acel Cortex", "url": "https://www.acelcortex.ai/", "logo": "https://www.acelcortex.ai/assets/logo.png", "email": "ping@acelcortex.ai", "areaServed": ["US", "CA"], "founder": [{"@type": "Person", "name": "Ping Hsu", "jobTitle": "CEO"}, {"@type": "Person", "name": "Roman Walcott", "jobTitle": "CTO"}], "description": "AI back office for property management companies, starting with accounts payable and owner billing."}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Acel Cortex", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "url": "https://www.acelcortex.ai/", "description": "AI for property management. Reads, matches and codes vendor invoices, calculates owner charges, and posts approved batches to Buildium, AppFolio, Rentvine, Rent Manager and other major platforms.", "audience": {"@type": "BusinessAudience", "audienceType": "Property management companies"}, "publisher": {"@type": "Organization", "name": "Acel Cortex Solutions"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Acel Cortex Solutions", "alternateName": "Acel Cortex", "url": "https://www.acelcortex.ai/", "logo": "https://www.acelcortex.ai/assets/logo.png", "email": "ping@acelcortex.ai", "areaServed": ["US", "CA"], "founder": [{"@type": "Person", "name": "Ping Hsu", "jobTitle": "CEO"}, {"@type": "Person", "name": "Roman Walcott", "jobTitle": "CTO"}], "description": "AI for property management companies, starting with maintenance coordination and the inbox, through to accounts payable and owner billing."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Acel Cortex", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "url": "https://www.acelcortex.ai/", "description": "AI for property management. Sorts the inbox, coordinates maintenance with vendors, owners and tenants, reads and matches vendor invoices, and posts approved bills to Buildium, AppFolio, Rentvine, Rent Manager and other major platforms.", "audience": {"@type": "BusinessAudience", "audienceType": "Property management companies"}, "publisher": {"@type": "Organization", "name": "Acel Cortex Solutions"}}</script>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
@@ -546,12 +557,12 @@
   <div class="wide">
   <section class="hh">
     <div>
-      <div class="kicker"><b>●</b> AI back office for property management</div>
-      <h1>Run more doors at a higher margin, with the team you have.</h1>
-      <p class="lede">Acel Cortex takes the first pass on your back office, starting with accounts payable and owner billing. Your team reviews and approves. Nothing posts without a person.</p>
+      <div class="kicker"><b>●</b> AI for property management</div>
+      <h1>Maintenance handled, start to finish.</h1>
+      <p class="lede">Acel Cortex sorts your inbox, books the vendor, gets owner approval when it is needed, sends notice of entry and posts the invoice to your PMS. Your team stops chasing every request.</p>
       <div class="ctas">
         <a class="btn js-book" href="https://calendly.com/ping-acelcortex/30min">Book a call</a>
-        <a class="btn-ghost" href="/starthere">Watch the walkthrough</a>
+        <a class="btn-ghost" href="/how-it-works">Watch it in 70 seconds</a>
       </div>
       <div class="built"><span class="pulse" aria-hidden="true"></span>Built by property managers, for property managers</div>
     </div>
@@ -565,14 +576,27 @@
 
   <section class="sec">
     <div class="sec-head">
-      <div class="kicker">Start with accounting</div>
-      <h2>Review a full day of invoices in one sitting.</h2>
-      <p>Every invoice on one screen, matched to its work order, with the owner charge and your profit worked out. Adjust anything, then post the batch.</p>
+      <div class="kicker">Start with maintenance</div>
+      <h2>One request, from a full inbox to a posted bill.</h2>
+      <p>Watch a leaking sink go from an unread email to a booked plumber, an approved quote, a notice of entry and a bill in your PMS. About 70 seconds.</p>
     </div>
-    <div class="flag-grid">
-      <p class="sr">Animation: a reviewer deletes a duplicate, adjusts one owner charge, selects every ready invoice and posts them. Each charge lands on the owner statement in your PMS.</p>
-      <div class="ap-anim"><iframe data-crop="880/610" data-src="/assets/booked/03-review" title="Check it. Approve it. Done." tabindex="-1" aria-hidden="true"></iframe></div>
-      <p class="mock-note">Sample data. Posted charges go back into your PMS.</p>
+    <div class="vsl-frame"><div class="vsl-ratio">
+      <video id="vsl" controls playsinline preload="metadata" poster="/assets/video/maintenance-flow-poster.jpg?v=2">
+        <source src="/assets/video/maintenance-flow.mp4?v=5" type="video/mp4">
+      </video>
+      <script>
+        (function () {
+          if (!matchMedia('(max-width: 760px)').matches) return;
+          var v = document.getElementById('vsl');
+          v.poster = '/assets/video/maintenance-flow-mobile-poster.jpg?v=2';
+          v.querySelector('source').src = '/assets/video/maintenance-flow-mobile.mp4?v=2';
+          v.load();
+        })();
+      </script>
+    </div></div>
+    <div class="me-note">
+      <div class="me"><img src="/assets/team/ping.jpg" alt="Ping Hsu" width="88" height="88" loading="lazy"><div><b>Ping Hsu</b><span>Founder &amp; CEO of Acel Cortex Solutions</span></div></div>
+      <div><h3>This is how I run 800 doors.</h3><p>Over 100 emails hit our office every day. AI handles most of the heavy lifting, so I spend my time on client relationships instead of the inbox.</p></div>
     </div>
   </section>
 
@@ -580,17 +604,17 @@
     <div class="sec-head">
       <div class="kicker">How it changes the work</div>
       <h2>Your team becomes the second layer.</h2>
-      <p>Today your admins are the first to touch every invoice, email and request. With Acel Cortex they review work that is already done, and spend their time on the exceptions that need judgment. So you can take on new doors without the back office breaking.</p>
+      <p>Today your admins are the first to touch every request, email and invoice. With Acel Cortex they review work that is already done, and spend their time on the exceptions that need judgment. So you can take on new doors without the back office breaking.</p>
     </div>
     <div class="layers">
       <div class="layer ai">
         <div class="n">Layer 1 · Acel Cortex</div>
         <h3>Reads, sorts and drafts</h3>
         <ul>
-          <li>Pulls invoices, emails and requests from every inbox</li>
-          <li>Matches, codes and checks for duplicates</li>
-          <li>Triages maintenance and drafts replies</li>
-          <li>Prepares notices, assessments and owner updates</li>
+          <li>Sorts every email and maintenance request</li>
+          <li>Books vendors and asks owners when a quote is over the limit</li>
+          <li>Sends notice of entry and drafts tenant replies</li>
+          <li>Reads, matches and codes the invoice when the job is done</li>
         </ul>
       </div>
       <div class="arrow" aria-hidden="true"><svg viewBox="0 0 40 16"><path d="M0 8h36M30 2l6 6-6 6" fill="none" stroke="#10846C" stroke-width="2"/></svg></div>
@@ -611,9 +635,9 @@
     <div class="sec-head">
       <div class="kicker">What it handles</div>
       <h2>Then the rest of the back office.</h2>
-      <p>Most clients start with accounting. From there, Acel Cortex takes on maintenance, your inbox, leasing and notices, working on top of the property management software you already use.</p>
+      <p>Most clients start with maintenance and the inbox. From there, Acel Cortex takes on accounting, leasing and notices, working on top of the property management software you already use.</p>
     </div>
-    <div class="wf"><div class="dept"><h3>Accounting</h3><div class="sub">Invoices to owner charges</div><ul><li>Vendor invoice processing</li><li>Work order matching</li><li>Duplicate detection</li><li>Owner charges and profit</li><li>Rent payment posting</li><li>Utility bill splits</li></ul></div><div class="dept"><h3>Maintenance and inbox</h3><div class="sub">AI as the first layer</div><ul><li>Maintenance request triage</li><li>Inbox sorting</li><li>Reply drafts for review</li><li>Vendor scheduling</li><li>Calendar booking</li><li>Tenant work order updates</li></ul></div><div class="dept"><h3>Leasing</h3><div class="sub">From listing to lease</div><ul><li>Rental analysis</li><li>Rental application assessment</li><li>Owner leasing updates</li><li>Lead and showing follow-ups</li><li>Lease prep and e-signing</li><li>Move-in welcome letters</li></ul></div><div class="dept"><h3>Notices</h3><div class="sub">Paperwork, prepared</div><ul><li>Rent increase</li><li>Late rent notice</li><li>Lease renewal</li><li>Notice of entry</li><li>Building-wide announcements</li><li>Move-out instructions</li></ul></div></div>
+    <div class="wf"><div class="dept"><h3>Maintenance and inbox</h3><div class="sub">AI as the first layer</div><ul><li>Maintenance request triage</li><li>Inbox sorting</li><li>Reply drafts for review</li><li>Vendor scheduling</li><li>Calendar booking</li><li>Tenant work order updates</li></ul></div><div class="dept"><h3>Accounting</h3><div class="sub">Invoices to owner charges</div><ul><li>Vendor invoice processing</li><li>Work order matching</li><li>Duplicate detection</li><li>Owner charges and profit</li><li>Rent payment posting</li><li>Utility bill splits</li></ul></div><div class="dept"><h3>Leasing</h3><div class="sub">From listing to lease</div><ul><li>Rental analysis</li><li>Rental application assessment</li><li>Owner leasing updates</li><li>Lead and showing follow-ups</li><li>Lease prep and e-signing</li><li>Move-in welcome letters</li></ul></div><div class="dept"><h3>Notices</h3><div class="sub">Paperwork, prepared</div><ul><li>Rent increase</li><li>Late rent notice</li><li>Lease renewal</li><li>Notice of entry</li><li>Building-wide announcements</li><li>Move-out instructions</li></ul></div></div>
   </section>
   </div>
 
@@ -647,11 +671,11 @@
         <div class="fld"><label for="c-units">Units under management <b id="o-units"></b></label><input id="c-units" type="range" min="50" max="2000" step="25" value="400"><div class="ticks"><span>50</span><span>1,000</span><span>2,000</span></div></div>
         <div class="fld"><label for="c-staff">Admin and ops staff <b id="o-staff"></b></label><input id="c-staff" type="range" min="1" max="20" step="1" value="4"><div class="ticks"><span>1</span><span>10</span><span>20</span></div></div>
         <div class="fld"><label for="c-sal">Average salary, fully loaded <b id="o-sal"></b></label><input id="c-sal" type="range" min="40000" max="120000" step="1000" value="60000"><div class="ticks"><span>$40k</span><span>$80k</span><span>$120k</span></div></div>
-        <div class="fld"><label for="c-hrs">Hours on invoices per person, per day <b id="o-hrs"></b></label><input id="c-hrs" type="range" min="0.5" max="4" step="0.5" value="1.5"><div class="ticks"><span>0.5</span><span>2</span><span>4</span></div></div>
-        <p class="hint">Count only the time spent opening, matching, coding and keying in vendor invoices. Maintenance, inbox and leasing work add to this. Salary includes benefits and overhead.</p>
+        <div class="fld"><label for="c-hrs">Hours on maintenance, inbox and invoices per person, per day <b id="o-hrs"></b></label><input id="c-hrs" type="range" min="0.5" max="4" step="0.5" value="1.5"><div class="ticks"><span>0.5</span><span>2</span><span>4</span></div></div>
+        <p class="hint">Count the time spent sorting email, coordinating vendors, owners and tenants, and keying in vendor invoices. Salary includes benefits and overhead.</p>
       </div>
       <div class="res" aria-live="polite">
-        <div class="lbl">Invoicing time back, valued per year</div>
+        <div class="lbl">Admin time back, valued per year</div>
         <div class="big" id="r-year">$0</div>
         <div class="grid4">
           <div><div class="lbl">Per month</div><div class="v" id="r-month">$0</div></div>
@@ -683,7 +707,7 @@
     <p>Thirty minutes with an operator. We'll look at where your team's hours go and what Acel Cortex would take off their desk.</p>
     <div class="ctas">
       <a class="btn js-book" href="https://calendly.com/ping-acelcortex/30min">Book a call</a>
-      <a class="btn-ghost" href="/starthere">Watch the walkthrough</a>
+      <a class="btn-ghost" href="/how-it-works">Watch it in 70 seconds</a>
     </div>
   </section>
   </div>
@@ -865,7 +889,7 @@
   (() => {
     const list = document.getElementById('feed');
     if (!list) return;
-    const evs = [["Accounts payable", "6 invoices matched to work orders, ready to post"], ["Owner billing", "Owner charge added from a receipt photo, $78.66"], ["Maintenance", "Leak reported at 412 Maple, Unit 2. Marked urgent"], ["Accounts payable", "Possible duplicate held back from Cedar Grounds Co."], ["Owner billing", "Charges for 14 invoices worked out, profit $412.50"], ["Leasing", "Rental application scored for 88 Birch Crescent"], ["Accounts payable", "Invoice from Brightway Electric coded to repairs"], ["Inbox", "14 emails sorted. 3 reply drafts waiting for review"], ["Owner billing", "Batch of 9 charges ready to post to your PMS"], ["Notices", "Lease renewal offers prepared for 6 tenants"]];
+    const evs = [["Maintenance", "Leak reported at 12 Maple St, Unit 3. Marked urgent"], ["Inbox", "84 emails sorted. 4 urgent, 14 need a PM"], ["Maintenance", "Northline Plumbing booked for Thu 10 AM, $280"], ["Owner approval", "Helen Park approved the $280 repair"], ["Notices", "Notice of entry sent to Sam Reyes"], ["Accounts payable", "Invoice INV-2207 matched to WO-1042"], ["Accounts payable", "Bill posted to your PMS, $308 charged to owner"], ["Maintenance", "No heat at 40 Birch Ave, Unit 5. HVAC vendor asked for a time"], ["Leasing", "Rental application scored for 88 Birch Crescent"], ["Inbox", "3 reply drafts waiting for review"]];
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let i = 0;
     const add = (approved) => {

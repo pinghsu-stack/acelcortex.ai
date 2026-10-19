@@ -258,6 +258,13 @@
   dialog::backdrop { background: rgba(20,20,20,0.55); }
   .dlg-head { display: flex; justify-content: space-between; align-items: center; padding: 18px 22px; border-bottom: 1px solid var(--rule); }
   .dlg-head h2 { font-size: 20px; font-weight: 600; letter-spacing: -0.025em; }
+  .dlg-who { display: flex; align-items: center; gap: 14px; min-width: 0; }
+  .dlg-who img { flex: none; width: 52px; height: 52px; border-radius: 50%; object-fit: cover; background: #fff; border: 1px solid var(--rule); }
+  .dlg-who p { margin-top: 2px; font-size: 14px; color: var(--muted); }
+  .dlg-who .wm { font-weight: 500; color: var(--ink); letter-spacing: -0.03em; }
+  .dlg-who .wm span { color: var(--green); }
+  .dlg-head { gap: 12px; } .dlg-head .close { flex: none; }
+  @media (max-width: 760px) { .dlg-who { gap: 10px; } .dlg-who img { width: 44px; height: 44px; } .dlg-head h2 { font-size: 18px; } .dlg-who p { font-size: 13px; } }
   .close { background: none; border: 1px solid var(--rule); border-radius: 999px; width: 36px; height: 36px; cursor: pointer; font-size: 18px; line-height: 1; color: var(--ink); }
   .close:hover { background: var(--paper-2); }
   .scheduler { position: relative; }
@@ -380,7 +387,10 @@
 
 <dialog id="book-dialog" aria-labelledby="dlg-title">
   <div class="dlg-head">
-    <h2 id="dlg-title">Book a 30-minute call</h2>
+    <div class="dlg-who">
+      <img src="/assets/team/ping.jpg" alt="" width="52" height="52">
+      <div><h2 id="dlg-title">Book a 30-minute call</h2><p>with Ping Hsu, Founder &amp; CEO of <span class="wm">acel<span>·</span>cortex</span></p></div>
+    </div>
     <button class="close" type="button" aria-label="Close" data-close>&times;</button>
   </div>
   <div class="scheduler" id="cal"><p class="cal-loading">Loading calendar</p></div>

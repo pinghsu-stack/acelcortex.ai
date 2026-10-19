@@ -409,8 +409,8 @@
     }));
     // warm the calendar in the background so it opens instantly
     document.querySelectorAll('.js-book').forEach(el => ['pointerenter','touchstart','focus'].forEach(ev => el.addEventListener(ev, loadCal, { passive: true, once: true })));
-    const idle = () => (window.requestIdleCallback || (f => setTimeout(f, 1500)))(loadCal, { timeout: 4000 });
-    if (document.readyState === 'complete') idle(); else window.addEventListener('load', idle);
+    // start loading the calendar as soon as the page opens, so it is ready before anyone clicks
+    loadCal();
     dlg.querySelector('[data-close]').addEventListener('click', () => dlg.close());
     dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
   }

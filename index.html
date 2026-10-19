@@ -622,7 +622,7 @@
       <p>Watch a leaking sink go from an unread email to a booked plumber, an approved quote, a notice of entry and a bill in your PMS.</p>
     </div>
     <div class="vsl-frame"><div class="vsl-ratio">
-      <video id="loop" autoplay muted loop playsinline preload="auto" poster="/assets/video/maintenance-short-poster.jpg" aria-label="Short animation of one maintenance request, start to finish">
+      <video id="loop" muted loop playsinline preload="metadata" poster="/assets/video/maintenance-short-poster.jpg" aria-label="Short animation of one maintenance request, start to finish">
         <source src="/assets/video/maintenance-short.mp4" type="video/mp4">
       </video>
       <script>
@@ -632,6 +632,17 @@
           v.poster = '/assets/video/maintenance-short-mobile-poster.jpg';
           v.querySelector('source').src = '/assets/video/maintenance-short-mobile.mp4';
           v.load();
+        })();
+        // Start the loop from the beginning only when it scrolls into view; pause when it leaves
+        (function () {
+          var v = document.getElementById('loop'), started = false;
+          if (!('IntersectionObserver' in window)) { v.play(); return; }
+          new IntersectionObserver(function (es) {
+            es.forEach(function (e) {
+              if (e.isIntersecting) { if (!started) { v.currentTime = 0; started = true; } var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+              else v.pause();
+            });
+          }, { threshold: 0.4 }).observe(v);
         })();
       </script>
     </div></div>

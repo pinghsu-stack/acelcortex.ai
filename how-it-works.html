@@ -225,6 +225,9 @@
   .stat { font-size: clamp(40px, 5vw, 56px); font-weight: 500; letter-spacing: -0.04em; line-height: 1; }
   .stat .from { color: var(--muted); }
   .proof p { margin-top: 14px; color: var(--ink-soft); max-width: 42ch; }
+  .proof.solo { grid-template-columns: 1fr; }
+  .proof.solo > div { padding: 40px 0; }
+  .proof.solo p { max-width: 60ch; }
   .me { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; }
   .me img { flex: none; width: 88px; height: 88px; border-radius: 50%; object-fit: cover; background: #fff; border: 1px solid var(--rule); }
   .me b { display: block; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
@@ -333,15 +336,11 @@
   </section>
 
 
-  <section class="proof" aria-label="How Ping runs his company">
+  <section class="proof solo" aria-label="How Ping runs his company">
     <div>
       <div class="me"><img src="/assets/team/ping.jpg" alt="Ping Hsu" width="88" height="88" loading="lazy"><div><b>Ping Hsu</b><span>Founder &amp; CEO of Acel Cortex Solutions</span></div></div>
       <h2>This is how I run 800 doors.</h2>
       <p>Over 100 emails hit our office every day. AI handles most of the heavy lifting, so I spend my time on client relationships instead of the inbox.</p>
-    </div>
-    <div>
-      <h2>Your team stays in control.</h2>
-      <p>Owners only approve quotes over the limit you set. Your property managers can see every job, step in at any point, and approve before anything touches the books.</p>
     </div>
   </section>
 

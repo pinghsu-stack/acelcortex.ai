@@ -102,6 +102,22 @@
   .play { width: 68px; height: 68px; border-radius: 50%; border: 2px solid var(--green-soft); display: grid; place-items: center; }
   .play::after { content: ""; margin-left: 5px; border-left: 18px solid var(--paper); border-top: 11px solid transparent; border-bottom: 11px solid transparent; }
 
+  /* Testimonials. .tm-media is an empty slot: drop a <video> in it later and the card layout stays the same. .tm-pic holds initials until a headshot or logo arrives. */
+  .tm { margin-top: 44px; text-align: left; }
+  .tm h2 { font-size: clamp(24px, 2.6vw, 30px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; }
+  .tm-grid { margin-top: 22px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; }
+  .tm-card { margin: 0; background: var(--paper-3, #FBFAF7); border: 1px solid var(--rule); border-radius: 16px; padding: 22px; display: flex; flex-direction: column; }
+  .tm-media:empty { display: none; }
+  .tm-media { margin: -6px -6px 16px; border-radius: 10px; overflow: hidden; aspect-ratio: 16 / 9; background: var(--ink); }
+  .tm-media video, .tm-media iframe { width: 100%; height: 100%; display: block; border: 0; }
+  .tm-card blockquote { margin: 0; font-size: 16px; line-height: 1.55; color: var(--ink); }
+  .tm-card figcaption { margin-top: 18px; display: flex; align-items: center; gap: 12px; }
+  .tm-pic { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--paper-2, #EEEAE2); border: 1px solid var(--rule); display: grid; place-items: center; font-size: 13px; font-weight: 600; color: var(--muted); overflow: hidden; }
+  .tm-pic img { width: 100%; height: 100%; object-fit: cover; }
+  .tm-card figcaption b { display: block; font-size: 15px; font-weight: 600; }
+  .tm-card figcaption b + span { display: block; font-size: 13.5px; color: var(--muted); margin-top: 1px; }
+  .tm-note { margin-top: 14px; font-size: 13px; color: var(--muted); }
+  @media (max-width: 760px) { .tm { margin-top: 32px; } .tm-grid { grid-template-columns: 1fr; } }
   .cta-row {
     display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap;
     padding: 20px 0 0;
@@ -335,6 +351,38 @@
         </script>
       </div>
     </div>
+
+    <section class="tm" aria-labelledby="tm-title">
+      <h2 id="tm-title">What property managers are saying</h2>
+      <div class="tm-grid">
+      <figure class="tm-card">
+        <div class="tm-media"></div>
+        <blockquote>“This has helped us a ton. The product has a lot of value, saves time, and works well. The new dashboard add-on is amazing.”</blockquote>
+        <figcaption><span class="tm-pic" aria-hidden="true">AO</span><span><b>Adrian Ondiano</b><span>Owner &amp; CEO, Four Chambers Properties</span></span></figcaption>
+      </figure>
+      <figure class="tm-card">
+        <div class="tm-media"></div>
+        <blockquote>“As an owner-operator investor who also manages properties for other clients, this tool has allowed me to grow without adding any employees. It handles full maintenance triage and rental application reviews, and I’ve never had to process invoices myself. I can see myself growing to 300, even 500 doors on my own. These guys are solid.”</blockquote>
+        <figcaption><span class="tm-pic" aria-hidden="true">KS</span><span><b>Kalen Sinha</b><span>Sincere Property Management</span></span></figcaption>
+      </figure>
+      <figure class="tm-card">
+        <div class="tm-media"></div>
+        <blockquote>“I struggled with accounting and owner statement preparation for my clients for two years. This product streamlined everything for me in less than a month. I’m very impressed with the tool and what it does for my team!”</blockquote>
+        <figcaption><span class="tm-pic" aria-hidden="true">LB</span><span><b>Lisabelle Boudreau</b><span>Owner &amp; Broker, Redkey Property Management</span></span></figcaption>
+      </figure>
+      <figure class="tm-card">
+        <div class="tm-media"></div>
+        <blockquote>“I would quit running a property management business without these AI tools. I’m serious.”</blockquote>
+        <figcaption><span class="tm-pic" aria-hidden="true">SD</span><span><b>Skylar Dunford</b><span>Operations Manager, Spotted Properties*</span></span></figcaption>
+      </figure>
+      <figure class="tm-card">
+        <div class="tm-media"></div>
+        <blockquote>“This honestly saves me and my team so much time. I used to spend hours dealing with notices, utility bills, rental applications, and even some maintenance coordination. It feels like I have the support of a few extra people, and I only need to step in when the system can’t make a decision on its own. It’s really cut my work in half.”</blockquote>
+        <figcaption><span class="tm-pic" aria-hidden="true">M</span><span><b>Madison</b><span>Walcott Properties*</span></span></figcaption>
+      </figure>
+      </div>
+      <p class="tm-note">*Spotted Properties and Walcott Properties are affiliated with Acel Cortex's founders and serve as our live testing environment.</p>
+    </section>
 
     <div class="cta-row">
       <a class="btn js-book" href="https://calendly.com/ping-acelcortex/30min">Book a 30-minute call</a>

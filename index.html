@@ -348,9 +348,11 @@
   .legend span { display: inline-flex; gap: 8px; align-items: center; }
 
   .flag-grid { margin-top: 44px; }
-  .vsl-frame { margin-top: 44px; border: 1px solid var(--rule); border-radius: 16px; overflow: hidden; background: var(--ink); box-shadow: 0 1px 2px rgba(20,20,20,0.04), 0 12px 32px rgba(20,20,20,0.06); }
+  .vsl-frame { margin-top: 44px; border: 1px solid var(--rule); border-radius: 16px; overflow: hidden; background: var(--paper); box-shadow: 0 1px 2px rgba(20,20,20,0.04), 0 12px 32px rgba(20,20,20,0.06); }
   .vsl-ratio { position: relative; aspect-ratio: 16 / 9; }
   .vsl-ratio video { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .loop-more { margin-top: 14px; font-size: 15px; color: var(--muted); }
+  .loop-more a { color: var(--ink); font-weight: 500; text-underline-offset: 3px; }
   .me-note { margin-top: 40px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 32px; align-items: center; padding-top: 32px; border-top: 1px solid var(--rule); }
   .me { display: flex; align-items: center; gap: 16px; }
   .me img { flex: none; width: 88px; height: 88px; border-radius: 50%; object-fit: cover; background: #fff; border: 1px solid var(--rule); }
@@ -578,26 +580,23 @@
     <div class="sec-head">
       <div class="kicker">Start with maintenance</div>
       <h2>One request, from a full inbox to a posted bill.</h2>
-      <p>Watch a leaking sink go from an unread email to a booked plumber, an approved quote, a notice of entry and a bill in your PMS. About 70 seconds.</p>
+      <p>Watch a leaking sink go from an unread email to a booked plumber, an approved quote, a notice of entry and a bill in your PMS.</p>
     </div>
     <div class="vsl-frame"><div class="vsl-ratio">
-      <video id="vsl" controls playsinline preload="metadata" poster="/assets/video/maintenance-flow-poster.jpg?v=2">
-        <source src="/assets/video/maintenance-flow.mp4?v=5" type="video/mp4">
+      <video id="loop" autoplay muted loop playsinline preload="auto" poster="/assets/video/maintenance-short-poster.jpg" aria-label="Short animation of one maintenance request, start to finish">
+        <source src="/assets/video/maintenance-short.mp4" type="video/mp4">
       </video>
       <script>
         (function () {
           if (!matchMedia('(max-width: 760px)').matches) return;
-          var v = document.getElementById('vsl');
-          v.poster = '/assets/video/maintenance-flow-mobile-poster.jpg?v=2';
-          v.querySelector('source').src = '/assets/video/maintenance-flow-mobile.mp4?v=2';
+          var v = document.getElementById('loop');
+          v.poster = '/assets/video/maintenance-short-mobile-poster.jpg';
+          v.querySelector('source').src = '/assets/video/maintenance-short-mobile.mp4';
           v.load();
         })();
       </script>
     </div></div>
-    <div class="me-note">
-      <div class="me"><img src="/assets/team/ping.jpg" alt="Ping Hsu" width="88" height="88" loading="lazy"><div><b>Ping Hsu</b><span>Founder &amp; CEO of Acel Cortex Solutions</span></div></div>
-      <div><h3>This is how I run 800 doors.</h3><p>Over 100 emails hit our office every day. AI handles most of the heavy lifting, so I spend my time on client relationships instead of the inbox.</p></div>
-    </div>
+    <p class="loop-more"><a href="/how-it-works">Watch the full walkthrough with narration</a> · 70 seconds</p>
   </section>
 
   <section class="sec" id="layers">

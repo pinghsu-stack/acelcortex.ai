@@ -225,6 +225,10 @@
   .stat { font-size: clamp(40px, 5vw, 56px); font-weight: 500; letter-spacing: -0.04em; line-height: 1; }
   .stat .from { color: var(--muted); }
   .proof p { margin-top: 14px; color: var(--ink-soft); max-width: 42ch; }
+  .me { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; }
+  .me img { flex: none; width: 88px; height: 88px; border-radius: 50%; object-fit: cover; background: #fff; border: 1px solid var(--rule); }
+  .me b { display: block; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+  .me span { display: block; font-size: 14px; color: var(--muted); margin-top: 2px; }
   .proof h2 { font-size: 24px; font-weight: 600; letter-spacing: -0.025em; line-height: 1.15; }
 
   .call { padding: 80px 0 96px; display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; align-items: start; }
@@ -321,28 +325,23 @@
   <section class="steps" aria-labelledby="steps-title">
     <h2 id="steps-title">How it works</h2>
     <ol>
-      <li><span class="n">1</span><h3>AI sorts the inbox</h3><p>Every email is read and sorted: urgent, needs a PM, FYI or noise. Urgent jobs go to the top.</p></li>
-      <li><span class="n">2</span><h3>AI books the vendor</h3><p>Your vendor gets the address, tenant and work order. The time and quote are pulled from the reply.</p></li>
-      <li><span class="n">3</span><h3>Owners approve only when needed</h3><p>Quotes over the owner's limit go to them for one-tap approval. The tenant gets notice of entry.</p></li>
-      <li><span class="n">4</span><h3>The bill lands in your PMS</h3><p>The invoice is read, matched to the work order, marked up and posted, ready to charge the owner.</p></li>
+      <li><span class="n">1</span><h3>Sort your daily messages</h3><p>Every email is read and sorted: urgent, needs a PM, FYI or noise. Urgent jobs go to the top.</p></li>
+      <li><span class="n">2</span><h3>Handle maintenance coordination</h3><p>Acel Cortex books the vendor, asks the owner when a quote is over their limit, and sends the tenant notice of entry.</p></li>
+      <li><span class="n">3</span><h3>Vendor completes the work and invoices</h3><p>The vendor confirms the job is done and emails the invoice. It lands back on the same job.</p></li>
+      <li><span class="n">4</span><h3>Acel Cortex posts it to your PMS</h3><p>The invoice is read, matched to the work order, marked up and posted, ready to charge the owner.</p></li>
     </ol>
   </section>
 
-  <section class="mock-sec" aria-labelledby="mock-title">
-    <h2 id="mock-title">Click through it yourself</h2>
-    <p class="lede">The same job, one step at a time. Tap any step to jump to it.</p>
-    <div class="mf-demo"><div class="mf-sizer"><div class="mf-frame"><iframe data-src="/assets/maintenance-flow" title="Maintenance, start to finish"></iframe></div></div></div>
-    <p class="mock-note">Sample data.</p>
-  </section>
 
-  <section class="proof" aria-label="How approvals work">
+  <section class="proof" aria-label="How Ping runs his company">
     <div>
-      <h2>Owners approve only when it matters.</h2>
-      <p>You set each owner's limit. Quotes under it go ahead, quotes over it go to the owner first, with one tap to approve or decline.</p>
+      <div class="me"><img src="/assets/team/ping.jpg" alt="Ping Hsu" width="88" height="88" loading="lazy"><div><b>Ping Hsu</b><span>Founder &amp; CEO of Acel Cortex Solutions</span></div></div>
+      <h2>This is how I run 800 doors.</h2>
+      <p>Over 100 emails hit our office every day. AI handles most of the heavy lifting, so I spend my time on client relationships instead of the inbox.</p>
     </div>
     <div>
       <h2>Your team stays in control.</h2>
-      <p>Acel Cortex does the legwork. Your property managers can see every job, step in at any point, and approve before anything touches the books.</p>
+      <p>Owners only approve quotes over the limit you set. Your property managers can see every job, step in at any point, and approve before anything touches the books.</p>
     </div>
   </section>
 

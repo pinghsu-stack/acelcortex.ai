@@ -354,6 +354,14 @@
   .vsl-ratio { position: relative; aspect-ratio: 16 / 9; }
   .vsl-ratio video { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
   .loop-more { margin-top: 14px; font-size: 15px; color: var(--muted); }
+  .proofs { margin-top: 40px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+  .pf { padding: 22px 24px 0 0; }
+  .pf + .pf { padding-left: 24px; border-left: 1px solid var(--rule); }
+  .pf b { display: block; font-size: clamp(30px, 3.4vw, 44px); font-weight: 500; letter-spacing: -0.04em; line-height: 1; }
+  .pf span { display: block; margin-top: 10px; font-size: 15px; color: var(--muted); max-width: 26ch; }
+  .feel { margin-top: 36px; font-size: clamp(22px, 2.4vw, 30px); font-weight: 500; letter-spacing: -0.025em; line-height: 1.25; max-width: 40ch; }
+  .feel em { display: block; font-style: normal; color: var(--green); }
+  @media (max-width: 760px) { .proofs { grid-template-columns: 1fr; margin-top: 28px; } .pf, .pf + .pf { padding: 18px 0; border-left: 0; } .pf + .pf { border-top: 1px solid var(--rule); } .feel { margin-top: 20px; } }
   .loop-more a { color: var(--ink); font-weight: 500; text-underline-offset: 3px; }
   .me-note { margin-top: 40px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 32px; align-items: center; padding-top: 32px; border-top: 1px solid var(--rule); }
   .me { display: flex; align-items: center; gap: 16px; }
@@ -599,6 +607,12 @@
       </script>
     </div></div>
     <p class="loop-more"><a href="/how-it-works">Watch the full walkthrough with narration</a> · 70 seconds</p>
+    <div class="proofs">
+      <div class="pf"><b>800 doors</b><span>run on it every day</span></div>
+      <div class="pf"><b>100+ emails</b><span>a day, sorted before anyone opens them</span></div>
+      <div class="pf"><b>A full day</b><span>of invoicing, now about 45 minutes</span></div>
+    </div>
+    <p class="feel">Your team stops stressing every morning. <em>Start saving your time and focus on growth.</em></p>
   </section>
 
   <section class="sec" id="layers">

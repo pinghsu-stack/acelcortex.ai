@@ -105,19 +105,21 @@
   /* Testimonials. .tm-media is an empty slot: drop a <video> in it later and the card layout stays the same. .tm-pic holds initials until a headshot or logo arrives. */
   .tm { margin-top: 44px; text-align: left; }
   .tm h2 { font-size: clamp(24px, 2.6vw, 30px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; }
-  .tm-grid { margin-top: 22px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; }
+  .tm-grid { margin-top: 22px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+  .tm-card { grid-column: span 2; }
+  .tm-card:nth-child(4), .tm-card:nth-child(5) { grid-column: span 3; }
   .tm-card { margin: 0; background: var(--paper-3, #FBFAF7); border: 1px solid var(--rule); border-radius: 16px; padding: 22px; display: flex; flex-direction: column; }
   .tm-media:empty { display: none; }
   .tm-media { margin: -6px -6px 16px; border-radius: 10px; overflow: hidden; aspect-ratio: 16 / 9; background: var(--ink); }
   .tm-media video, .tm-media iframe { width: 100%; height: 100%; display: block; border: 0; }
-  .tm-card blockquote { margin: 0; font-size: 16px; line-height: 1.55; color: var(--ink); }
-  .tm-card figcaption { margin-top: 18px; display: flex; align-items: center; gap: 12px; }
+  .tm-card blockquote { margin: 0 0 20px; font-size: 16px; line-height: 1.55; color: var(--ink); }
+  .tm-card figcaption { margin-top: auto; padding-top: 18px; min-height: 82px; box-sizing: border-box; border-top: 1px solid var(--rule); display: flex; align-items: center; gap: 12px; }
   .tm-pic { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--paper-2, #EEEAE2); border: 1px solid var(--rule); display: grid; place-items: center; font-size: 13px; font-weight: 600; color: var(--muted); overflow: hidden; }
   .tm-pic img { width: 100%; height: 100%; object-fit: cover; }
   .tm-card figcaption b { display: block; font-size: 15px; font-weight: 600; }
   .tm-card figcaption b + span { display: block; font-size: 13.5px; color: var(--muted); margin-top: 1px; }
   .tm-note { margin-top: 14px; font-size: 13px; color: var(--muted); }
-  @media (max-width: 760px) { .tm { margin-top: 32px; } .tm-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 760px) { .tm { margin-top: 32px; } .tm-grid { grid-template-columns: 1fr; } .tm-card, .tm-card:nth-child(4), .tm-card:nth-child(5) { grid-column: auto; } }
   .cta-row {
     display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap;
     padding: 20px 0 0;

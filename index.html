@@ -498,7 +498,7 @@
   .person span + span { margin-top: 2px; }
   @media (max-width: 1000px) { .founders { grid-template-columns: 1fr 1fr; gap: 24px; } }
   @media (max-width: 760px) { .founders { grid-template-columns: 1fr; gap: 20px; margin-top: 32px; } .person img { width: 96px; height: 96px; } }
-  @media (max-width: 760px) { #workflows { display: none; } }
+  @media (max-width: 760px) { #workflows, #layers, #ai-agent, .hh .feed, .op .body { display: none; } }
 
   .menu-btn { display: none; width: 40px; height: 40px; margin-right: -8px; border: 0; background: none; cursor: pointer; align-items: center; justify-content: center; color: var(--ink); }
   .menu-btn svg { width: 22px; height: 22px; }
@@ -547,7 +547,7 @@
     </nav>
   </div>
   <nav class="mnav" id="mnav" aria-label="Menu">
-    <a href="#ai-agent">AI Agent</a>
+    <a href="/how-it-works">How it works</a>
     <a href="#savings">Savings</a>
     <a href="/faq">FAQ</a>
   </nav>
@@ -600,7 +600,7 @@
     </div>
   </section>
 
-  <section class="sec">
+  <section class="sec" id="layers">
     <div class="sec-head">
       <div class="kicker">How it changes the work</div>
       <h2>Your team becomes the second layer.</h2>
@@ -675,15 +675,15 @@
         <p class="hint">Count the time spent sorting email, coordinating vendors, owners and tenants, and keying in vendor invoices. Salary includes benefits and overhead.</p>
       </div>
       <div class="res" aria-live="polite">
-        <div class="lbl">Admin time back, valued per year</div>
+        <div class="lbl">What this work costs you today, per year</div>
         <div class="big" id="r-year">$0</div>
         <div class="grid4">
           <div><div class="lbl">Per month</div><div class="v" id="r-month">$0</div></div>
-          <div><div class="lbl">Added margin per door</div><div class="v"><span id="r-door">$0</span><small> /mo</small></div></div>
-          <div><div class="lbl">Hours back per day</div><div class="v" id="r-hrs">0</div></div>
+          <div><div class="lbl">Cost per door</div><div class="v"><span id="r-door">$0</span><small> /mo</small></div></div>
+          <div><div class="lbl">Hours spent per day</div><div class="v" id="r-hrs">0</div></div>
           <div><div class="lbl">Headcount equivalent</div><div class="v" id="r-fte">0</div></div>
         </div>
-        <div class="foot">Add doors with confidence. The back office scales with you.</div>
+        <div class="foot">On a call we work out how much of this Acel Cortex takes off your team.</div>
       </div>
     </div>
   </section>

@@ -298,7 +298,9 @@
   .feed-top .t { font-weight: 600; font-size: 15px; }
   .feed-top .s { font-size: 12px; color: #A39C90; display: flex; align-items: center; gap: 8px; }
   .feed-list { list-style: none; height: 404px; overflow: hidden; position: relative; margin-top: 6px; }
-  .feed-list::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 70px; background: linear-gradient(transparent, var(--ink)); pointer-events: none; }
+  .feed-list { display: flex; flex-direction: column; justify-content: flex-end; }
+  .feed-list > li { flex: none; }
+  .feed-list::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 70px; background: linear-gradient(var(--ink), transparent); pointer-events: none; }
   .ev { display: grid; grid-template-columns: 1fr auto; gap: 4px 14px; padding: 13px 4px; border-bottom: 1px solid var(--rule-dark); animation: evIn 500ms var(--ease); }
   @keyframes evIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
   .ev .w { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green-soft); }
@@ -541,7 +543,7 @@
     </a>
     <nav class="nav">
       <a class="lnk" href="#workflows">Workflows</a>
-      <a class="lnk" href="#ai-agent">AI Agent</a>
+      <a class="lnk" href="/how-it-works">How it works</a>
       <a class="lnk" href="#savings">Savings</a>
       <a class="lnk lnk-faq" href="/faq">FAQ</a>
       <a class="btn btn-sm js-book" href="https://calendly.com/ping-acelcortex/30min">Book a call</a>
@@ -621,7 +623,7 @@
         <div class="n">Layer 2 · Your team</div>
         <h3>Reviews and approves</h3>
         <ul>
-          <li>Checks the batch, line by line, on one screen</li>
+          <li>Sees every job and approves quotes over the owner limit</li>
           <li>Edits anything before it goes out</li>
           <li>Approves, and the work posts to your PMS</li>
           <li>Handles the calls that need a person</li>
@@ -640,23 +642,6 @@
   </section>
   </div>
 
-  <section class="tg" id="ai-agent">
-    <div class="wide">
-      <div>
-        <div class="kicker"><b>●</b> See how AI Agent works</div>
-        <h2>Snap a receipt. The owner charge is done.</h2>
-        <p class="l">Type the command and attach the receipt. Acel Cortex reads it, works out the owner charge and your markup, and posts it once you approve. Most steps are a single tap.</p>
-        <p class="note">The dashboard does the heavy lifting. Chat is for speed.</p>
-      </div>
-      <div class="phone" id="tgPhone" aria-hidden="true">
-        <span class="ring tg-ring"></span>
-        <div class="phone-top"><span class="av">A</span><div><b>Acel Cortex</b><span>Admin team · 5 members</span></div></div>
-        <div class="msgs" id="tgMsgs"></div>
-        <div class="inbar" id="tgIn"><span class="ph">Message</span><span class="typed"></span></div>
-      </div>
-      <p class="sr">Animation: a property manager types /addcharge with the property and job, and attaches a receipt photo. Acel Cortex reads the receipt, asks who to bill, which markup to apply and whether to post now. The manager taps one option at each step, and Acel Cortex confirms the owner charge was posted with the receipt attached.</p>
-    </div>
-  </section>
 
   <div class="wide">
   <section class="sec" id="savings">
@@ -691,7 +676,7 @@
     <div class="op">
       <blockquote>We built this because our own back offices were breaking.</blockquote>
       <div class="body">
-        <p>We each run a property management company. Our admin teams were the first layer for everything: every vendor invoice, every tenant email, every notice and application. Growth meant hiring, and hiring meant thinner margins.</p>
+        <p>We each run a property management company. Our admin teams were the first layer for everything: every maintenance request, every tenant email, every vendor invoice, every notice and application. Growth meant hiring, and hiring meant thinner margins.</p>
         <p>So we built Acel Cortex inside our own companies. It does the first pass and our teams approve. Every workflow is proven in a working property management office before it reaches yours.</p>
       </div>
     </div>
@@ -884,7 +869,7 @@
     })();
   })();
 
-  // Hero feed: sample events arrive at the top, then get approved
+  // Hero feed: sample events arrive at the bottom in story order, then get approved
   (() => {
     const list = document.getElementById('feed');
     if (!list) return;
@@ -899,8 +884,8 @@
       const st = li.children[2];
       const ok = () => { st.className = 'st ok'; st.textContent = 'Approved'; };
       if (approved) ok(); else { st.className = 'st wait'; st.textContent = 'Needs approval'; setTimeout(ok, 2600); }
-      list.prepend(li);
-      while (list.children.length > 8) list.lastElementChild.remove();
+      list.append(li);
+      while (list.children.length > 8) list.firstElementChild.remove();
     };
     for (let k = 0; k < 5; k++) add(true);
     if (reduce) return;

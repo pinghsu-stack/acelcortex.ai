@@ -553,6 +553,7 @@
   .tr span:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
   .tr.th span { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
   .tr.hi span:first-child { color: var(--green); font-weight: 600; }
+  .tr:not(.th) span:nth-child(3) { color: var(--green); }
   .tr.impl { border-bottom: 0; color: var(--muted); }
   .tr.impl span:nth-child(2) { color: var(--ink); }
   .t-note { margin-top: 6px; font-size: 13px; color: var(--muted); }
@@ -654,12 +655,12 @@
         <div class="ticks"><span>50</span><span>2,500</span><span>5,000</span></div>
       </div>
       <div class="table" role="table" aria-label="Price by plan">
-        <div class="tr th" role="row"><span role="columnheader">Plan</span><span role="columnheader">Monthly</span><span role="columnheader">Annual, prepaid</span></div>
+        <div class="tr th" role="row"><span role="columnheader">Plan</span><span role="columnheader">Monthly</span><span role="columnheader">Save with annual</span></div>
         <div class="tr" role="row"><span role="cell">Essential</span><span role="cell" id="m-e"></span><span role="cell" id="a-e"></span></div>
         <div class="tr hi" role="row"><span role="cell">Growth</span><span role="cell" id="m-g"></span><span role="cell" id="a-g"></span></div>
         <div class="tr" role="row"><span role="cell">Premium</span><span role="cell" id="m-p"></span><span role="cell" id="a-p"></span></div>
         <div class="tr impl" role="row"><span role="cell">One-time implementation</span><span role="cell" id="impl"></span><span role="cell"></span></div>
-        <p class="t-note">Annual is 12 months prepaid at 20% off. USD, plus applicable taxes.</p>
+        <p class="t-note">Pay for 12 months up front and save 20% a year. USD, plus applicable taxes.</p>
       </div>
     </div>
   </section>
@@ -1009,7 +1010,7 @@
     const f = n => '$' + Math.round(n).toLocaleString('en-US');
     const run = () => {
       const n = +u.value; document.getElementById('u-out').textContent = n.toLocaleString('en-US');
-      for (const k in P) { const m = Math.max(P[k][0] * n, P[k][1]); document.getElementById('m-' + k).textContent = f(m); document.getElementById('a-' + k).textContent = f(m * 12 * 0.8); }
+      for (const k in P) { const m = Math.max(P[k][0] * n, P[k][1]); document.getElementById('m-' + k).textContent = f(m); document.getElementById('a-' + k).textContent = f(m * 12 * 0.2) + ' / yr'; }
       document.getElementById('impl').textContent = f(Math.min(Math.max(2 * n, 2500), 10000));
     };
     u.addEventListener('input', run); run();

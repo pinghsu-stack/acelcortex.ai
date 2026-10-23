@@ -10,7 +10,8 @@
 --doc:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;--ease:cubic-bezier(.2,.8,.2,1)}
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:var(--paper);overflow:hidden;font-family:var(--sans);color:var(--ink);height:100%}
-#fit{position:fixed;inset:0;overflow:hidden;background:var(--paper)}
+#fit{position:fixed;left:0;right:0;top:0;bottom:112px;overflow:hidden;background:var(--paper)}
+#stage.nt *{transition:none!important}
 #stage *{min-width:0}
 #stage{position:absolute;left:0;top:0;width:390px;height:844px;transform-origin:0 0}
 .abs{position:absolute}
@@ -246,6 +247,23 @@ html,body{margin:0;padding:0;background:var(--paper);overflow:hidden;font-family
 .ctxk small{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .ctxk b{display:block;font-size:30px;font-weight:600;letter-spacing:-1px;margin-top:4px}
 @media (prefers-reduced-motion:reduce){.fade,.it,.chip,.doc,.xc,#sheet,#cur{transition:none}}
+
+/* player bar: chips jump to each step */
+#pb{position:fixed;left:0;right:0;bottom:0;height:112px;background:var(--paper);border-top:1.5px solid var(--rule);font-family:var(--mono);z-index:50}
+#pbi{margin:0 auto;padding:8px 12px 8px;display:flex;flex-direction:column;gap:4px;max-width:100%}
+#pch{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}#pch::-webkit-scrollbar{display:none}
+.pc{flex:none;font:500 10px var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:0 10px;height:44px;display:flex;align-items:center;border-radius:999px;border:1.5px solid var(--rule);background:var(--paper-3);color:var(--muted);cursor:pointer}
+.pc.on{background:var(--green);border-color:var(--green);color:#fff}
+#ctl{display:flex;align-items:center;gap:8px;height:44px}#ctl button{min-width:44px;height:44px}
+.pbtn{flex:none;height:34px;min-width:38px;padding:0 6px;border-radius:999px;border:1.5px solid var(--ink);background:transparent;font:500 11px var(--mono);color:var(--ink);cursor:pointer;display:grid;place-items:center}
+#pp{width:44px;height:44px;background:var(--green);border-color:var(--green);color:#fff}#pp svg{width:16px;height:16px}
+#tc,#tt{flex:none;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+#trk{position:relative;flex:1;min-width:60px;height:44px;cursor:pointer;touch-action:none}
+#trk::before{content:"";position:absolute;left:0;right:0;top:20px;height:4px;border-radius:2px;background:var(--rule)}
+#tf{position:absolute;left:0;top:20px;height:4px;border-radius:2px;background:var(--green)}
+.tk{position:absolute;top:16px;width:1.5px;height:12px;background:#B5AEA2}
+#th{position:absolute;top:14px;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:var(--green);border:2px solid var(--paper)}
+@media(max-width:359px){#tt{display:none}#ctl{gap:6px}}
 </style></head><body>
 <div id="fit"><div id="stage">
 <div id="wm" class="abs">acel<span>·</span>cortex</div>
@@ -384,6 +402,7 @@ html,body{margin:0;padding:0;background:var(--paper);overflow:hidden;font-family
 <div id="cur" class="abs" style="opacity:0"><i class="rip" id="rip"></i><i class="fp"></i></div>
 <div id="prog" class="abs"><i id="pg"></i></div>
 </div></div>
+<div id="pb"><div id="pbi"><div id="pch"></div><div id="ctl"><button class="pbtn" id="bk5" aria-label="Back 5 seconds">-5s</button><button class="pbtn" id="pp" aria-label="Pause"></button><button class="pbtn" id="fw5" aria-label="Forward 5 seconds">+5s</button><span id="tc">0:00</span><div id="trk" role="slider" aria-label="Seek"><div id="tf"></div><span id="tks"></span><span id="th"></span></div><span id="tt">0:00</span></div></div></div>
 <script>
 (function(){
 const $=id=>document.getElementById(id);
@@ -509,9 +528,32 @@ window.__r=()=>{};
 function audit(){const k=+stage.dataset.k,s=stage.getBoundingClientRect(),W=fit.clientWidth,bad=[];
  stage.querySelectorAll('*').forEach(e=>{if(e.closest('.hid,.off,.gone,.wait,.down,#chips,#cur,.docw'))return;const cs=getComputedStyle(e);if(cs.display==='none'||cs.opacity==='0')return;const r=e.getBoundingClientRect();if(r.width&&(r.right>W+.5||r.left<-.5))bad.push((e.id||e.className||e.tagName)+':'+(e.textContent||'').trim().slice(0,30)+' R='+Math.round(r.right))});
  const p=document.createElement('pre');p.id='audit';p.textContent='AUDIT W='+W+' '+(bad.length?bad.join(' | '):'OK');document.body.appendChild(p)}
-function start(){if(q.has('t')){document.querySelectorAll('*').forEach(e=>e.style.transition='none');render(+q.get('t'));render(+q.get('t'));window.__r=()=>render(+q.get('t'));if(q.has('audit'))audit()}
- else if(matchMedia('(prefers-reduced-motion: reduce)').matches)render(L-500);
- else{const t0=performance.now();(function loop(x){render(x-t0);requestAnimationFrame(loop)})(t0)}}
+// player: play/pause, +/-5s, scrub, and chips that jump to each step
+const CHS=[0,D0,S3,S4,S5],CHL=['Application','Reading','Leasing manager','Owner & tenant','Approved'];
+const PLAY='<svg viewBox="0 0 16 16"><path d="M4 2.5v11l9.5-5.5z" fill="currentColor"/></svg>',PAUSE='<svg viewBox="0 0 16 16"><path d="M4 2.5h3v11H4zM9 2.5h3v11H9z" fill="currentColor"/></svg>';
+let playing=false,off=0,wall=0,lastChip=-1;
+const clampT=x=>Math.max(0,Math.min(1,x)),cur=()=>playing?off+(performance.now()-wall):off;
+const fmt=x=>{x=Math.floor(x/1000);return Math.floor(x/60)+':'+String(x%60).padStart(2,'0')};
+function bar(t){$('tc').textContent=fmt(t);const f=t/L*100;$('tf').style.width=f+'%';$('th').style.left=f+'%';
+  let c=0;for(let i=0;i<CHS.length;i++)if(t>=CHS[i])c=i;
+  if(c!==lastChip){lastChip=c;document.querySelectorAll('.pc').forEach((e,i)=>e.classList.toggle('on',i===c));const ch=$('pch'),e=ch.children[c];ch.scrollLeft=Math.max(0,e.offsetLeft-ch.clientWidth/2+e.offsetWidth/2)}}
+function setPlay(p){if(p===playing)return;off=cur();playing=p;wall=performance.now();$('pp').innerHTML=p?PAUSE:PLAY;$('pp').setAttribute('aria-label',p?'Pause':'Play')}
+function seek(t){off=((t%L)+L)%L;wall=performance.now();stage.classList.add('nt');render(off);render(off);bar(off);requestAnimationFrame(()=>requestAnimationFrame(()=>stage.classList.remove('nt')))}
+function wire(){
+  $('pch').innerHTML=CHL.map((l,i)=>`<button class="pc" data-i="${i}">${l}</button>`).join('');
+  $('tt').textContent=fmt(L);$('tks').innerHTML=CHS.slice(1).map(c=>`<i class="tk" style="left:${c/L*100}%"></i>`).join('');
+  $('pp').onclick=()=>setPlay(!playing);$('bk5').onclick=()=>seek(cur()-5000);$('fw5').onclick=()=>seek(cur()+5000);
+  document.querySelectorAll('.pc').forEach(e=>e.onclick=()=>{seek(CHS[+e.dataset.i]);setPlay(true)});
+  const trk=$('trk');let drag=false,was=false;const at=e=>{const r=trk.getBoundingClientRect();return clampT((e.clientX-r.left)/r.width)*L*0.9999};
+  trk.addEventListener('pointerdown',e=>{drag=true;was=playing;setPlay(false);trk.setPointerCapture(e.pointerId);seek(at(e))});
+  trk.addEventListener('pointermove',e=>{if(drag)seek(at(e))});
+  const up=()=>{if(drag){drag=false;setPlay(was)}};trk.addEventListener('pointerup',up);trk.addEventListener('pointercancel',up);
+}
+function start(){wire();
+ if(q.has('t')){document.querySelectorAll('*').forEach(e=>e.style.transition='none');off=+q.get('t');render(off);render(off);bar(off);$('pp').innerHTML=PLAY;window.__r=()=>render(+q.get('t'));if(q.has('audit'))audit();return}
+ if(matchMedia('(prefers-reduced-motion: reduce)').matches){off=L-500;render(off);bar(off);$('pp').innerHTML=PLAY;return}
+ playing=true;wall=performance.now();off=0;$('pp').innerHTML=PAUSE;
+ (function loop(){if(playing){const t=((cur()%L)+L)%L;render(t);bar(t)}requestAnimationFrame(loop)})()}
 (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(start);
 })();
 </script></body></html>

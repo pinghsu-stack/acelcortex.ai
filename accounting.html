@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>How Acel Cortex Works: AI Maintenance for Property Managers</title>
-<meta name="description" content="Watch one maintenance request go from a full inbox to a posted bill: sorted, dispatched, owner approved, tenant notified and invoiced. About a minute.">
+<title>Acel Cortex · Accounts payable for property managers</title>
+<meta name="description" content="See how an 800-door property management company turned a full day of invoicing into about 45 minutes. Then book a call to look at yours.">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="apple-touch-icon" href="/assets/logo.png">
-<link rel="canonical" href="https://www.acelcortex.ai/how-it-works">
+<link rel="canonical" href="https://www.acelcortex.ai/accounting">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Acel Cortex Solutions">
-<meta property="og:title" content="One maintenance request, handled start to finish">
-<meta property="og:description" content="See how an 800-door property management company runs maintenance now. Then book a call to look at yours.">
-<meta property="og:url" content="https://www.acelcortex.ai/how-it-works">
+<meta property="og:title" content="A full day of invoicing, done in about 45 minutes">
+<meta property="og:description" content="See how an 800-door property management company runs accounts payable now. Then book a call to look at yours.">
+<meta property="og:url" content="https://www.acelcortex.ai/accounting">
 <meta property="og:image" content="https://www.acelcortex.ai/assets/og.png?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -142,12 +142,18 @@
   .mock-sec h2 { font-size: clamp(26px, 3vw, 32px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; }
   .ap-anim { margin-top: 24px; aspect-ratio: 1600/640; border: 1px solid var(--rule); border-radius: 16px; overflow: hidden; background: var(--paper); box-shadow: 0 1px 2px rgba(20,20,20,0.04), 0 12px 32px rgba(20,20,20,0.06); }
   .ap-anim iframe { width: 100%; height: 100%; border: 0; display: block; pointer-events: none; }
-  .mf-demo { container: demo / inline-size; width: 100%; margin-top: 24px; }
-  .mf-sizer { width: 100%; max-width: 430px; margin: 0 auto; container: sizer / inline-size; }
-  .mf-frame { position: relative; width: 100%; height: calc(100cqw * 844 / 390 + 112px); border-radius: 12px; overflow: hidden; background: var(--paper); outline: 1px solid var(--rule); outline-offset: -1px; }
-  .mf-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: var(--paper); }
-  @container demo (min-width: 900px) { .mf-sizer { max-width: none; } .mf-frame { height: calc(100cqw * 900 / 1600 + 112px); } }
   @media (max-width: 760px) { .ap-anim { border-radius: 12px; } }
+  /* AP animation chapter controls */
+  .ap-ctl { margin-top: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .ap-ctl button { min-height: 44px; border: 1.5px solid var(--rule); background: var(--paper); color: var(--ink-soft); border-radius: 999px; font: 500 12px/1.2 var(--font-mono); letter-spacing: 0.04em; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; padding: 0 16px; }
+  .ap-ctl button:hover { border-color: var(--green); color: var(--ink); }
+  .ap-ctl .ap-chip .k { color: var(--green); }
+  .ap-ctl .ap-chip.on { background: var(--green); border-color: var(--green); color: #fff; }
+  .ap-ctl .ap-chip.on .k { color: #fff; }
+  .ap-ctl .ap-pp { width: 44px; padding: 0; justify-content: center; border-color: var(--green); background: var(--green); color: #fff; }
+  .ap-ctl .ap-pp svg { width: 14px; height: 14px; }
+  .ap-ctl .ap-chips { display: contents; }
+  @media (max-width: 480px) { .ap-ctl { align-items: flex-start; } .ap-ctl .ap-chips { display: grid; grid-template-columns: 1fr; gap: 8px; flex: 1; min-width: 0; } .ap-ctl .ap-chip { width: 100%; } }
   .mock-sec .lede { margin-top: 10px; color: var(--ink-soft); max-width: 56ch; }
   .mock {
     margin-top: 28px; background: var(--paper-3); border: 1px solid var(--rule);
@@ -244,13 +250,6 @@
   .stat { font-size: clamp(40px, 5vw, 56px); font-weight: 500; letter-spacing: -0.04em; line-height: 1; }
   .stat .from { color: var(--muted); }
   .proof p { margin-top: 14px; color: var(--ink-soft); max-width: 42ch; }
-  .proof.solo { grid-template-columns: 1fr; }
-  .proof.solo > div { padding: 40px 0; }
-  .proof.solo p { max-width: 60ch; }
-  .me { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; }
-  .me img { flex: none; width: 88px; height: 88px; border-radius: 50%; object-fit: cover; background: #fff; border: 1px solid var(--rule); }
-  .me b { display: block; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
-  .me span { display: block; font-size: 14px; color: var(--muted); margin-top: 2px; }
   .proof h2 { font-size: 24px; font-weight: 600; letter-spacing: -0.025em; line-height: 1.15; }
 
   .call { padding: 80px 0 96px; display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; align-items: start; }
@@ -298,7 +297,6 @@
     :root { --header-h: 58px; }
     .hero { padding-top: 12px; }
     .video-frame { width: calc(100% + 16px); min-width: 0; margin: 16px -8px 0; border-radius: 8px; }
-    .ratio { aspect-ratio: 780 / 1688; }
     .cta-row { flex-direction: column; gap: 10px; padding-top: 16px; }
     .cta-row .btn { width: 100%; }
     .cta-note { text-align: center; }
@@ -336,22 +334,13 @@
 
 <main class="wrap">
   <section class="hero">
-    <h1>One maintenance request, handled start to finish.</h1>
+    <h1>A full day of invoicing, done in about 45 minutes.</h1>
 
     <div class="video-frame">
       <div class="ratio">
-        <video id="vsl" controls playsinline preload="metadata" poster="/assets/video/maintenance-flow-poster.jpg?v=2">
-          <source src="/assets/video/maintenance-flow.mp4?v=5" type="video/mp4">
+        <video controls playsinline preload="metadata" poster="/assets/video/how-it-works-poster.jpg">
+          <source src="/assets/video/how-it-works.mp4" type="video/mp4">
         </video>
-        <script>
-          (function () {
-            if (!matchMedia('(max-width: 760px)').matches) return;
-            var v = document.getElementById('vsl');
-            v.poster = '/assets/video/maintenance-flow-mobile-poster.jpg?v=2';
-            v.querySelector('source').src = '/assets/video/maintenance-flow-mobile.mp4?v=2';
-            v.load();
-          })();
-        </script>
       </div>
     </div>
 
@@ -396,19 +385,37 @@
   <section class="steps" aria-labelledby="steps-title">
     <h2 id="steps-title">How it works</h2>
     <ol>
-      <li><span class="n">1</span><h3>Sort your daily messages</h3><p>Every email is read and sorted: urgent, needs a PM, FYI or noise. Urgent jobs go to the top.</p></li>
-      <li><span class="n">2</span><h3>Handle maintenance coordination</h3><p>Acel Cortex books the vendor, asks the owner when a quote is over their limit, and sends the tenant notice of entry.</p></li>
-      <li><span class="n">3</span><h3>Vendor completes the work and invoices</h3><p>The vendor confirms the job is done and emails the invoice. It lands back on the same job.</p></li>
-      <li><span class="n">4</span><h3>Acel Cortex posts it to your PMS</h3><p>The invoice is read, matched to the work order, marked up and posted, ready to charge the owner.</p></li>
+      <li><span class="n">1</span><h3>AI collects invoices</h3><p>AI pulls invoices from every vendor into one place. No more digging through inboxes.</p></li>
+      <li><span class="n">2</span><h3>AI does the first pass</h3><p>Each invoice is matched to its work order, cleaned up, and checked for duplicates.</p></li>
+      <li><span class="n">3</span><h3>You approve in one go</h3><p>Review all invoices line by line on one screen. AI posts approved bills to your PMS.</p></li>
+      <li><span class="n">4</span><h3>Your hours come back</h3><p>Hours of accounting work freed up for growing the business or cutting costs.</p></li>
     </ol>
   </section>
 
+  <section class="mock-sec" aria-labelledby="mock-title">
+    <h2 id="mock-title">What your review looks like</h2>
+    <p class="lede">Every invoice on one screen, already matched and checked. You look it over, then post.</p>
+    <p class="sr">Animation: a reviewer deletes a duplicate, adjusts one owner charge, selects every ready invoice and posts them. Each charge lands on the owner statement in your PMS.</p>
+    <div class="ap-anim"><iframe data-crop="880/610" data-src="/assets/booked/03-review" title="Check it. Approve it. Done." tabindex="-1" aria-hidden="true"></iframe></div>
+    <div class="ap-ctl" role="group" aria-label="Animation steps">
+      <button type="button" class="ap-pp" aria-label="Pause"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="2" y="1" width="3.5" height="12" fill="currentColor"/><rect x="8.5" y="1" width="3.5" height="12" fill="currentColor"/></svg></button>
+      <div class="ap-chips">
+        <button type="button" class="ap-chip" data-k="0"><span class="k">1</span>Auto-populating the info</button>
+        <button type="button" class="ap-chip" data-k="1"><span class="k">2</span>Ready to post</button>
+        <button type="button" class="ap-chip" data-k="2"><span class="k">3</span>Auto-posting to the PMS</button>
+      </div>
+    </div>
+    <p class="mock-note">Sample data. Posted charges go back into your PMS.</p>
+  </section>
 
-  <section class="proof solo" aria-label="How Ping runs his company">
+  <section class="proof" aria-label="Results and how it works">
     <div>
-      <div class="me"><img src="/assets/team/ping.jpg" alt="Ping Hsu" width="88" height="88" loading="lazy"><div><b>Ping Hsu</b><span>Founder &amp; CEO of Acel Cortex Solutions</span></div></div>
-      <h2>This is how I run 800 doors.</h2>
-      <p>Over 100 emails hit our office every day. AI handles most of the heavy lifting, so I spend my time on client relationships instead of the inbox.</p>
+      <div class="stat"><span class="from">1 day</span> to 45 min</div>
+      <p>Time spent on invoicing each cycle, on our own 800-door book. Invoices come in by email, get read, coded, matched to work orders, checked for duplicates, and batched to post back into the PMS.</p>
+    </div>
+    <div>
+      <h2>Nothing posts without your approval.</h2>
+      <p>The agent prepares the work. Your manager reviews it and approves before anything touches your books.</p>
     </div>
   </section>
 
@@ -420,7 +427,7 @@
     </div>
     <div>
       <ol class="agenda">
-        <li><span class="n">1</span><span>How maintenance requests move through your office today, and who handles them.</span></li>
+        <li><span class="n">1</span><span>How invoices move through your office today, and who handles them.</span></li>
         <li><span class="n">2</span><span>Roughly what that costs you in hours each month, using your numbers.</span></li>
         <li><span class="n">3</span><span>Whether Acel Cortex fits. If it doesn't, I'll tell you.</span></li>
       </ol>
@@ -607,16 +614,6 @@
     })();
   })();
 
-  // Maintenance demo: loads when scrolled into view
-  (() => {
-    const f = document.querySelector('.mf-frame iframe');
-    if (!f) return;
-    const go = () => { if (!f.src) f.src = f.dataset.src; };
-    if (!('IntersectionObserver' in window)) return go();
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { go(); io.disconnect(); } }), { threshold: 0.2 });
-    io.observe(f);
-  })();
-
   // AP animation: starts when scrolled into view; phones get the zoomed-in version
   (() => {
     const f = document.querySelector('.ap-anim iframe');
@@ -627,6 +624,17 @@
     if (!('IntersectionObserver' in window)) return go();
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { go(); io.disconnect(); } }), { threshold: 0.35 });
     io.observe(f);
+    // chapter chips: jump to a step and play from there
+    const ctl = document.querySelector('.ap-ctl'); if (!ctl) return;
+    const pp = ctl.querySelector('.ap-pp'), chips = [...ctl.querySelectorAll('.ap-chip')];
+    const PAUSE = pp.innerHTML, PLAY = '<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1 L13 7 L3 13 Z" fill="currentColor"/></svg>';
+    let paused = false, pending = null;
+    const show = (k, p) => { if (typeof k === 'number') chips.forEach((c, i) => { c.classList.toggle('on', i === k); c.setAttribute('aria-pressed', i === k); }); paused = p; pp.innerHTML = p ? PLAY : PAUSE; pp.setAttribute('aria-label', p ? 'Play' : 'Pause'); };
+    const send = m => { if (f.contentWindow) f.contentWindow.postMessage(m, '*'); };
+    addEventListener('message', e => { if (e.source === f.contentWindow && e.data && 'acelSec' in e.data) show(e.data.acelSec, e.data.paused); });
+    f.addEventListener('load', () => { if (pending !== null) { send({ acelJump: pending }); pending = null; } });
+    chips.forEach(c => c.addEventListener('click', () => { const k = +c.dataset.k; show(k, false); if (!f.src) { pending = k; go(); } else send({ acelJump: k }); }));
+    pp.addEventListener('click', () => { if (!f.src) go(); send({ acelPause: !paused }); show(null, !paused); });
   })();
 </script>
 </body>

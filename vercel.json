@@ -15,15 +15,24 @@
   ],
   "redirects": [
     {
-      "source": "/start-here",
-      "destination": "/start",
+      "source": "/start",
+      "destination": "/accounting",
       "permanent": true
-    }
-  ],
-  "rewrites": [
+    },
+    {
+      "source": "/start-here",
+      "destination": "/accounting",
+      "permanent": true
+    },
     {
       "source": "/starthere",
-      "destination": "/start"
+      "destination": "/accounting",
+      "permanent": true
+    },
+    {
+      "source": "/how-it-works",
+      "destination": "/maintenance",
+      "permanent": true
     }
   ]
 }

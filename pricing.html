@@ -541,6 +541,14 @@
   .plan li.all::before { display: none; }
   .plan .btn, .plan .btn-ghost { margin-top: auto; text-align: center; }
   .plan.hi .btn { background: var(--green); color: #fff; }
+  .ent { margin-top: 16px; display: flex; align-items: center; justify-content: space-between; gap: 24px; background: var(--paper-3); border: 1px solid var(--rule); border-left: 4px solid var(--green); border-radius: 18px; padding: 26px 28px; }
+  .ent h2 { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
+  .ent p { margin-top: 4px; font-size: 15px; color: var(--ink-soft); max-width: 60ch; }
+  .ent .btn { flex: none; }
+  .t-ent { display: none; margin-top: 10px; font-size: 15px; font-weight: 500; }
+  .t-ent a { color: var(--green); }
+  .is-ent .t-ent { display: block; }
+  @media (max-width: 760px) { .ent { flex-direction: column; align-items: flex-start; } }
   .calc-p { margin-top: 96px; background: var(--paper-2); box-shadow: 0 0 0 100vmax var(--paper-2); clip-path: inset(0 -100vmax); padding: 80px 0; }
   .calc-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 48px; align-items: center; }
   .calc-p h2 { margin-top: 12px; font-size: clamp(28px, 3.4vw, 40px); font-weight: 500; letter-spacing: -0.035em; line-height: 1.05; }
@@ -645,14 +653,22 @@
     </article>
   </section>
 
+  <section class="ent" aria-label="Enterprise">
+    <div>
+      <h2>Enterprise</h2>
+      <p>For portfolios over 2,500 units. Custom pricing, a dedicated rollout plan and every module we offer.</p>
+    </div>
+    <a class="btn js-book" href="https://calendly.com/ping-acelcortex/30min">Talk to our team</a>
+  </section>
+
   <section class="calc-p" aria-labelledby="calc-title">
     <div class="calc-in">
       <div>
         <div class="kicker">Your price</div>
         <h2 id="calc-title">See what it costs for your portfolio.</h2>
         <label class="u-lbl" for="u">Units in your PMS <b id="u-out">300</b></label>
-        <input id="u" type="range" min="50" max="5000" step="25" value="300">
-        <div class="ticks"><span>50</span><span>2,500</span><span>5,000</span></div>
+        <input id="u" type="range" min="50" max="2525" step="25" value="300">
+        <div class="ticks"><span>50</span><span>1,250</span><span>2,500+</span></div>
       </div>
       <div class="table" role="table" aria-label="Price by plan">
         <div class="tr th" role="row"><span role="columnheader">Plan</span><span role="columnheader">Monthly</span><span role="columnheader">Save with annual</span></div>
@@ -661,6 +677,7 @@
         <div class="tr" role="row"><span role="cell">Premium</span><span role="cell" id="m-p"></span><span role="cell" id="a-p"></span></div>
         <div class="tr impl" role="row"><span role="cell">One-time implementation</span><span role="cell" id="impl"></span><span role="cell"></span></div>
         <p class="t-note">Pay for 12 months up front and save 20% a year. USD, plus applicable taxes.</p>
+        <p class="t-ent">Over 2,500 units? <a class="js-book" href="https://calendly.com/ping-acelcortex/30min">Book a call</a> for Enterprise pricing.</p>
       </div>
     </div>
   </section>
@@ -673,13 +690,13 @@
       <div><dt>Pay annually, save 20%</dt><dd>Prepay 12 months and get 20% off your plan.</dd></div>
       <div><dt>No long-term contract</dt><dd>Cancel any time. Fees already paid are non-refundable.</dd></div>
       <div><dt>Currency</dt><dd>All prices are in USD, plus applicable taxes.</dd></div>
-      <div><dt>Larger portfolio?</dt><dd>Book a call and we will walk through what fits your team.</dd></div>
+      <div><dt>Over 2,500 units?</dt><dd>Enterprise pricing is custom. Book a call and our team will put together a plan for your portfolio.</dd></div>
     </dl>
   </section>
 
   <section class="final">
     <h2>Not sure which plan fits?</h2>
-    <p>Thirty minutes with an operator. We'll look at where your team's hours go and which plan takes the most off their desk.</p>
+    <p>Thirty minutes with our team. We'll look at where your team's hours go and which plan takes the most off their desk.</p>
     <div class="ctas">
       <a class="btn js-book" href="https://calendly.com/ping-acelcortex/30min">Book a call</a>
       <a class="btn-ghost" href="/how-it-works">Watch how it works</a>
@@ -1010,8 +1027,11 @@
     const f = n => '$' + Math.round(n).toLocaleString('en-US');
     const run = () => {
       const n = +u.value; document.getElementById('u-out').textContent = n.toLocaleString('en-US');
-      for (const k in P) { const m = Math.max(P[k][0] * n, P[k][1]); document.getElementById('m-' + k).textContent = f(m); document.getElementById('a-' + k).textContent = f(m * 12 * 0.2) + ' / yr'; }
-      document.getElementById('impl').textContent = f(Math.min(Math.max(2 * n, 2500), 10000));
+      const ent = n > 2500;
+      document.getElementById('u-out').textContent = ent ? '2,500+' : n.toLocaleString('en-US');
+      document.querySelector('.table').classList.toggle('is-ent', ent);
+      for (const k in P) { const m = Math.max(P[k][0] * n, P[k][1]); document.getElementById('m-' + k).textContent = ent ? 'Custom' : f(m); document.getElementById('a-' + k).textContent = ent ? '' : f(m * 12 * 0.2) + ' / yr'; }
+      document.getElementById('impl').textContent = ent ? 'Custom' : f(Math.min(Math.max(2 * n, 2500), 10000));
     };
     u.addEventListener('input', run); run();
   })();

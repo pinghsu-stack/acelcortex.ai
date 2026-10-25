@@ -19,10 +19,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script>
-  var mode = new URLSearchParams(location.search).get('mode');
-  if (mode) document.documentElement.setAttribute('data-mode', mode);
-</script>
 <style>
   :root {
     --paper: #F5F2EC;
@@ -84,27 +80,19 @@
     line-height: 1.05;
   }
 
-  /* The stage switches at a 900px frame. Below that, keep the portrait stage at most 430px wide. */
-  .demo { container: demo / inline-size; width: 100%; }
-  .demo-sizer { width: calc(100% - 48px); max-width: 430px; margin: 0 auto 48px; container: sizer / inline-size; }
-  /* Stage plus the 112px player bar under it. */
-  .demo-frame {
-    position: relative; width: 100%; height: calc(100cqw * 844 / 390 + 112px);
-    border-radius: 12px; overflow: hidden; background: var(--paper);
-    outline: 1px solid var(--rule); outline-offset: -1px;
+  .video-frame {
+    width: min(100%, 920px, calc((100svh - 300px) * 16 / 9));
+    min-width: min(100%, 520px);
+    margin: 8px auto 48px;
+    background: var(--ink); border-radius: 12px; overflow: hidden;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.18);
   }
-  .demo-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: var(--paper); }
-  @container demo (min-width: 900px) {
-    .demo-sizer { max-width: 1600px; width: 100%; }
-    .demo-frame { height: calc(100cqw * 900 / 1600 + 112px); }
+  .ratio { position: relative; aspect-ratio: 16 / 9; }
+  .ratio video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  @media (max-width: 760px) {
+    .video-frame { width: calc(100% + 16px); min-width: 0; margin: 8px -8px 40px; border-radius: 8px; }
+    .ratio { aspect-ratio: 780 / 1688; }
   }
-  @container demo (min-width: 996px) {
-    .demo-sizer { width: calc(100% - 48px); }
-  }
-  html[data-mode="desktop"] .demo-sizer { max-width: 1600px; width: calc(100% - 48px); }
-  html[data-mode="desktop"] .demo-frame { height: calc(100cqw * 900 / 1600 + 112px); }
-  html[data-mode]:not([data-mode="desktop"]) .demo-sizer { max-width: 430px; width: calc(100% - 48px); }
-  html[data-mode]:not([data-mode="desktop"]) .demo-frame { height: calc(100cqw * 844 / 390 + 112px); }
 
   .menu-btn { display: none; width: 40px; height: 40px; margin-right: -8px; border: 0; background: none; cursor: pointer; align-items: center; justify-content: center; color: var(--ink); }
   .menu-btn svg { width: 22px; height: 22px; }
@@ -230,17 +218,24 @@
   <div class="wrap">
     <div class="intro">
       <h1>Rental application assessment</h1>
-      <p class="lede">One application, from the inbox to an owner-approved tenant. Acel Cortex reads every page, checks the numbers and drafts the owner and tenant updates. Your leasing manager makes the call. Tap a step to jump to it.</p>
+      <p class="lede">One application, from the inbox to an owner-approved tenant. Acel Cortex reads every page, checks the numbers and drafts the owner and tenant updates. Your leasing manager makes the call.</p>
     </div>
-  </div>
-  <div class="demo" id="demo">
-    <div class="demo-sizer">
-      <div class="demo-frame">
-        <iframe id="anim" title="Rental application assessment"></iframe>
+    <div class="video-frame">
+      <div class="ratio">
+        <video id="vsl" controls playsinline preload="metadata" poster="/assets/video/rental-application-poster.jpg?v=1">
+          <source src="/assets/video/rental-application.mp4?v=1" type="video/mp4">
+        </video>
+        <script>
+          (function () {
+            if (!matchMedia('(max-width: 760px)').matches) return;
+            var v = document.getElementById('vsl');
+            v.poster = '/assets/video/rental-application-mobile-poster.jpg?v=1';
+            v.querySelector('source').src = '/assets/video/rental-application-mobile.mp4?v=1';
+            v.load();
+          })();
+        </script>
       </div>
     </div>
-  </div>
-  <div class="wrap">
     <section class="rstats" aria-label="Results">
       <div><b>4 days <span>to</span> 1 day</b><span>Rental application review, on our own portfolio</span></div>
       <div><b>Owner approval</b><span>Requested for you, with the full assessment attached</span></div>
@@ -315,8 +310,6 @@
 </dialog>
 
 <script>
-  document.getElementById('anim').src = '/assets/rental-application-assessment' + location.search;
-
   const topBar = document.getElementById('top');
   const onScroll = () => topBar.classList.toggle('scrolled', window.scrollY > 4);
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();

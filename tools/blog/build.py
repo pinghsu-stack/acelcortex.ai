@@ -226,7 +226,7 @@ def render_index(published):
     head = head.replace("</head>", css, 1)
     body = ("<main>\n<article>\n  <h1>Property management, run on AI</h1>\n"
             "  <p class=\"lede\">Guides and videos from a working operator. Every post comes from a real workflow in our own 800-unit property management company.</p>\n"
-            f"{videos_html(limit=12)}\n  <div class=\"list\">\n{items}\n  </div>\n</article>\n</main>")
+            f"  <div class=\"list\">\n{items}\n  </div>\n{videos_html(limit=12)}\n</article>\n</main>")
     return head + body + tail
 
 

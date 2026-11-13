@@ -27,3 +27,6 @@
 - FAQ: https://www.acelcortex.ai/faq
 - Book a call: https://calendly.com/ping-acelcortex/30min
 - Live demo: https://try.acelcortex.ai/
+
+## Blog
+- Can AI Replace a Property Management Team? What Actually Runs at 800 Units: https://www.acelcortex.ai/blog/ai-property-management-team

@@ -27,4 +27,8 @@
     <lastmod>2026-10-09</lastmod>
   </url>
   <url><loc>https://www.acelcortex.ai/pricing</loc></url>
+  <!-- blog:start -->
+  <url><loc>https://www.acelcortex.ai/blog</loc></url>
+  <url><loc>https://www.acelcortex.ai/blog/ai-property-management-team</loc><lastmod>2026-11-13</lastmod></url>
+  <!-- blog:end -->
 </urlset>

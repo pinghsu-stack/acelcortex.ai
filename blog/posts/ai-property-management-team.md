@@ -7,7 +7,7 @@ video_id: T-GLHm120Kg
 video_title: AI Replaced My 800-Unit Property Management Team. Here's What Actually Runs
 video_upload_date: 2026-09-01
 cluster: AI for Property Management
-status: draft
+status: published
 date: 2026-11-13
 cta_headline: Want this running in your company without building it?
 cta_text: Acel Cortex sets up the intake, the sorting and the agents on top of the property management software you already use. Your team approves everything before it goes out.

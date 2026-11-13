@@ -1,3 +1,7 @@
 .git
 .gitignore
 node_modules
+tools
+blog/posts
+CLAUDE.md
+.claude

@@ -8,7 +8,7 @@ video_title: Claude is running my ENTIRE property management business
 video_upload_date: 2026-06-06
 cluster: AI for Property Management
 status: approved
-publish_on: 2026-11-17
+publish_on: 2026-11-16
 date: 2026-11-13
 cta_headline: Want four agents running your maintenance?
 cta_text: Acel Cortex sets up the agents, the approvals and the connections to the property management software you already use. You approve the vendor and the payment. The agents handle the rest.

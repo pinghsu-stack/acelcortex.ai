@@ -8,7 +8,7 @@ video_title: Claude Collected $20,000 Unpaid Rent for Me. Here is How
 video_upload_date: 2026-06-09
 cluster: Property Management Operations
 status: approved
-publish_on: 2026-12-01
+publish_on: 2026-11-25
 date: 2026-11-13
 cta_headline: Want late rent chased for you every month?
 cta_text: Acel Cortex sets up the reminders, the voice calls and the notice preparation on top of the property management software you already use. Your team still decides how each notice is served.

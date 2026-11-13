@@ -8,7 +8,7 @@ video_title: Every Tool I Use to Run 800 Units (My Property Management Tech Stac
 video_upload_date: 2026-11-04
 cluster: AI for Property Management
 status: approved
-publish_on: 2026-12-03
+publish_on: 2026-11-27
 date: 2026-11-13
 cta_headline: See how Acel Cortex connects your tools
 cta_text: Book a 30-minute call and I will show you Acel Cortex running on our own 800 units: invoices read, matched to work orders and posted to the property management software after one approval.

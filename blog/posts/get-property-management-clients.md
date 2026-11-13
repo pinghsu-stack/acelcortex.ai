@@ -8,7 +8,7 @@ video_title: I Applied Alex Hormozi's $100M Leads to Property Management
 video_upload_date: 2026-09-22
 cluster: Growing a Property Management Company
 status: approved
-publish_on: 2026-11-26
+publish_on: 2026-11-23
 date: 2026-11-13
 cta_headline: More owners means more admin. We handle that part.
 cta_text: As you add doors, Acel Cortex takes the inbox, maintenance and invoices off your team so growth does not mean hiring.

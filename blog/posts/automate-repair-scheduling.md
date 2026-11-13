@@ -8,7 +8,7 @@ video_title: The Laziest Way to Handle Property Management Repairs
 video_upload_date: 2026-10-06
 cluster: Property Management Operations
 status: approved
-publish_on: 2026-11-19
+publish_on: 2026-11-18
 date: 2026-11-13
 cta_headline: Want repair booking down to one command?
 cta_text: Acel Cortex sets up the booking agent, the safety checks and the connections to your property management software and calendar. Your team confirms every booking.

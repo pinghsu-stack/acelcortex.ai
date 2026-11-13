@@ -29,6 +29,6 @@ https://docs.google.com/spreadsheets/d/1mxPEME8Pj_ryNTsSS12KvjPhDEQxmUxuCDsL93L5
 - Never abbreviate "property management" to "PM". No em dashes anywhere.
 - Playbook, not wiring diagram: explain what each step does and the outcome. No code, no step-by-step build instructions. One line of honest complexity is fine ("this is where most of our build time went").
 - Never invent numbers, quotes or customer names. Use only what the video, transcript or Ping says. If a claim needs a number you don't have, write [PLACEHOLDER: what to fill] and flag it.
-- AEO structure: `summary` is a 2 to 4 sentence direct answer to the target question. Question-style or plain H2s, short paragraphs, lists where they help, a `## FAQ` section with 4 to 6 `### Question` items written the way people ask AI tools. 900 to 1,500 words.
+- AEO structure: `summary` is a 2 to 4 sentence direct answer to the target question. Question-style or plain H2s, short paragraphs, lists where they help, a `## FAQ` section with 3 to 4 `### Question` items written the way people ask AI tools. Each FAQ must answer a follow-up question the body does not already answer (cost, safety, which software, how long, who it is for). Never repeat the body; if there are no real follow-ups, use fewer. 900 to 1,500 words.
 - Title answers or poses the target question from the tracker. Slug is short, lowercase, hyphenated.
 - Facts about Acel Cortex must match `llms.txt` and `faq.html` (platforms supported, about two weeks setup, human approval on everything).

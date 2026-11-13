@@ -7,7 +7,8 @@ video_id: bzZ-JZi8K2Y
 video_title: The Money Your Property Management Company Is Losing Every Month
 video_upload_date: 2026-06-24
 cluster: Growing a Property Management Company
-status: draft
+status: approved
+publish_on: 2026-12-21
 date: 2026-11-13
 cta_headline: Want admin work off your margin?
 cta_text: Acel Cortex runs maintenance intake, invoices and leasing paperwork on top of the property management software you already use, so your team stays small as you grow.

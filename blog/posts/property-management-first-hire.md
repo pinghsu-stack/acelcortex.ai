@@ -28,6 +28,8 @@ The lesson: early on, the business is fighting to survive, and cash flow is ever
 
 ## The order I would hire in now
 
+![The org chart redrawn. The old way: an admin and a leasing manager, two salaries, and the owner still stuck on money and sales. The AI era: AI handles admin, then a bookkeeper, a handyman, a leasing agent and a coordinator](/assets/blog/hiring-org-chart-before-after.png)
+
 ### 1. A remote bookkeeper (plus AI for the inbox)
 
 My first hire would be a bookkeeper, most likely a virtual assistant who has worked in other property management companies. They keep the trust, operating and tax accounts organized and reconciled monthly, or even weekly. That keeps you accountable for growth and catches expenses you did not know about.
@@ -58,6 +60,8 @@ By now, more units bring more leasing and more work for your technician, and own
 ## The rule behind the order
 
 You are not filling gaps for work you dislike. You are filling gaps so you can keep doing higher-value work. Look at your current team and ask which roles are generating revenue or protecting cash, and which ones only made your day more comfortable.
+
+![The margin math: an in-house technician adds about $45K a year, leasing done by the owner about $100K, and a part-time bookkeeper costs about $12K, for a net of about $133K a year](/assets/blog/hiring-margin-math.png)
 
 ## FAQ
 

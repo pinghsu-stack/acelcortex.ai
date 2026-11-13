@@ -65,6 +65,8 @@ For inspections, the tools that come with your property management software are 
 
 ## How Acel Cortex ties it all together
 
+![How the stack connects: leads come in through the website, leasing runs through SingleKey and DocuSign, Buildium is the hub, QuickBooks Online and maintenance tools branch off, and Acel Cortex plus Claude runs across all of it](/assets/blog/tech-stack-flow.png)
+
 Most add-on software exists to remove friction inside the property management software, because the platforms want you to do everything there. I do not. I want vendor appointments on my Google Calendar and job reports in Google Forms. Forcing everything into one system creates friction.
 
 So we keep each tool doing what it does best, and **Acel Cortex** does the work between them. The first job we handed it was the one that ate the most hours: vendor invoices.

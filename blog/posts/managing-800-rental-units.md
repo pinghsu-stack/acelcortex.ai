@@ -7,7 +7,8 @@ video_id: NEa9coHmskg
 video_title: What Nobody Tells You About Managing 800 Rental Units
 video_upload_date: 2026-08-26
 cluster: Growing a Property Management Company
-status: draft
+status: approved
+publish_on: 2026-12-25
 date: 2026-11-13
 cta_headline: Take the repetitive work off your plate.
 cta_text: Most of what burns property managers out is repetitive work. Acel Cortex handles the inbox, maintenance admin and invoices on top of the property management software you already use.

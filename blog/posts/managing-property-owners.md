@@ -7,7 +7,8 @@ video_id: rn0mG8VwX58
 video_title: The Owner Is the Hard Part, Not the Tenant (7 Rules That Fixed It)
 video_upload_date: 2026-07-22
 cluster: Property Management Operations
-status: draft
+status: approved
+publish_on: 2026-12-16
 date: 2026-11-13
 cta_headline: Keep owners informed without the late-night calls.
 cta_text: Acel Cortex handles approvals, notices and owner updates on top of the property management software you already use, so owners hear from you at the right time.

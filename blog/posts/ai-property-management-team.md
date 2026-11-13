@@ -24,6 +24,8 @@ Today AI agents do most of the heavy lifting, and I work about 15 hours a week. 
 
 ## The three layers that make it work
 
+![The AI system in three layers: intake sorts every request, Claude reads it and drafts the action, and agents execute only after you approve](/assets/blog/ai-system-three-layers.png)
+
 ### Layer 1: Intake, sort everything before anyone reads it
 
 Every request goes into one inbox first: emails from tenants and owners, notifications from the property management software, messages from the phone system. Then each message gets one of three labels:
@@ -45,6 +47,8 @@ One rule matters more than the rest: each request goes to exactly one area. With
 Each area has its own agent. Straightforward tasks run on their own. Anything that needs a decision comes to me first, and I approve it from my phone in Telegram before the agent acts.
 
 > Three layers, one system, and you are still in control. AI is not in control. AI is just doing the heavy lifting.
+
+![How one request moves through the system: it comes in, gets sorted into leasing, maintenance, admin or accounting, Claude drafts the work, and anything that needs a human call waits for approval in Telegram](/assets/blog/ai-system-request-flow.png)
 
 ## The four lanes every property management company runs on
 

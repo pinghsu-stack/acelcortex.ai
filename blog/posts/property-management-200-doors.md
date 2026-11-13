@@ -7,7 +7,8 @@ video_id: SoU4cSuDzbU
 video_title: Why Property Managers Get Stuck at 200 Doors and How to Fix It
 video_upload_date: 2026-08-05
 cluster: Growing a Property Management Company
-status: draft
+status: approved
+publish_on: 2026-12-18
 date: 2026-11-13
 cta_headline: Fix the accounting flow, keep the payroll flat.
 cta_text: Acel Cortex reads every invoice, lines it up for your review and posts it to the property management software you already use. You check the numbers and click post.

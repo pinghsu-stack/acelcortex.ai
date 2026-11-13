@@ -7,7 +7,8 @@ video_id: v4zuPlnod4A
 video_title: You Don't Own a Property Management Company. You Own a Job.
 video_upload_date: 2026-07-01
 cluster: Growing a Property Management Company
-status: draft
+status: approved
+publish_on: 2026-12-23
 date: 2026-11-13
 cta_headline: Let AI fill the admin seats.
 cta_text: Acel Cortex handles application reports, invoice processing and rent follow-up, so your departments can stay small and focused on revenue.

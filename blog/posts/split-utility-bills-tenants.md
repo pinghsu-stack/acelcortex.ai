@@ -7,7 +7,8 @@ video_id: HvtlV3udw34
 video_title: Owners Ask Me to Split Their Tenants Utility Bills. I Use Claude Instead
 video_upload_date: 2026-08-18
 cluster: Property Management Operations
-status: draft
+status: approved
+publish_on: 2026-12-10
 date: 2026-11-13
 cta_headline: Want utility bills off your desk?
 cta_text: Acel Cortex reads the bill, applies the split and posts the charges in the property management software you already use. Your team approves each split before anything is posted.

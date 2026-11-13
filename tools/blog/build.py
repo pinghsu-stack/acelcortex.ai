@@ -5,6 +5,7 @@
   python3 tools/blog/build.py SLUG       build one post only (plus index, sitemap, llms.txt)
 
 status: draft      -> tools/blog/preview/SLUG.html (noindex, DRAFT bar, not listed, not deployed)
+status: approved   -> same as draft until tools/blog/publish_due.py flips it on its publish_on date
 status: published  -> blog/SLUG.html, listed on /blog, in sitemap.xml and llms.txt
 """
 import datetime, html, json, re, sys
@@ -36,8 +37,10 @@ def parse_post(path):
     missing = [k for k in REQUIRED if not meta.get(k)]
     if missing:
         sys.exit(f"{path.name}: missing {', '.join(missing)}")
-    if meta["status"] not in ("draft", "published"):
-        sys.exit(f"{path.name}: status must be draft or published")
+    if meta["status"] not in ("draft", "approved", "published"):
+        sys.exit(f"{path.name}: status must be draft, approved or published")
+    if meta["status"] == "approved" and not re.match(r"^\d{4}-\d{2}-\d{2}$", meta.get("publish_on", "")):
+        sys.exit(f"{path.name}: approved posts need publish_on: YYYY-MM-DD")
     body, faq = split_faq(m.group(2))
     meta["body_md"], meta["faq"] = body, faq
     meta["url"] = f"{SITE}/blog/{meta['slug']}"
@@ -160,7 +163,7 @@ def videos_html(exclude=None, cluster=None, limit=10):
 
 def render(p, published):
     e = lambda s: html.escape(s, quote=True)
-    draft = p["status"] == "draft"
+    draft = p["status"] != "published"
     faq_html = ""
     if p["faq"]:
         faq_html = '  <section class="faq"><h2>FAQ</h2>\n' + "\n".join(
@@ -263,12 +266,13 @@ def main():
     for p in posts:
         if only and p["slug"] != only:
             continue
-        if p["status"] == "draft":
+        if p["status"] != "published":
             (PREVIEW / f"{p['slug']}.html").write_text(render(p, published))
             stale = OUT / f"{p['slug']}.html"
             if stale.exists():
                 stale.unlink()
-            print(f"draft      tools/blog/preview/{p['slug']}.html")
+            extra = f" (publishes {p['publish_on']})" if p["status"] == "approved" else ""
+            print(f"{p['status']:<10} tools/blog/preview/{p['slug']}.html{extra}")
         else:
             (OUT / f"{p['slug']}.html").write_text(render(p, published))
             print(f"published  blog/{p['slug']}.html")

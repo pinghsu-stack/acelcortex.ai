@@ -7,7 +7,8 @@ video_id: 6K8Mm5q6dcI
 video_title: AI Handles ALL My Bookkeeping for My Property Management Business
 video_upload_date: 2026-07-09
 cluster: Property Management Operations
-status: draft
+status: approved
+publish_on: 2026-12-09
 date: 2026-11-13
 cta_headline: Stop paying for charges you forgot to bill.
 cta_text: Acel Cortex matches invoices to work orders, applies owner charges and records the bills in the property management software you already use. You approve the match and the amounts.

@@ -7,7 +7,8 @@ video_id: F_hIjUnTT5c
 video_title: 5 Alex Hormozi Lessons That Actually Work in Property Management Business
 video_upload_date: 2026-09-15
 cluster: Growing a Property Management Company
-status: draft
+status: approved
+publish_on: 2026-12-07
 date: 2026-11-13
 cta_headline: Growing your doors? Keep the admin flat.
 cta_text: Acel Cortex takes the inbox, maintenance and invoice work off your team, so more doors does not mean more hires.

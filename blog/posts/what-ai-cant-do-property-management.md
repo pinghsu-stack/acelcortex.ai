@@ -7,7 +7,8 @@ video_id: ibcDx0r8PG4
 video_title: What AI Can and Can't Do in a Real Property Management Business
 video_upload_date: 2026-10-28
 cluster: AI for Property Management
-status: draft
+status: approved
+publish_on: 2026-12-04
 date: 2026-11-13
 cta_headline: Start with the back office.
 cta_text: Acel Cortex starts where AI is safest and saves the most time: invoices, maintenance admin and the inbox, on top of the property management software you already use.

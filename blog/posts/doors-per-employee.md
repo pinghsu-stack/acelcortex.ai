@@ -7,7 +7,8 @@ video_id: ock2B2-UxLU
 video_title: Property Management Business Became PROFITABLE with AI (4 Steps)
 video_upload_date: 2026-06-12
 cluster: Growing a Property Management Company
-status: draft
+status: approved
+publish_on: 2026-12-14
 date: 2026-11-13
 cta_headline: Want more doors per person on your team?
 cta_text: Acel Cortex takes data entry, invoices and first-contact maintenance off your team, on top of the property management software you already use.

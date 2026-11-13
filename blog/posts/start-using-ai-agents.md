@@ -7,7 +7,8 @@ video_id: CPf-0TRfuHI
 video_title: I Run 800 Units With Fewer Employees. Here's How
 video_upload_date: 2026-10-23
 cluster: AI for Property Management
-status: draft
+status: approved
+publish_on: 2026-12-11
 date: 2026-11-13
 cta_headline: Want the agents without the trial and error?
 cta_text: Acel Cortex turns your existing processes into AI workflows on top of the property management software you already use, with your team approving every decision.

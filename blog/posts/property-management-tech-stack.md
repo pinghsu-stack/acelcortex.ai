@@ -1,19 +1,28 @@
 ---
 title: What Software Should a Property Management Company Use? My 800-Unit Tech Stack
 slug: property-management-tech-stack
-description: Every tool an 800-unit property management company actually uses, from the property management software and leasing tools to bookkeeping, phones and the AI that connects them.
-summary: A property management company needs fewer tools than most people think. At 800 units we run on a property management software with full API access, a simple website, a screening tool, e-signatures, Google Workspace, a separate bookkeeping system and a call-routing phone line. AI connects them and does the data entry between them, instead of us buying more software.
+description: Every tool an 800-unit property management company uses, from leasing and bookkeeping to phones, and how Acel Cortex connects them and does the data entry in between.
+summary: A property management company needs fewer tools than most people think. At 800 units we run on a property management software with full API access, a simple website, a screening tool, e-signatures, Google Workspace, a separate bookkeeping system and a call-routing phone line. Acel Cortex, the AI layer we built, connects them and does the data entry between them, instead of us buying more software.
 video_id: -xspNvF9nvQ
 video_title: Every Tool I Use to Run 800 Units (My Property Management Tech Stack)
 video_upload_date: 2026-11-04
 cluster: AI for Property Management
 status: draft
 date: 2026-11-13
-cta_headline: Want your tools talking to each other?
-cta_text: Acel Cortex sits on top of the software you already use and handles the data entry between them, so you do not need another subscription for every gap.
+cta_headline: See how Acel Cortex connects your tools
+cta_text: Book a 30-minute call and I will show you Acel Cortex running on our own 800 units: invoices read, matched to work orders and posted to the property management software after one approval.
 ---
 
-I used to think I needed expensive, advanced tools to beat my competition. In reality, I only need a handful. Here is everything we use to run our 800-unit property management company, where I cut subscriptions, and where AI fits in.
+I used to think I needed expensive, advanced tools to beat my competition. In reality, I only need a handful. Here is everything we use to run our 800-unit property management company, where I cut subscriptions, and how **Acel Cortex**, the AI company I built, connects all of it.
+
+## The AI layer: Claude and Acel Cortex
+
+Two AI tools sit on top of everything else:
+
+- **Claude** is my new Google. I ask it everything, and it does not just give me information, it gets work done.
+- **Acel Cortex** is the software company I built to run the work inside our own property management company. It connects the tools below and does the work between them, the kind of work that used to need another employee.
+
+Keep that in mind as you read the stack. At the end I will show you exactly how **Acel Cortex** ties it together.
 
 ## The foundation: your property management software
 
@@ -53,11 +62,21 @@ We run the company's own books in **QuickBooks Online**, not in the property man
 
 For inspections, the tools that come with your property management software are good enough. You do not need a separate subscription.
 
-## Where AI fits
+## How Acel Cortex ties it all together
 
 Most add-on software exists to remove friction inside the property management software, because the platforms want you to do everything there. I do not. I want vendor appointments on my Google Calendar and job reports in Google Forms. Forcing everything into one system creates friction.
 
-So we keep each tool doing what it does best and let AI move the data and do the entry between them. We use Claude day to day, and Acel Cortex, the company I built, connects everything and does the work across these tools. That is how we keep costs low without signing up for more software.
+So we keep each tool doing what it does best, and **Acel Cortex** does the work between them. The first job we handed it was the one that ate the most hours: vendor invoices.
+
+- **It collects every vendor invoice from the inbox and reads it**, including handwritten ones.
+- **It matches each invoice to its work order** and flags duplicates.
+- **It works out the charge to the owner** and our profit on every invoice.
+- **It posts the approved batch to the property management software.** Nothing posts until a person on our team approves it.
+- **Approvals happen from a phone** through a chat assistant on Telegram.
+
+It works on top of Buildium, AppFolio, Rentvine, Rent Manager and other major platforms, with no migration, and setup takes about two weeks. We are rolling out maintenance triage, inbox management, rental application reviews and tenant notices next, all built and tested in our own company first.
+
+That is how we keep costs low without signing up for more software. You can [watch the walkthrough](/accounting) or [try the live demo](https://try.acelcortex.ai/).
 
 ## FAQ
 
@@ -72,3 +91,7 @@ For internal tracking, yes, and often better than specialized tools. Keep tenant
 ### How much should a small property management company spend on software?
 
 Start with your property management software, a website, screening and e-signing, and add tools only when a real bottleneck shows up. Most of the tools we cut were ones that looked better than a spreadsheet but did not save us time.
+
+### What is Acel Cortex?
+
+**Acel Cortex** is AI for property management back offices, built by property managers who run their own company on it. It reads vendor invoices, matches them to work orders, works out owner charges and posts them to your property management software after your team approves.

@@ -200,7 +200,7 @@ def render(p, published):
 def render_index(published):
     e = lambda s: html.escape(s, quote=True)
     items = "\n".join(
-        f'  <a class="g" href="/blog/{p["slug"]}"><div><span class="c">{e(p["cluster"])} · {fmt_date(p["date"])}</span>'
+        f'  <a class="g" href="/blog/{p["slug"]}"><img class="gt" src="https://i.ytimg.com/vi/{p["video_id"]}/mqdefault.jpg" alt="" loading="lazy"><div><span class="c">{e(p["cluster"])} · {fmt_date(p["date"])}</span>'
         f'<b>{e(p["title"])}</b><small>{e(p["description"])}</small></div><i>→</i></a>'
         for p in published) or '  <p class="foot">First posts coming soon.</p>'
     page = TEMPLATE
@@ -220,11 +220,13 @@ def render_index(published):
            "padding:20px 4px;border-bottom:1px solid var(--rule);text-decoration:none}a.g:hover{background:var(--paper-2)}"
            ".g div{flex:1}.g .c{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}"
            ".g b{display:block;font-size:20px;font-weight:500;letter-spacing:-.015em;margin:4px 0}.g small{font-size:15px;color:var(--muted);line-height:1.45;display:block}"
+           ".gt{flex:none;width:200px;aspect-ratio:16/9;object-fit:cover;border-radius:8px;background:var(--ink)}"
+           "@media(max-width:600px){a.g{flex-direction:column;align-items:flex-start}.gt{width:100%}.g i{display:none}}"
            ".g i{font-style:normal;color:var(--green);font-size:20px}.lede{font-size:19px;color:var(--ink-soft);max-width:600px}</style>\n</head>")
     head = head.replace("</head>", css, 1)
     body = ("<main>\n<article>\n  <h1>Property management, run on AI</h1>\n"
-            "  <p class=\"lede\">Guides from a working operator. Every post comes from a real workflow in our own 800-unit property management company.</p>\n"
-            f"  <div class=\"list\">\n{items}\n  </div>\n{videos_html(limit=12)}\n</article>\n</main>")
+            "  <p class=\"lede\">Guides and videos from a working operator. Every post comes from a real workflow in our own 800-unit property management company.</p>\n"
+            f"{videos_html(limit=12)}\n  <div class=\"list\">\n{items}\n  </div>\n</article>\n</main>")
     return head + body + tail
 
 

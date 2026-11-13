@@ -18,6 +18,8 @@ If you are not getting as many owner clients as you want, it is usually because 
 
 Two of the channels are one to one (a private conversation with one owner). The other two are one to many (one piece of content or one ad reaching lots of owners).
 
+![The core four for property management: cold outreach on Facebook Marketplace, warm outreach in local Facebook groups, free content on YouTube and Google Maps, and paid ads for leasing only, plus lead getters as the multiplier](/assets/blog/core-four-lead-channels.png)
+
 ## 1. Cold outreach: start here if you have no budget
 
 This is how I started in 2016, before I had a property management company. I had student rentals near McMaster University and could not find a property manager, so I figured other landlords had the same problem. I went to the off-campus listing site where landlords posted units and started contacting them one by one.

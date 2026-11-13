@@ -26,6 +26,8 @@ Once a vendor confirms a time, the booking itself is still a pile of small steps
 
 None of it is hard. It is all moving the same information from one place to another. For years my team booked repairs one at a time like this, and it used up the whole morning before anything else got done. It is also why property management companies keep adding admin staff and virtual assistants as they grow.
 
+![Booking one repair the old way takes 10 steps and 5 to 10 minutes, 10 to 15 times a day. With one command and one approval it takes under 2 minutes](/assets/blog/repair-booking-old-vs-one-command.png)
+
 ## The new way: one command, one confirmation
 
 Now we type one line from a phone: the word "booking", the vendor, the property, the time window and the reason. The AI agent lines everything up, asks about anything unclear, and waits for one tap to book it.

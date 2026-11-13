@@ -83,6 +83,22 @@ h1{font-weight:600;font-size:clamp(30px,4.4vw,44px);letter-spacing:-.035em;line-
 .related .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
 .related a{display:block;padding:12px 0;border-bottom:1px solid var(--rule);text-decoration:none;font-weight:500}
 .related a:hover{color:var(--green)}
+.vids{margin-top:44px}
+.vids-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:14px}
+.vids-head h2{font-size:24px;font-weight:600;letter-spacing:-.02em}
+.vids-head a{font-size:14px;color:var(--green);text-decoration:none;white-space:nowrap}
+.vids-nav{display:flex;gap:8px}
+.vids-nav button{width:38px;height:38px;border-radius:50%;border:1px solid var(--rule);background:var(--paper-3);cursor:pointer;font-size:18px;color:var(--ink)}
+.vids-nav button:hover{border-color:var(--green);color:var(--green)}
+.vrow{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding-bottom:10px;scrollbar-width:thin}
+.vcard{flex:0 0 240px;scroll-snap-align:start;text-decoration:none;color:var(--ink)}
+.vcard .th{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:var(--ink)}
+.vcard img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s var(--ease)}
+.vcard:hover img{transform:scale(1.04)}
+.vcard .th span{position:absolute;right:8px;bottom:8px;background:rgba(20,20,20,.8);color:#fff;font-size:11px;font-family:var(--mono);letter-spacing:.08em;padding:3px 7px;border-radius:4px}
+.vcard b{display:block;font-size:15px;font-weight:500;line-height:1.35;margin-top:8px}
+.vcard:hover b{color:var(--green)}
+@media(max-width:600px){.vcard{flex-basis:72%}.vids-nav{display:none}}
 footer{background:var(--ink);color:#A39C90;padding:36px 0;font-size:14px;margin-top:40px}
 footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
 footer .wordmark{color:var(--paper);font-size:18px}
@@ -141,6 +157,7 @@ dialog::backdrop{background:rgba(20,20,20,.55)}
   </section>
 
 {{RELATED}}
+{{VIDEOS}}
 </article>
 </main>
 
@@ -164,6 +181,14 @@ dialog::backdrop{background:rgba(20,20,20,.55)}
     };
     el.addEventListener('click', play, { once: true });
     el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(); } }, { once: true });
+  });
+  // "More videos" row: arrow buttons scroll one card at a time
+  document.querySelectorAll('.vids').forEach(v => {
+    const row = v.querySelector('.vrow');
+    v.querySelectorAll('[data-dir]').forEach(b => b.addEventListener('click', () => {
+      const card = row.querySelector('.vcard'); const step = card ? card.offsetWidth + 14 : 254;
+      row.scrollBy({ left: step * Number(b.dataset.dir), behavior: 'smooth' });
+    }));
   });
   // Book buttons open the scheduler in place
   const dlg = document.getElementById('book-dialog');

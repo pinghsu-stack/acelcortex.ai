@@ -16,6 +16,8 @@ OUT = ROOT / "blog"
 PREVIEW = ROOT / "tools" / "blog" / "preview"
 TEMPLATE = (ROOT / "tools" / "blog" / "template.html").read_text()
 SITE = "https://www.acelcortex.ai"
+VIDEOS = json.loads((ROOT / "tools" / "blog" / "videos.json").read_text())
+CHANNEL = "https://www.youtube.com/@acelcortex"
 REQUIRED = ["title", "slug", "description", "summary", "video_id", "video_title",
             "video_upload_date", "cluster", "status", "date"]
 
@@ -139,6 +141,23 @@ def schema(p):
     return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False)
 
 
+def videos_html(exclude=None, cluster=None, limit=10):
+    """Horizontal row of channel videos that open on YouTube. Same-topic videos first, then the rest by views."""
+    e = lambda s: html.escape(s, quote=True)
+    vids = [v for v in VIDEOS if v["id"] != exclude]
+    vids.sort(key=lambda v: (v["cluster"] != cluster, -v["views"]))
+    cards = "\n".join(
+        f'      <a class="vcard" href="https://www.youtube.com/watch?v={v["id"]}" target="_blank" rel="noopener">'
+        f'<div class="th"><img src="https://i.ytimg.com/vi/{v["id"]}/mqdefault.jpg" alt="" loading="lazy"><span>YouTube</span></div>'
+        f'<b>{e(v["title"])}</b></a>' for v in vids[:limit])
+    return ('  <section class="vids" aria-label="More videos">\n'
+            '    <div class="vids-head"><div><h2>More videos from the channel</h2>'
+            f'<a href="{CHANNEL}?sub_confirmation=1" target="_blank" rel="noopener">Subscribe on YouTube →</a></div>'
+            '<div class="vids-nav"><button type="button" data-dir="-1" aria-label="Previous videos">←</button>'
+            '<button type="button" data-dir="1" aria-label="More videos">→</button></div></div>\n'
+            f'    <div class="vrow">\n{cards}\n    </div>\n  </section>')
+
+
 def render(p, published):
     e = lambda s: html.escape(s, quote=True)
     draft = p["status"] == "draft"
@@ -164,6 +183,7 @@ def render(p, published):
         "SCHEMA": schema(p), "CLUSTER": e(p["cluster"]), "DATE_LINE": date_line,
         "SUMMARY": inline(p["summary"]), "VIDEO_ID": e(p["video_id"]), "VIDEO_TITLE": e(p["video_title"]),
         "BODY": "    " + md_to_html(p["body_md"]), "FAQ": faq_html, "RELATED": rel_html,
+        "VIDEOS": videos_html(p["video_id"], p["cluster"]),
         "CTA_HEADLINE": e(p.get("cta_headline", "Want this running in your company?")),
         "CTA_TEXT": inline(p.get("cta_text", "We set it up on top of the property management software you already use. Your team approves everything before it goes out.")),
         "CTA_NOTE": f"<small>{inline(note)}</small>" if note else "",
@@ -204,7 +224,7 @@ def render_index(published):
     head = head.replace("</head>", css, 1)
     body = ("<main>\n<article>\n  <h1>Property management, run on AI</h1>\n"
             "  <p class=\"lede\">Guides from a working operator. Every post comes from a real workflow in our own 800-unit property management company.</p>\n"
-            f"  <div class=\"list\">\n{items}\n  </div>\n</article>\n</main>")
+            f"  <div class=\"list\">\n{items}\n  </div>\n{videos_html(limit=12)}\n</article>\n</main>")
     return head + body + tail
 
 

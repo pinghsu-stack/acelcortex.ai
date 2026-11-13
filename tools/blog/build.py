@@ -89,6 +89,12 @@ def md_to_html(md):
         line = raw.rstrip()
         if not line.strip():
             flush(); continue
+        m = re.match(r"^!\[([^\]]*)\]\(([^)\s]+)\)\s*$", line)
+        if m:
+            flush()
+            alt = html.escape(m.group(1), quote=True)
+            out.append(f'<figure><img src="{m.group(2)}" alt="{alt}" loading="lazy"><figcaption>{alt}</figcaption></figure>')
+            continue
         if line.startswith("### "):
             flush(); out.append(f"<h3>{inline(line[4:])}</h3>")
         elif line.startswith("## "):

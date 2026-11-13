@@ -47,7 +47,13 @@ The point is not to ignore recurring income. It is to cover your marketing and s
 
 Picture a company adding three doors a month. If it lives on management fees alone, recurring income takes about 24 months to get high enough to support the business. Most property managers run out of cash long before month 19 or month 24, and either burn out or change models.
 
-When you lead with leasing, cash comes in from the start. In our model, a company focused on leasing collected about **$200,000 more cash in its first 24 months** than one focused only on management fees. That is before counting maintenance, project management, evictions or helping owners buy and sell.
+![Cash flow when you lead with leasing: a $3,000 leasing fee up front on 3 new doors a month, with the management fee stacking up underneath. Recurring income passes the up-front fees around month 19.](/assets/blog/money-model-cashflow.png)
+
+When you lead with leasing, cash comes in from the start. In our model, a company focused on leasing collected about **$216,000 more cash in its first 24 months** than one focused only on management fees, with the same number of doors.
+
+![Leasing first vs management first: both add 3 doors a month at about $160 per door. Leading with leasing collects $360,000 by month 24, compared with $144,000.](/assets/blog/money-model-leasing-vs-management.png)
+
+That gap is the cash that pays for your next doors. That is before counting maintenance, project management, evictions or helping owners buy and sell.
 
 So when I consult other property managers, I flip their model: focus on leasing commissions first, keep overhead low as long as possible, and hire only as recurring income grows.
 

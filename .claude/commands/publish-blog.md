@@ -5,7 +5,7 @@ argument-hint: <slug>
 
 Publish `blog/posts/$ARGUMENTS.md`. Only run this after Ping has approved the draft in this conversation.
 
-If Ping wants it scheduled instead of live now: set `status: approved` and `publish_on: YYYY-MM-DD` (next open Tuesday or Thursday unless he names a date), run the build, commit the .md only, push to main, set the tracker's Blog status to "In review" with "Scheduled <date>" in Notes, and stop. The Tuesday/Thursday scheduled task publishes it.
+If Ping wants it scheduled instead of live now: set `status: approved` and `publish_on: YYYY-MM-DD` (next open Monday, Wednesday or Friday unless he names a date), run the build, commit the .md only, push to main, set the tracker's Blog status to "In review" with "Scheduled <date>" in Notes, and stop. The Monday/Wednesday/Friday scheduled task publishes it.
 
 1. Apply any final edits Ping asked for to the .md file.
 2. Set `status: published` and `date:` to today (keep the original `date` and add `updated:` if the post was already live).

@@ -12,7 +12,7 @@ python3 tools/blog/build.py SLUG     # build one post
 ```
 
 - `status: draft` builds to `tools/blog/preview/<slug>.html` (noindex, draft bar, not deployed, not committed).
-- `status: approved` plus `publish_on: YYYY-MM-DD` means Ping approved it; it stays a preview until that date. `python3 tools/blog/publish_due.py` flips due posts to published and rebuilds (`--week` only reports what is scheduled this week). A scheduled task runs it Tuesday and Thursday mornings and pushes to main.
+- `status: approved` plus `publish_on: YYYY-MM-DD` means Ping approved it; it stays a preview until that date. `python3 tools/blog/publish_due.py` flips due posts to published and rebuilds (`--week` only reports what is scheduled this week). A scheduled task runs it Monday, Wednesday and Friday mornings and pushes to main.
 - `status: published` builds to `blog/<slug>.html` and adds it to `/blog`, `sitemap.xml` and `llms.txt`.
 
 Every post and the /blog page end with a scrolling "More videos from the channel" row that links out to YouTube. It reads `tools/blog/videos.json` (same-topic videos first, then by views). When a new video goes up, add it there and rebuild.

@@ -8,7 +8,7 @@ video_title: 7 Property Management Tasks You Should Automate With AI
 video_upload_date: 2026-07-14
 cluster: AI for Property Management
 status: approved
-publish_on: 2026-11-24
+publish_on: 2026-11-20
 date: 2026-11-13
 cta_headline: Want tasks 3 to 6 off your plate?
 cta_text: Acel Cortex handles notices of entry, invoices, inspections and vendor scheduling on top of the property management software you already use, with your team approving every decision.

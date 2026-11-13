@@ -8,7 +8,7 @@ video_title: If I Started a Property Management Company in 2026, I'd Hire This F
 video_upload_date: 2026-10-13
 cluster: Growing a Property Management Company
 status: approved
-publish_on: 2026-12-08
+publish_on: 2026-11-30
 date: 2026-11-13
 cta_headline: Let AI cover the admin hire.
 cta_text: Acel Cortex sorts your inbox, drafts replies and handles maintenance and invoice admin, so your first hires can be people who bring in revenue.

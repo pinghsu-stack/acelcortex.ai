@@ -23,6 +23,15 @@ Tracker: Google Sheet "Acel Cortex YouTube-to-Blog Plan"
 https://docs.google.com/spreadsheets/d/1mxPEME8Pj_ryNTsSS12KvjPhDEQxmUxuCDsL93L5HZI/edit
 (tab "Video Inventory": priority, target question, blog status, blog URL, publish date).
 
+## Series: AI maintenance call scenarios
+
+Hub post: `blog/posts/ai-maintenance-phone-calls.md` (how the AI phone line works, the human-in-the-loop rule, owner limits, building it yourself). Each new scenario video (leak, no heat, lockout, etc.) gets its own post that:
+- Targets one scenario question in the tracker (for example "What should a tenant do when ...", "Is ... an emergency?"), never the hub's question.
+- Spends the body on that scenario only: the diagnosis steps the AI asked, what the tenant was told to do, when it escalated, and what the team did next.
+- Recaps the system in one or two sentences and links to the hub instead of re-explaining intake, approvals, owner limits or building it yourself.
+- Uses FAQs no other post in the series answers. Check the hub and earlier scenario posts before writing.
+- After publishing, add a link to it from the hub under a "More call scenarios" list.
+
 ## Writing rules for posts
 
 - Audience: anyone running property management operations (owners, operators, brokers, landlords), US and Canada, any software. Generalize beyond Buildium or Claude when the video is tool-specific.

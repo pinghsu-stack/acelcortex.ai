@@ -7,7 +7,7 @@ video_id: cne8TYS_Cbk
 video_title: I Built a Claude Property Manager That Works While You Sleep (2027)
 video_upload_date: 2026-11-18
 cluster: Property Management Operations
-status: approved
+status: published
 publish_on: 2026-11-18
 date: 2026-11-18
 cta_headline: Want AI answering your maintenance line?

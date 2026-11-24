@@ -29,6 +29,8 @@
 - Live demo: https://try.acelcortex.ai/
 
 ## Blog
+- How to Get More Property Management Clients: Hormozi's 4 Lead Channels Applied: https://www.acelcortex.ai/blog/get-property-management-clients
+- 7 Property Management Tasks You Should Automate With AI: https://www.acelcortex.ai/blog/property-management-tasks-to-automate
 - Can AI Answer Tenant Maintenance Calls? I Called My Own AI Agent to Find Out: https://www.acelcortex.ai/blog/ai-maintenance-phone-calls
 - How to Automate Repair Scheduling in Property Management: https://www.acelcortex.ai/blog/automate-repair-scheduling
 - Can Claude Run a Property Management Business? How 4 AI Agents Handle Maintenance at 800 Units: https://www.acelcortex.ai/blog/claude-property-management

@@ -10,6 +10,7 @@ cluster: Property Management Operations
 status: published
 publish_on: 2026-11-18
 date: 2026-11-18
+updated: 2026-11-24
 cta_headline: Want AI answering your maintenance line?
 cta_text: Acel Cortex is built and run inside our own 800-unit company first. Book a call and I will walk you through how maintenance calls, diagnosis and vendor dispatch work, with your team approving every step.
 ---
@@ -77,6 +78,10 @@ Owner approvals work the same way. You set a spending limit, and anything over i
 If you take one thing from this, it is that the AI is only as good as the process you give it. Map every stage of a maintenance request, from how it comes in to how it closes out, and write a diagnosis guide for the situations your team sees every week. That is the work that lets an AI agent handle the call the way your team would.
 
 Then imagine every call handled this way. The information is gathered, the tenant knows what is happening and the vendor coordination has started. By the time a property manager steps in, it does not take much of their time anymore.
+
+## More call scenarios
+
+- [No hot water, then a gas smell: how the AI troubleshoots a water heater and handles a gas emergency](/blog/no-hot-water-tenant-call)
 
 ## FAQ
 

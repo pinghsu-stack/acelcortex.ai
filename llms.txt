@@ -29,6 +29,7 @@
 - Live demo: https://try.acelcortex.ai/
 
 ## Blog
+- Is Property Management Recession-Proof? It Kept Me Afloat When I Lost Around $1 Million: https://www.acelcortex.ai/blog/property-management-recession
 - What Software Should a Property Management Company Use? My 800-Unit Tech Stack: https://www.acelcortex.ai/blog/property-management-tech-stack
 - How to Automate Rent Collection With AI (Without Losing the Human Touch): https://www.acelcortex.ai/blog/automate-rent-collection
 - How Should a Property Manager Handle a No Hot Water Call? My AI Took Two, Including a Gas Smell: https://www.acelcortex.ai/blog/no-hot-water-tenant-call

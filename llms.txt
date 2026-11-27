@@ -29,6 +29,8 @@
 - Live demo: https://try.acelcortex.ai/
 
 ## Blog
+- What Software Should a Property Management Company Use? My 800-Unit Tech Stack: https://www.acelcortex.ai/blog/property-management-tech-stack
+- How to Automate Rent Collection With AI (Without Losing the Human Touch): https://www.acelcortex.ai/blog/automate-rent-collection
 - How Should a Property Manager Handle a No Hot Water Call? My AI Took Two, Including a Gas Smell: https://www.acelcortex.ai/blog/no-hot-water-tenant-call
 - How to Get More Property Management Clients: Hormozi's 4 Lead Channels Applied: https://www.acelcortex.ai/blog/get-property-management-clients
 - 7 Property Management Tasks You Should Automate With AI: https://www.acelcortex.ai/blog/property-management-tasks-to-automate
